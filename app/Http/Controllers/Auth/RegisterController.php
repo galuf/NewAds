@@ -21,7 +21,7 @@ class RegisterController extends Controller
     //         'password_r' => 'required|string|min:6|confirmed',
     //     ]);
     // }
-
+    //generamos un cambio desde Rama Edel
     public function create(Request $data)
     {
         $this->validate($data,[

@@ -3,70 +3,48 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
-    use RegistersUsers;
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => 'required|string|max:255',
+    //         'lastname' => 'required|string|max:255',
+    //         'emailr' => 'required|string|email|max:255|unique:users,email',
+    //         'password_r' => 'required|string|min:6|confirmed',
+    //     ]);
+    // }
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function create(Request $data)
     {
-        $this->middleware('guest');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
+        $this->validate($data,[
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'lastname' => 'required|string|max:255',
+            'emailr' => 'required|string|email|max:255|unique:users,email',
+            'password_r' => 'required|string|min:6|confirmed',
         ]);
-    }
+        User::create([
+            'nombre' => $data['name'],
+            'apellido' => $data['lastname'],
+            'email' => $data['emailr'],
+            'password' => Hash::make($data['password_r']),
+        ]);
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if(Auth::attempt(['email'=>$data['emailr'] , 'password' => $data['password_r'] ])){
+            return redirect()->route('index');
+        }
+        return back()
+        ->withErrors(['name' => 'Nombre de usuario incorrecto',
+                      'lastaname' => 'Apellidos de usuario incorrectos',
+                      'emailr' => 'Email incorrecto',
+                      'password_r' => 'La contraseña debe tener como minimo 6 caracteres',
+                      'password_r_confirmation' => 'Las contraseñas no coninciden' ]);
     }
 }

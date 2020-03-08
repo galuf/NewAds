@@ -1,0 +1,448 @@
+/* Globales */
+*{
+    font-family: sans-serif;
+ 
+}
+
+h1, h2, h3, h4, h5, h6, input, textarea, select, button {
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a:visited, a:link, a:focus, a:hover, a:active {
+    list-style: none;
+    text-decoration: none;
+}
+
+/* ------ Header ---------------- */
+.cabecera{
+    background-color: #485769;
+}
+header .logotipo {
+    width: 55%;
+}
+.redes1 a{
+    color: white;
+}
+.redes1 a:hover{
+    color: blue;
+
+}
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+  }
+/* swiper - slider */
+    .swiper-container {
+        width: 100%;
+        
+    }
+    .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .img-1{
+      width: 100%;
+  }
+
+  /* contenido */
+  .btn_pon_aviso{
+      margin-bottom: 10px;
+      width: 100%;
+  }
+  .grid-item {
+    
+    text-align: center;
+  }
+ 
+  .contenido {
+      background-color: #E5E5E5;
+  }
+  .derecho{
+      background-color: white;
+      border-radius: 10px;
+  }
+  .cuadros{
+      background-color: white;
+  }
+.cuadros {
+    position: relative;
+}
+
+.cuadros .chinche{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -140%);
+    width: 80px;
+    line-height: 80px;
+    text-align: center;
+}
+
+.cuadros .chinche img{
+    width: 50%;
+}
+.cuadros .texto{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -38%);
+    width: 130px;
+    text-align: center;
+}
+.texto .titulo{
+    font-size: 20px;
+    font-weight: bold;
+    color:black;
+}
+.texto p{
+    font-size: 12px;
+}
+
+/* lado izquierdo */
+
+    .titulo_izq{
+        background-color: #D3D3D3;
+        text-align: center;
+
+    }
+    /* Style the navigation bar */
+    .navbar {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+ 
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    
+    /* Navbar links */
+    .navbar a {
+        
+        width: 100%;
+        padding: 5px;
+        
+        color: rgb(10, 10, 10);
+        text-decoration: none;
+        font-size: 13px;
+        
+    }
+    
+    /* Navbar links on mouse-over */
+    .navbar a:hover {
+        width: 100%;
+        background-color: #D3D3D3;
+    }
+    
+    /* Current/active navbar link */
+    .active {
+        background-color: #D3D3D3;
+    }
+
+    .texto_centro{
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        
+    }
+    .tex_centro{
+        margin: 0 auto;
+        color: #3858A5;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+/* AVISOS */
+.avisos{
+    background-color: #E5E5E5;
+    
+}
+.cuadro_aviso_i{
+    background-color: white;
+    border-radius: 10px;
+ 
+}
+.cuadro_aviso_d{
+    background-color: white;
+    border-radius: 10px;
+
+}
+.img_aviso{
+    
+}
+.titulo_aviso{
+    color: #3858A5;
+    font-size: 16px;
+    font-weight: bold;
+    
+}
+.titulo_aviso a{
+    color: #3858A5;
+}
+.texto_aviso{
+    font-size: 13px;
+}
+
+
+
+.hora_aviso{
+    font-size: 11px;
+    border-bottom: solid;
+    border-color: #D3D3D3;
+    border-bottom-width: 1px;
+}
+.ver_aviso{
+    text-align: end;
+    font-size: 12px;
+}
+
+.btn_ver_mas{
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    background-color: #E5E5E5;
+}
+.btn_mas{
+    margin: 0 auto;
+    width: 400px;
+    
+}
+
+/* PIE */
+    .pie{
+        background-color: #485769;
+    }
+
+   .navbar-nav li a{
+       color: white;
+       font-size: 11px;
+   }
+
+   .navbar-nav li a:hover{
+    color: #00f2ff;
+    font-size: 11px;
+}
+.redes2 a{
+    color: white;
+}
+.redes2 a:hover{
+    color: blue;
+
+}
+
+
+/* ---------------------------------------------*/
+/* Tablet horizontal (LG revisamos en 1024px) */
+@media (min-width:1025px){
+
+    .grid-container {
+        display: grid;
+        /*grid-template-columns: auto auto auto auto;*/
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        
+        
+      }
+      .grid-container1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+      }
+
+}
+
+/* ---------------------------------------------*/
+/* Tablet horizontal (LG revisamos en 1024px) */
+@media (max-width:1199px) and (min-width:992px){
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+      .grid-container1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+      }
+
+}
+
+/* ---------------------------------------------*/
+/* Tablet vertical (MD revisamos en 768px) */
+@media (max-width:991px) and (min-width:768px){
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .cuadros .texto{
+        
+        transform: translate(-50%, -45%);
+    }
+    .grid-container1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+      }
+    
+    .titulo_aviso{    
+        font-size: 15px;
+      
+    }
+    
+    .texto_aviso{
+        font-size: 11px;
+    }
+    .hora_aviso{
+        font-size: 10px;
+        
+    }
+    .ver_aviso{
+        text-align: end;
+        font-size: 12px;
+    }
+
+}
+
+/* ---------------------------------------------*/
+/* Movil horizontal (SM revisamos en 576px) */
+@media (max-width:767px) and (min-width:576px){
+    header .logotipo {
+        width: 100%;
+    }
+    .avatar {
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        height:35px;
+        width: 35px;
+        cursor: pointer;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .izquierdo {
+          display: none;
+      }
+      .grid-container1 {
+        display: grid;
+        grid-template-columns: 1fr;
+        
+      }
+
+      .cuadros .chinche{
+         transform: translate(-50%, -128%);
+
+    }
+
+}
+
+
+/* ---------------------------------------------*/
+/* Movil vertical (revisamos en 320px) */
+@media (max-width:575px){
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+      }
+      .izquierdo {
+        display: none;
+    }
+    .cuadros .chinche{
+        
+        transform: translate(-50%, -110%);
+        
+    }
+    
+    .cuadros .chinche img{
+        width: 40%;
+    }
+    .cuadros .texto{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -37%);
+        width: 100px;
+        text-align: center;
+    }
+    .texto .titulo{
+        font-size: 13px;
+        font-weight: bold;
+        color:black;
+    }
+    .texto p{
+        font-size: 9px;
+    }
+    .grid-container1 {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+    .banner {
+        display: none;
+    }
+    
+}
+
+/* PAGINA CATEGORIAS */
+
+.derecho1{
+
+}
+
+
+/* PAGINA registro */
+
+.ingreso{
+    background-color: white;
+    width: 100%;
+    
+}
+
+.lugar_aviso{
+    font-size: 11px;
+    border-bottom: solid;
+    border-color: #D3D3D3;
+    border-bottom-width: 1px; 
+    color:#08069b;
+    
+}
+
+.avatar_aviso {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
+.error{
+    color: red;
+    font-size: 12px;
+}

@@ -8,6 +8,7 @@ use App\Aviso;
 class AvisoPrincipalController extends Controller
 {
     public function index(Request $request)
+    //cambio de edel para git hub
     {
         if(!$request->ajax()) return redirect('/'); 
 

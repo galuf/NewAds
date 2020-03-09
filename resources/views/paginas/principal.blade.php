@@ -37,7 +37,7 @@
     <div class="row">
         <!-- lado izquierdo -->
       <div class="col-0 col-md-3 pl-0 pr-3 izquierdo"> 
-          <button type="button" class="btn btn-primary btn_pon_aviso">Pon tu aviso</button>
+        <a href="{{route('poneraviso')}}">Pon tu aviso</a>
           <div class="titulo_izq p-2">
               Opciones
           </div>

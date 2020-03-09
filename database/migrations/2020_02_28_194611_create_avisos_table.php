@@ -31,6 +31,7 @@ class CreateAvisosTable extends Migration
             $table->string('fecha_inicio');
             $table->string('fecha_final')->nullable();
             $table->string('fecha_baja')->nullable();
+            $table->timestamps();
 
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->foreign('categoria_id')->references('id')->on('categorias');

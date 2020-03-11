@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(5);
 var isBuffer = __webpack_require__(20);
 
 /*global toString:true*/
@@ -424,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(7);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(7);
   }
   return adapter;
 }
@@ -502,119 +502,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3239,7 +3130,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -13844,7 +13735,7 @@ return jQuery;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13862,7 +13753,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -14052,7 +13943,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14063,7 +13954,7 @@ var settle = __webpack_require__(23);
 var buildURL = __webpack_require__(25);
 var parseHeaders = __webpack_require__(26);
 var isURLSameOrigin = __webpack_require__(27);
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(8);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -14221,7 +14112,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14246,7 +14137,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14258,7 +14149,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14284,11 +14175,120 @@ module.exports = Cancel;
 
 
 /***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(48);
+module.exports = __webpack_require__(46);
 
 
 /***/ }),
@@ -14313,9 +14313,7 @@ window.Vue = __webpack_require__(36);
  */
 
 Vue.component('avisos-principal', __webpack_require__(40));
-Vue.component('login', __webpack_require__(43));
-Vue.component('registro', __webpack_require__(46));
-
+Vue.component('poner-aviso', __webpack_require__(43));
 var app = new Vue({
   el: '#app'
 });
@@ -14326,7 +14324,7 @@ var app = new Vue({
 
 
 window._ = __webpack_require__(15);
-window.Popper = __webpack_require__(4).default;
+window.Popper = __webpack_require__(3).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -14335,7 +14333,7 @@ window.Popper = __webpack_require__(4).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(5);
+  window.$ = window.jQuery = __webpack_require__(4);
 
   __webpack_require__(17);
 } catch (e) {}
@@ -31539,7 +31537,7 @@ module.exports = function(module) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(5), __webpack_require__(4)) :
+   true ? factory(exports, __webpack_require__(4), __webpack_require__(3)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (global = global || self, factory(global.bootstrap = {}, global.jQuery, global.Popper));
 }(this, (function (exports, $, Popper) { 'use strict';
@@ -36070,7 +36068,7 @@ module.exports = __webpack_require__(19);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(5);
 var Axios = __webpack_require__(21);
 var defaults = __webpack_require__(2);
 
@@ -36105,9 +36103,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(11);
+axios.Cancel = __webpack_require__(10);
 axios.CancelToken = __webpack_require__(34);
-axios.isCancel = __webpack_require__(10);
+axios.isCancel = __webpack_require__(9);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -36250,7 +36248,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(8);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -36640,7 +36638,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(31);
-var isCancel = __webpack_require__(10);
+var isCancel = __webpack_require__(9);
 var defaults = __webpack_require__(2);
 var isAbsoluteURL = __webpack_require__(32);
 var combineURLs = __webpack_require__(33);
@@ -36800,7 +36798,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(11);
+var Cancel = __webpack_require__(10);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -49130,14 +49128,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6)))
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(11)
 /* script */
 var __vue_script__ = __webpack_require__(41)
 /* template */
@@ -49287,7 +49285,7 @@ var render = function() {
     "div",
     { staticClass: "grid-container1" },
     _vm._l(_vm.arrayAviso, function(aviso, index) {
-      return _c("div", { staticClass: "grid-item1 py-1" }, [
+      return _c("div", { key: aviso, staticClass: "grid-item1 py-1" }, [
         _c(
           "div",
           {
@@ -49413,7 +49411,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(11)
 /* script */
 var __vue_script__ = __webpack_require__(44)
 /* template */
@@ -49434,7 +49432,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Login.vue"
+Component.options.__file = "resources/assets/js/components/PonerAviso.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -49443,9 +49441,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3e2ac97c", Component.options)
+    hotAPI.createRecord("data-v-1f38146a", Component.options)
   } else {
-    hotAPI.reload("data-v-3e2ac97c", Component.options)
+    hotAPI.reload("data-v-1f38146a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -49528,163 +49526,828 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            regiones: [],
+            provincias: [],
+            distritos: [],
+            region_id: '',
+            provincia_id: '',
+            distrito_id: '',
+            usuario: {},
+            arrayAviso: [],
+            imagen: 'img/aviso1.jpg',
+            contenido: '',
+            fecha_actual: ''
+        };
+    },
+
+    computed: {
+        listarProvincia: function listarProvincia() {
+            var me = this;
+            axios.get('/provincia?region_id=' + this.region_id).then(function (response) {
+                //console.log(response);
+                var respuesta = response.data;
+                me.provincias = respuesta.provincia;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarDistrito: function listarDistrito() {
+            var me = this;
+            axios.get('/distrito?region_id=' + this.region_id + '&provincia_id=' + this.provincia_id).then(function (response) {
+                //console.log(response);
+                var respuesta = response.data;
+                me.distritos = respuesta.distrito;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
+    methods: {
+        listarRegiones: function listarRegiones() {
+            var me = this;
+            axios.get('/regiones').then(function (response) {
+                //console.log(response);
+                var respuesta = response.data;
+                me.regiones = respuesta.region;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        datosUsuario: function datosUsuario() {
+            var me = this;
+            axios.get('/usuario').then(function (response) {
+                //console.log(response);
+                var respuesta = response.data;
+                me.usuario = respuesta.usuario;
+                console.log(me.usuario);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
+    mounted: function mounted() {
+
+        this.listarRegiones();
+        this.datosUsuario();
+        //this.listarProvincia();
+    },
+    update: function update() {
+        //this.listarProvincia();
+    }
+});
 
 /***/ }),
 /* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function(){},staticRenderFns:[]}
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3e2ac97c", module.exports)
-  }
-}
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = null
-/* template */
-var __vue_template__ = __webpack_require__(47)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Registro.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cc81502c", Component.options)
-  } else {
-    hotAPI.reload("data-v-cc81502c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "col-12 col-md-9 p-0 p-md-3" }, [
+    _c("form", { attrs: { action: "" } }, [
+      _c("div", { staticClass: "p-0 py-2 cuadro_aviso_i mb-2" }, [
+        _c("div", { staticClass: "formulario_cont p-2 pr-3" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.region_id,
+                      expression: "region_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "region", id: "option" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.region_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { disabled: "", value: "" } }, [
+                    _vm._v("Seleccione una Region")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.regiones, function(region) {
+                    return _c("option", {
+                      key: region,
+                      domProps: {
+                        value: region.id,
+                        textContent: _vm._s(region.nombre)
+                      }
+                    })
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.provincia_id,
+                      expression: "provincia_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "provincia", id: "option" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.provincia_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(_vm.listarProvincia) +
+                      "\n                      "
+                  ),
+                  _c("option", { attrs: { disabled: "", value: "" } }, [
+                    _vm._v("Seleccione una Provincia")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.provincias, function(provincia) {
+                    return _c("option", {
+                      key: provincia,
+                      domProps: {
+                        value: provincia.id,
+                        textContent: _vm._s(provincia.nombre)
+                      }
+                    })
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.distrito_id,
+                      expression: "distrito_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "distrito", id: "option" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.distrito_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(_vm.listarDistrito) +
+                      "\n                      "
+                  ),
+                  _c("option", { attrs: { disabled: "", value: "" } }, [
+                    _vm._v("Seleccione un Distrito")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.distritos, function(distrito) {
+                    return _c("option", {
+                      key: distrito,
+                      domProps: {
+                        value: distrito.id,
+                        textContent: _vm._s(distrito.nombre)
+                      }
+                    })
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(4)
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(5),
+      _vm._v(" "),
+      _c("div", { staticClass: "p-0 py-2 cuadro_aviso_i mb-2" }, [
+        _c("div", { staticClass: "formulario_cont p-2 pr-3" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "nombre",
+                  placeholder: "Ingrese los nombres"
+                },
+                domProps: { value: _vm.usuario.nombre }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(7),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "apellidos",
+                  placeholder: "Ingrese los apellidos"
+                },
+                domProps: { value: _vm.usuario.apellido }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(8),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "email",
+                  placeholder: "Ingrese el correo electrónico"
+                },
+                domProps: { value: _vm.usuario.email }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(9),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "telefono",
+                  placeholder: "Ingrese el número de teléfono"
+                },
+                domProps: { value: _vm.usuario.telefono }
+              })
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(10)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-md-7 p-0 p-md-3 registro" }, [
-      _c("div", { staticClass: "p-0 py-2 cuadro_aviso_i mb-2" }, [
-        _c("div", { staticClass: "formulario_cont p-2 pr-3" }, [
-          _c(
-            "form",
-            {
-              attrs: { role: "form", id: "register-form", autocomplete: "off" }
-            },
-            [
-              _c("div", { staticClass: "form-header" }, [
-                _c("h3", { staticClass: "form-title" }, [
-                  _c("i", { staticClass: "fa fa-user" }),
-                  _vm._v(" Regístrate")
-                ]),
-                _vm._v(" "),
-                _c("small", [_vm._v(" Es fácil y no demoras nada.")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "pull-right" }, [
-                  _c("h3", { staticClass: "form-title" }, [
-                    _c("span", { staticClass: "glyphicon glyphicon-pencil" })
-                  ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Categoría:")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { name: "categoria", id: "option" }
+          },
+          [
+            _c("option", { attrs: { disabled: "", value: "" } }, [
+              _vm._v("Seleccione una Categoria")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Alquileres")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Casas y lotes")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Automóviles")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Necesito")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Empleo")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Educación")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Informática")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Mascotas")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Hogar")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Deporte")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Eventos")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "" } }, [_vm._v("Arte")])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Región:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Provincia:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Distrito:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-0 col-sm-2 form-group " }, [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Dirección:")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "direccion",
+            placeholder: "Ingrese la direccion"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "p-0 py-1 cuadro_aviso_i mb-2" }, [
+      _c("div", { staticClass: "formulario_cont p-2 pr-3" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+              _vm._v("Título del aviso:")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "titulo_aviso",
+                placeholder: "Ingrese el título del aviso"
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+              _vm._v("Contenido del aviso:")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+            _c("textarea", {
+              staticClass: "form-control",
+              attrs: { rows: "6", id: "contenido_Aviso" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+              _vm._v("Imagen del aviso:")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+            _c("input", {
+              staticClass: "form-control-file border form-control",
+              attrs: { type: "file", name: "file" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", {}, [
+            _c("div", { staticClass: "grid-container2" }, [
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: " form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Nombre" }
-                })
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq2.png", alt: "" }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Apellidos" }
-                })
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: " form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "provincia",
-                    placeholder: "Número de tu movil o tu correo electrónico"
-                  }
-                })
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq2.png", alt: "" }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: " form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "password",
-                    id: "distrito",
-                    placeholder: "Contraseña"
-                  }
-                })
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "texto_reg" }, [
-                _vm._v(
-                  "Al hacer clic en Registrarte, aceptas las Condiciones y \n                              la Política de privacidad. Es posible \n                              que te enviemos notificaciones por SMS que podrás desactivar cuando desees."
-                )
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-footer" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-info", attrs: { type: "submit" } },
-                  [
-                    _c("span", { staticClass: "glyphicon glyphicon-log-in" }),
-                    _vm._v(" Registrarte\n                              ")
-                  ]
-                )
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
+                _c("div", { staticClass: "img_aviso1" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "img/alq1.png", alt: "" }
+                  })
+                ])
               ])
-            ]
-          )
+            ])
+          ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Nombres:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Apellidos:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Correo electrónico:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Teléfono:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid btn_ver_mas pt-2" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn_mas", attrs: { type: "submit" } },
+        [_vm._v("Enviar aviso")]
+      )
     ])
   }
 ]
@@ -49693,12 +50356,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-cc81502c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1f38146a", module.exports)
   }
 }
 
 /***/ }),
-/* 48 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

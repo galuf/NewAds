@@ -9,4 +9,8 @@ class Region extends Model
     public function provincias(){
         return $this->hasMany('App\Provincia');
     }
+
+    public function regiones(){
+        return $this->hasMany('App\Region');
+    }
 }

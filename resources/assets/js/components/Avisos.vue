@@ -1,7 +1,7 @@
 <template>  
         <div class="grid-container1" >
             
-            <div class="grid-item1 py-1" v-for="(aviso,index) in arrayAviso">
+            <div class="grid-item1 py-1" v-for="(aviso,index) in arrayAviso" :key="aviso">
                 <div v-bind:class="index%2 == 0? 'cuadro_aviso_i p-2 mr-0 mr-md-1': 'cuadro_aviso_i p-2 ml-0 ml-md-1'">
                     <div class="row">
                         <div class="col-0 col-sm-4 img_aviso">

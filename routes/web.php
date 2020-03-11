@@ -45,11 +45,15 @@ Route::get('/', function () {
 //         echo "</div>";
 //     }
 //     
-    return view('/principal.principal');
+    //return view('/paginas.principal');
+    return view('/index');
 })->name('index');
 
 Route::get('/aviso_principal','AvisoPrincipalController@index');
-
+Route::get('/regiones','RegionController@index');
+Route::get('/provincia','ProvinciaController@index');
+Route::get('/distrito','DistritoController@index');
+Route::get('/usuario','UserController@index');
 //Auth::routes();
 
 Route::post('/login', 'Auth\LoginController@login')->name('login');
@@ -59,3 +63,7 @@ Route::post('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/registro', function(){
   return view('/auth.registro');
 })->name('registro');
+
+Route::get('/poner-aviso', function(){
+  return view('/paginas.poneraviso');
+})->name('poneraviso');

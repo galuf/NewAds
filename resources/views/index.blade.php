@@ -56,7 +56,7 @@
                 </div>
                    <!-- user -->
                 @guest
-                   <button>registrarse</button>    
+                   <button type="button" class="btn btn-primary">Registrarse</button>    
                 @else
                     <div class= "col-3 col-sm-1 col-md-1 col-lg-1 usuario pt-2 pt-sm-3">
                         <a href=""><img class="avatar" src="img/avatar1.png" alt=" Avatar"></a>

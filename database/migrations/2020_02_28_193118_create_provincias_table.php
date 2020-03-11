@@ -17,6 +17,7 @@ class CreateProvinciasTable extends Migration
             $table->increments('id');
             $table->integer('region_id')->unsigned();
             $table->string('nombre');
+            $table->timestamps();
 
             $table->foreign('region_id')->references('id')->on('regions');
         });

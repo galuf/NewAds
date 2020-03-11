@@ -13,4 +13,7 @@ class Distrito extends Model
     public function provincia(){
         return $this->belongsTo('App\Provincia');
     }
+    public function region(){
+        return $this->belongsTo('App\Region');
+    }
 }

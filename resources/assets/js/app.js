@@ -16,9 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('avisos-principal', require('./components/Avisos.vue'));
-Vue.component('login', require('./components/Login.vue'));
-Vue.component('registro', require('./components/Registro.vue'));
-
+Vue.component('poner-aviso', require('./components/PonerAviso.vue'));
 const app = new Vue({
     el: '#app'
 });

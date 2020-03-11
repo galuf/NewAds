@@ -40,6 +40,18 @@ header .logotipo {
     width: 45px;
     cursor: pointer;
   }
+  .btn_registrar{
+    color: white !important;
+    font-size: 14px;
+    
+  }
+  .btn_reg{
+      
+     
+        height: 35px;
+       
+        cursor: pointer;
+  }
 /* swiper - slider */
     .swiper-container {
         width: 100%;
@@ -360,6 +372,12 @@ header .logotipo {
 
     }
 
+    .btn_reg{
+       
+        height: 30px;
+        width: 75px;
+    }
+
 }
 
 
@@ -406,6 +424,11 @@ header .logotipo {
       }
     .banner {
         display: none;
+    }
+
+    .btn_reg{
+       
+        height: 30px;
     }
     
 }

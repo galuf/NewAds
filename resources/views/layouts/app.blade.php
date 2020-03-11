@@ -38,11 +38,11 @@
             <div class="container ">
                 <div class="row">
                         <!-- logo -->
-                    <div class="col-9 col-sm-2 col-md-3 col-lg-3 p-0 pt-1 pl-2 pt-sm-3 pt-md-3 pt-lg-1"> 
+                    <div class="col-7 col-sm-2 col-md-2 col-lg-3 p-0 pt-1 pl-2 pt-sm-3 pt-md-3 pt-lg-1"> 
                         <a href="{{route('index')}}" > <img src="img/logo.png" alt="newads" class="fluid logotipo"></a>
                     </div>
                         <!-- buscador -->
-                    <div class="d-none d-sm-block col-9 col-md-8 col-lg-6  p-3">
+                    <div class="d-none d-sm-block col-sm-8 col-9 col-md-8 col-lg-6  p-3 ">
                         <div class="input-group md-form form-sm form-2 pl-0">
                             <input class="form-control my-0 py-1 lime-border" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">
                             <div class="input-group-append">
@@ -51,7 +51,7 @@
                             </div>
                             </div>
                     </div>
-                        <!-- redes -->
+                        <!-- redes
                     <div class="d-none d-lg-block col-lg-2 redes1">
                         <ul class="d-flex justify-content-end pt-4 mr-0">
                             <li><a href="" class=""><i class="fab fa-facebook-f float-left lead ml-3"></i></a></li>
@@ -59,12 +59,14 @@
                             <li><a href="" class=""><i class="fab fa-twitter float-left lead ml-3"></i></a></li>
                             <li><a href="" class=""><i class="fab fa-youtube float-left lead ml-3"></i></a></li>
                         </ul>
-                    </div>
+                    </div>  -->
                         <!-- user -->
                     @guest
-                        <a href="{{ route('registro') }}">registrarse</a>    
+                        <div class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3"><a href="{{ route('registro') }}" class="btn_registrar">Registrarse</a></button>    
+                        </div>
                     @else
-                        <div class= "col-3 col-sm-1 col-md-1 col-lg-1 usuario pt-2 pt-sm-3 nav-item dropdown">
+                        <div class= "col-5 col-sm-1 col-md-1 col-lg-1 usuario pt-2 pt-sm-3 nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><img class="avatar" src="img/avatar1.png" alt=" Avatar"></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"

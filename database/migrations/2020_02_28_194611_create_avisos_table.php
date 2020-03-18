@@ -16,7 +16,7 @@ class CreateAvisosTable extends Migration
         Schema::create('avisos', function (Blueprint $table) {
 
             date_default_timezone_set('America/Lima');
-
+ 
             $table->increments('id');
             $table->integer('usuario_id')->unsigned();
             $table->integer('categoria_id')->unsigned();

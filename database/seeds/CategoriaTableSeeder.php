@@ -28,6 +28,7 @@ class CategoriaTableSeeder extends Seeder
             $c = new Categoria();
             $c->nombre = $categoria['nombre'];
             $c->descripcion = $categoria['descripcion'];
+            $c->save();
         }
     }
 }

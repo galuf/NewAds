@@ -22,4 +22,24 @@ class AvisoPrincipalController extends Controller
             'aviso' => $aviso,
         ];
     }
+
+    public function create(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        
+        $aviso = new Aviso();
+
+        $aviso->usuario_id =$request->usuario_id;
+        $aviso->categoria_id =$request->categoria_id;
+        $aviso->distrito_id =$request->distrito_id;
+        $aviso->estado = 1;
+        $aviso->direccion =$request->direccion;
+        $aviso->telefono =$request->telefono;
+        $aviso->email =$request->email;
+        $aviso->titulo =$request->titulo;
+        $aviso->imagen =$request->imagen;
+        $aviso->contenido =$request->contenido;
+        $aviso->fecha_inicio =$request->fecha_inicio;
+        $aviso->save();
+    }
 }

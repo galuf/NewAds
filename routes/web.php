@@ -45,8 +45,8 @@ Route::get('/', function () {
 //         echo "</div>";
 //     }
 //     
-    //return view('/paginas.principal');
-    return view('/index');
+    return view('/paginas.principal');
+    //return view('/');
 })->name('index');
 
 Route::get('/aviso_principal','AvisoPrincipalController@index');
@@ -54,12 +54,12 @@ Route::get('/regiones','RegionController@index');
 Route::get('/provincia','ProvinciaController@index');
 Route::get('/distrito','DistritoController@index');
 Route::get('/usuario','UserController@index');
+Route::post('/aviso_crear','AvisoPrincipalController@create');
 //Auth::routes();
 
-Route::post('/login', 'Auth\LoginController@login')->name('login');
-Route::post('/register','Auth\RegisterController@create')->name('register');
+Route::post('/login/{url?}', 'Auth\LoginController@login')->name('login');
+Route::post('/register/{url?}','Auth\RegisterController@create')->name('register');
 Route::post('/logout','Auth\LoginController@logout')->name('logout');
-
 Route::get('/registro', function(){
   return view('/auth.registro');
 })->name('registro');

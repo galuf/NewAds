@@ -3,7 +3,6 @@
 @section('content')
 
 <!-- CONTENIDO -->
-
 <div class="contenido container-fluid pt-2">
   <div class="container">
       <div class="row">
@@ -42,8 +41,8 @@
               </div>
               
           </div>
-          
-          <poner-aviso></poner-aviso>
+        
+          <poner-aviso></poner-aviso>      
       </div>
   </div>
 </div>

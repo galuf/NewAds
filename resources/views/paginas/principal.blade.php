@@ -39,7 +39,11 @@
       <div class="col-0 col-md-3 pl-0 pr-3 izquierdo"> 
         
         <button type="button" class="btn btn-primary btn-block mb-2">
-          <a href="{{route('poneraviso')}}" class="text-white">Pon tu aviso</a>
+          @guest   
+          <a href="/registro?poneraviso" class="text-white">Pon tu aviso</a>
+          @else
+           <a href="{{route('poneraviso')}}" class="text-white">Pon tu aviso</a>
+          @endguest
         </button>  
         
         <div class="titulo_izq p-2">

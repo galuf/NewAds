@@ -4,6 +4,15 @@
 
 <!-- CONTENIDO -->
 
+<?php
+    $tomar = '/login';
+    $registro = '/register';
+    if(isset($_GET['poneraviso'])){
+        $tomar = '/login/poneraviso';
+        $registro = '/register/poneraviso';
+    }
+?>
+
 <div class="contenido container-fluid pt-2">
     <div class="container">
         <div class="row">
@@ -14,7 +23,7 @@
                 <div class="signup-form-container pr-sm-2 pl-sm-2">
                   
                       <!-- form start -->
-                  <form role="form" id="register-form" autocomplete="off" method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                <form role="form" id="register-form" autocomplete="off" method="POST" action="{{$tomar}}" aria-label="{{ __('Login') }}">
                   @csrf
                   <div class="form-header">
                     <h3 class="form-title"><i class="fa fa-user"></i> Ingresa</h3>
@@ -77,7 +86,7 @@
                 <div class="p-0 py-2 cuadro_aviso_i mb-2">
                     <div class="formulario_cont p-2 pr-3">
                         
-                        <form role="form" id="register-form" autocomplete="off" method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                        <form role="form" id="register-form" autocomplete="off" method="POST" action="{{$registro}}" aria-label="{{ __('Register') }}">
                             @csrf
                             <div class="form-header">
                                 <h3 class="form-title"><i class="fa fa-user"></i> Regístrate</h3>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function create(Request $data)
+    public function create(Request $data, $url = 'index')
     {
         $datos = [  'name' => $data['name'],
                     'lastname' => $data['lastname'],
@@ -43,7 +43,8 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password_r']),
             ]);
             if(Auth::attempt(['email'=>$data['emailr'] , 'password' => $data['password_r'] ])){
-                return redirect()->route('index');
+                
+                return redirect()->route($url);
             }
         }    
     }

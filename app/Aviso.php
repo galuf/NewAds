@@ -17,4 +17,7 @@ class Aviso extends Model
     public function distrito(){
         return $this->belongsTo('App\Distrito');
     }
+    public function comentarios(){
+        return $this->hasMany('App\Comentario');
+    }
 }

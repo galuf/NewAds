@@ -216,7 +216,7 @@ header .logotipo {
     color: #3858A5;
 }
 .texto_aviso{
-    font-size: 13px;
+    font-size: 14px;
 }
 
 
@@ -468,4 +468,12 @@ header .logotipo {
 .error{
     color: red;
     font-size: 12px;
+}
+
+.usuario{
+    width:400px;
+    display: flex;
+    justify-content: right !important;
+
+
 }

@@ -15,17 +15,17 @@
     
     
     <!-- vinculo de css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/jquery.jdSlider.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery.jdSlider.css')}}">
+    <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     
     <!-- vinculo de js -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js" ></script>
-    <script src="js/all.min.js"></script>
-    <script src="js/jquery.jdSlider-latest.js"></script>
+    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}" ></script>
+    <script src="{{asset('js/all.min.js')}}"></script>
+    <script src="{{asset('js/jquery.jdSlider-latest.js')}}"></script>
 
 
 </head>
@@ -36,10 +36,10 @@
         <!-- CABECERA -->
         <header class=" container-fluid p-0 cabecera">
             <div class="container ">
-                <div class="row">
+                <div class="row" >
                         <!-- logo -->
                     <div class="col-7 col-sm-2 col-md-2 col-lg-3 p-0 pt-1 pl-2 pt-sm-3 pt-md-3 pt-lg-1"> 
-                        <a href="{{route('index')}}" > <img src="img/logo.png" alt="newads" class="fluid logotipo"></a>
+                        <a href="{{route('index')}}" > <img src="{{asset('img/logo.png')}}" alt="newads" class="fluid logotipo"></a>
                     </div>
                         <!-- buscador -->
                     <div class="d-none d-sm-block col-sm-8 col-9 col-md-8 col-lg-6  p-3 ">
@@ -63,11 +63,15 @@
                         <!-- user -->
                     @guest
                         <div class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3"><a href="{{ route('registro') }}" class="btn_registrar">Registrarse</a></button>    
+                            <a href="{{ route('registro') }}" class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></a>    
                         </div>
                     @else
-                        <div class= "col-5 col-sm-1 col-md-1 col-lg-1 usuario pt-2 pt-sm-3 nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><img class="avatar" src="img/avatar1.png" alt=" Avatar"></a>
+                        <div class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-2 pl-sm-0 pt-lg-1 d-flex justify-content-end ">
+                            
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img class="avatar" src="{{asset('img/avatar1.png')}}" alt=" Avatar">
+                            </a>
+                            
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
@@ -141,8 +145,8 @@
 
     </div>
     
-    <script src="js/swiper.min.js"></script>
-    <script src="js/script.js"></Script>
-    <script src="js/app.js"></script>
+    <script src="{{asset('js/swiper.min.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></Script>
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

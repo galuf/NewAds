@@ -14314,6 +14314,7 @@ window.Vue = __webpack_require__(36);
 
 Vue.component('avisos-principal', __webpack_require__(40));
 Vue.component('poner-aviso', __webpack_require__(43));
+
 var app = new Vue({
   el: '#app'
 });
@@ -49308,7 +49309,7 @@ var render = function() {
     "div",
     { staticClass: "grid-container1" },
     _vm._l(_vm.arrayAviso, function(aviso, index) {
-      return _c("div", { key: aviso, staticClass: "grid-item1 py-1" }, [
+      return _c("div", { key: index, staticClass: "grid-item1 py-1" }, [
         _c(
           "div",
           {
@@ -49319,10 +49320,15 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _vm._m(0, true),
+              _c("div", { staticClass: "col-0 col-sm-4 img_aviso" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: { src: aviso.imagen, alt: "" }
+                })
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-8" }, [
-                _vm._m(1, true),
+                _vm._m(0, true),
                 _vm._v(" "),
                 _c("div", { staticClass: "titulo_aviso" }, [
                   _c("a", {
@@ -49356,9 +49362,13 @@ var render = function() {
                   domProps: { textContent: _vm._s(aviso.contenido) }
                 }),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _vm._m(1, true),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("a", { attrs: { href: "/ver-contenido/" + aviso.id } }, [
+                  _c("div", { staticClass: "ver_aviso" }, [
+                    _vm._v("Ver más...")
+                  ])
+                ])
               ])
             ])
           ]
@@ -49369,17 +49379,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-0 col-sm-4 img_aviso" }, [
-      _c("img", {
-        staticClass: "img-fluid",
-        attrs: { src: "img/aviso1.jpg", alt: "" }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -49410,14 +49409,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "far fa-star" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "" } }, [
-      _c("div", { staticClass: "ver_aviso" }, [_vm._v("Ver más...")])
-    ])
   }
 ]
 render._withStripped = true
@@ -49751,40 +49742,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49799,13 +49756,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             usuario: {},
             direccion: '',
             titulo: '',
-            imagen: 'img/aviso1.jpg',
+            imagen: '',
             arrayAviso: [],
             contenido: '',
             fecha_inicio: '',
             errores: {},
             estado_errores: 0
-
         };
     },
 
@@ -49832,6 +49788,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        obtenerImagen: function obtenerImagen(e) {
+            var _this = this;
+
+            var file = e.target.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = function (e) {
+                _this.imagen = e.target.result;
+            };
+        },
         listarRegiones: function listarRegiones() {
             var me = this;
             axios.get('/regiones').then(function (response) {
@@ -50072,9 +50039,9 @@ var render = function() {
                       _vm._v("Seleccione una Region")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.regiones, function(region) {
+                    _vm._l(_vm.regiones, function(region, index) {
                       return _c("option", {
-                        key: region,
+                        key: index,
                         domProps: {
                           value: region.id,
                           textContent: _vm._s(region.nombre)
@@ -50153,9 +50120,9 @@ var render = function() {
                       _vm._v("Seleccione una Provincia")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.provincias, function(provincia) {
+                    _vm._l(_vm.provincias, function(provincia, index) {
                       return _c("option", {
-                        key: provincia,
+                        key: index,
                         domProps: {
                           value: provincia.id,
                           textContent: _vm._s(provincia.nombre)
@@ -50234,9 +50201,9 @@ var render = function() {
                       _vm._v("Seleccione un Distrito")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.distritos, function(distrito) {
+                    _vm._l(_vm.distritos, function(distrito, index) {
                       return _c("option", {
-                        key: distrito,
+                        key: index,
                         domProps: {
                           value: distrito.id,
                           textContent: _vm._s(distrito.nombre)
@@ -50437,16 +50404,24 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(7),
-            _vm._v(" "),
-            _vm._m(8)
+            _c("div", { staticClass: "row" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
+                _c("input", {
+                  staticClass: "form-control-file border form-control",
+                  attrs: { type: "file", name: "file" },
+                  on: { change: _vm.obtenerImagen }
+                })
+              ])
+            ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "p-0 py-2 cuadro_aviso_i mb-2" }, [
           _c("div", { staticClass: "formulario_cont p-2 pr-3" }, [
             _c("div", { staticClass: "row" }, [
-              _vm._m(9),
+              _vm._m(8),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
                 _c("input", {
@@ -50501,7 +50476,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(10),
+              _vm._m(9),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
                 _c("input", {
@@ -50556,7 +50531,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(11),
+              _vm._m(10),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
                 _c("input", {
@@ -50611,7 +50586,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(12),
+              _vm._m(11),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
                 _c("input", {
@@ -50761,118 +50736,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
-        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-          _vm._v("Imagen del aviso:")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-10 form-group" }, [
-        _c("input", {
-          staticClass: "form-control-file border form-control",
-          attrs: { type: "file", name: "file" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", {}, [
-        _c("div", { staticClass: "grid-container2" }, [
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq2.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq2.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-item pb-1 pr-1" }, [
-            _c("div", { staticClass: "img_aviso1" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "img/alq1.png", alt: "" }
-              })
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "col-0 col-sm-2 form-group" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Imagen del aviso:")
       ])
     ])
   },

@@ -1,11 +1,11 @@
 <template>  
         <div class="grid-container1" >
             
-            <div class="grid-item1 py-1" v-for="(aviso,index) in arrayAviso" :key="aviso">
+            <div class="grid-item1 py-1" v-for="(aviso,index) in arrayAviso" :key="index">
                 <div v-bind:class="index%2 == 0? 'cuadro_aviso_i p-2 mr-0 mr-md-1': 'cuadro_aviso_i p-2 ml-0 ml-md-1'">
                     <div class="row">
                         <div class="col-0 col-sm-4 img_aviso">
-                            <img src="img/aviso1.jpg" alt="" class="img-fluid">
+                            <img :src="aviso.imagen" alt="" class="img-fluid">
                         </div>
                         
                         <div class="col-12 col-sm-8">
@@ -19,7 +19,7 @@
                             
                             <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
                             <a href="" class="float-left" data-toggle="tooltip" data-placement="top" title="Agregar a favoritos"><i class="far fa-star"></i></a>
-                            <a href=""><div class="ver_aviso">Ver más...</div></a>
+                            <a :href="'/ver-contenido/'+aviso.id"><div class="ver_aviso">Ver más...</div></a>
 
                         </div>
                     </div>

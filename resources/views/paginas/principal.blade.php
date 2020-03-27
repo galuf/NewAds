@@ -38,17 +38,16 @@
         <!-- lado izquierdo -->
       <div class="col-0 col-md-3 pl-0 pr-3 izquierdo"> 
         
-        <button type="button" class="btn btn-primary btn-block mb-2">
           @guest   
-          <a href="/registro?poneraviso" class="text-white">Pon tu aviso</a>
+          <a href="/registro?poneraviso" class="text-white"> <button type="button" class="btn btn-primary btn-block mb-2">Pon tu aviso</button></a>
           @else
-           <a href="{{route('poneraviso')}}" class="text-white">Pon tu aviso</a>
+           <a href="{{route('poneraviso')}}" class="text-white"><button type="button" class="btn btn-primary btn-block mb-2"> Pon tu aviso</button></a>
           @endguest
-        </button>  
+          
         
         <div class="titulo_izq p-2">
               Opciones
-          </div>
+        </div>
           
           <!-- A vertical navbar -->
           <div class="navbar bg-light">
@@ -79,6 +78,7 @@
           </div>
           
       </div>
+
       <!-- lado centro derecho -->
       <div class="col-12 col-md-9 p-0 p-md-3 derecho">
         <div class="grid-container pt-2 pt-lg-3">

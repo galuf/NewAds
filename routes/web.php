@@ -55,11 +55,14 @@ Route::get('/provincia','ProvinciaController@index');
 Route::get('/distrito','DistritoController@index');
 Route::get('/usuario','UserController@index');
 Route::post('/aviso_crear','AvisoPrincipalController@create');
+
+Route::get('/ver-contenido/{id?}','AvisoPrincipalController@ver');
+
 //Auth::routes();
 
 Route::post('/login/{url?}', 'Auth\LoginController@login')->name('login');
 Route::post('/register/{url?}','Auth\RegisterController@create')->name('register');
-Route::post('/logout','Auth\LoginController@logout')->name('logout');
+Route::post('/logoutver-contenido','Auth\LoginController@logout')->name('logout');
 Route::get('/registro', function(){
   return view('/auth.registro');
 })->name('registro');

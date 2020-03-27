@@ -95,17 +95,13 @@
                                 <a href=""><img class="avatar_aviso" src="{{asset('img/avatar1.png')}}" alt=" Avatar"></a>
                             </div>
                         </div>
-                        
-                        <div class="col-10 col-sm-11">
-                            <div class=""><a href=""> {{$comentario->user->nombre}} {{$comentario->user->apellido}} </a></div>
-                            <div class="lugar_aviso float-left font-weight-bold">Puno: </div><div class="hora_aviso">&nbsp;&nbsp;Hace 1 hora</div>
-                        </div>
                     
-                        <div class="col-12 ">
-                            <p class="texto_aviso pt-1"> {{$comentario->contenido}} </p>
-                            <a href=""><div class="ver_aviso float-left">Responder</div></a>
+                        <div class="col-10 col-sm-11">
+                            <div class=""><a href="">{{$comentario->user->nombre}} {{$comentario->user->apellido}}</a></div>
+                            <p class="m-0 texto_aviso"> {{$comentario->contenido}} </p>
                         </div>
                     </div>
+                    <hr class="line" style="border: .5px solid #ADD8E6">
                     
                 @endforeach
             </div>
@@ -122,9 +118,20 @@
                         <a href=""><img class="avatar_aviso" src="{{asset('img/avatar1.png')}}" alt=" Avatar"></a>
                     </div>
                     <div class="col-10 col-sm-11 form-group">
-                        <textarea class="form-control mb-2" rows="5" id="contenido_Aviso"></textarea>
-                        <button class="btn btn-primary">Enviar comentario</button>
-                        <a href=""><div class="ver_aviso float-right">Inicia sesión para comentar</div></a>
+                        <form action=" {{route('subirComentario')}} " method="POST">
+                            @csrf
+                            <input type="hidden" value="{{$aviso->id}}" name='aviso_id'/>
+                            <textarea class="form-control{{ $errors->has('comentario') ? ' is-invalid' : '' }} mb-2" rows="3" id="contenido_Aviso" name='comentario'></textarea>
+                            <button class="btn btn-primary">Enviar comentario</button>
+                            @if ($errors->has('comentario'))
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $errors->first('comentario') }}</strong>
+                              </span>
+                            @endif
+                        </form>
+                        @guest
+                            <a href=""><div class="ver_aviso float-right">Inicia sesión para comentar</div></a>
+                        @endguest
                     </div>
                    
                 </div>

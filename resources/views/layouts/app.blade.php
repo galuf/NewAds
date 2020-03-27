@@ -90,7 +90,19 @@
             </div>
         </header>
 
+        <!-- barra de categorias para movil -->
+        <div class="container-fluid d-block d-sm-none py-2 d-flex justify-content-between">
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-file-alt float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fab fa-fw fa-houzz float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-car float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-book-reader float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-search-location float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-user-graduate float-left icon_cat_mov"></i></a> </div>
+            <div class=""><a href="" class=""><i class="fa fa-fw fa-laptop-code float-left icon_cat_mov"></i></a> </div>
+        </div>
+
         <!-- buscador para movil -->
+
         <div class="container d-block d-sm-none py-2">
             <div class="input-group md-form form-sm form-2 pl-0">
                 <input class="form-control my-0 py-1 lime-border" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">

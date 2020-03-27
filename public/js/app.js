@@ -49320,12 +49320,19 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-0 col-sm-4 img_aviso" }, [
-                _c("img", {
-                  staticClass: "img-fluid",
-                  attrs: { src: aviso.imagen, alt: "" }
-                })
-              ]),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-0 col-sm-4 img-container d-flex align-items-center"
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-fluid img-aviso",
+                    attrs: { src: aviso.imagen, alt: "" }
+                  })
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-sm-8" }, [
                 _vm._m(0, true),

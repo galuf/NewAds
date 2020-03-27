@@ -204,7 +204,8 @@ header .logotipo {
 
 }
 .img_aviso{
-    
+    width:100%;
+    padding-bottom: 10px;
 }
 .titulo_aviso{
     color: #3858A5;
@@ -430,7 +431,17 @@ header .logotipo {
        
         height: 30px;
     }
-    
+    .img-aviso{
+        width: 100%;
+        padding-bottom: 10px !important;
+    }
+    .img-container{
+        width: 100% !important;
+        height: auto !important;
+    }
+    .derecho {
+        display: none;
+    }
 }
 
 /* PAGINA CATEGORIAS */
@@ -474,6 +485,14 @@ header .logotipo {
     width:400px;
     display: flex;
     justify-content: right !important;
+}
 
-
+.img-container{
+    width:225px;
+    height:165px;
+    overflow:hidden;
+}
+.img-container img{
+    width:100%;
+    height:auto;
 }

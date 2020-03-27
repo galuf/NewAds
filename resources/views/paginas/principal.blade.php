@@ -231,11 +231,6 @@
       </div>
     </div>
   </div>
-
-  <!-- linea del medios -->
-  <div class="container-fluid texto_centro">
-    <span class="tex_centro"> ---------- Lo más reciente ----------</span>
-  </div>  
     
 </div>
 <!-- AVISOS -->

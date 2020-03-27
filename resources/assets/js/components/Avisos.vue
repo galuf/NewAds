@@ -4,8 +4,8 @@
             <div class="grid-item1 py-1" v-for="(aviso,index) in arrayAviso" :key="index">
                 <div v-bind:class="index%2 == 0? 'cuadro_aviso_i p-2 mr-0 mr-md-1': 'cuadro_aviso_i p-2 ml-0 ml-md-1'">
                     <div class="row">
-                        <div class="col-0 col-sm-4 img_aviso">
-                            <img :src="aviso.imagen" alt="" class="img-fluid">
+                        <div class="col-0 col-sm-4 img-container d-flex align-items-center">
+                            <img :src="aviso.imagen" alt="" class="img-fluid img-aviso">
                         </div>
                         
                         <div class="col-12 col-sm-8">

@@ -59,7 +59,7 @@ Route::post('/aviso_crear','AvisoPrincipalController@create');
 Route::get('/ver-contenido/{id?}','AvisoPrincipalController@ver');
 
 //Auth::routes();
-
+Route::post('/comentar','ComentarioController@index')->name('subirComentario');
 Route::post('/login/{url?}', 'Auth\LoginController@login')->name('login');
 Route::post('/register/{url?}','Auth\RegisterController@create')->name('register');
 Route::post('/logoutver-contenido','Auth\LoginController@logout')->name('logout');

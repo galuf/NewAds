@@ -56,7 +56,7 @@ Route::get('/distrito','DistritoController@index');
 Route::get('/usuario','UserController@index');
 Route::post('/aviso_crear','AvisoPrincipalController@create');
 
-Route::get('/ver-contenido/{id?}','AvisoPrincipalController@ver');
+Route::get('/contenido/{id?}','AvisoPrincipalController@ver');
 
 //Auth::routes();
 Route::post('/comentar','ComentarioController@index')->name('subirComentario');
@@ -66,6 +66,10 @@ Route::post('/logoutver-contenido','Auth\LoginController@logout')->name('logout'
 Route::get('/registro', function(){
   return view('/auth.registro');
 })->name('registro');
+
+Route::get('ver-contenido',function(){
+  return view('paginas.veraviso');
+});
 
 Route::get('/poner-aviso', function(){
   return view('/paginas.poneraviso');

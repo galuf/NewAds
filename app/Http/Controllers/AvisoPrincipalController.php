@@ -61,7 +61,7 @@ class AvisoPrincipalController extends Controller
         $aviso->fecha_inicio =$request->fecha_inicio;
         $aviso->save();
     }
-    public function ver($id = 0){
+    public function ver($id=0){
         // $aviso = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
         //         ->join('provincias','distritos.provincia_id','=','provincias.id')
         //         ->join('regions','provincias.region_id','=','regions.id')
@@ -77,7 +77,15 @@ class AvisoPrincipalController extends Controller
         //         ->get()
         //         ->where('id','=',$id)->first();
         $aviso = Aviso::find($id);
-        return view('paginas.veraviso',['aviso' => $aviso]);
+        //return view('paginas.veraviso',['aviso' => $aviso]);
+        
+        return [
+            'aviso' => $aviso,
+            'region' =>$aviso->distrito->provincia->region,
+            'provincia' => $aviso->distrito->provincia,
+            'usuario' => $aviso->usuario,
+            'comentarios' => $aviso->comentarios
+        ];
     }
 }
 

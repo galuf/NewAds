@@ -19,7 +19,7 @@
                             
                             <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
                             <a href="" class="float-left" data-toggle="tooltip" data-placement="top" title="Agregar a favoritos"><i class="far fa-star"></i></a>
-                            <a :href="'/ver-contenido/'+aviso.id"><div class="ver_aviso">Ver más...</div></a>
+                            <a :href="'/ver-contenido?ads='+aviso.id"><div class="ver_aviso">Ver más...</div></a>
 
                         </div>
                     </div>

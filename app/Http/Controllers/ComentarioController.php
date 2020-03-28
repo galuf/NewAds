@@ -10,23 +10,13 @@ class ComentarioController extends Controller
 {
     public function index(Request $request){
         
-        if(\Auth::guest()){
-            return back()->withErrors(['comentario'=> 'Debe iniciar sesion']);
-        }else{
-        
-            $v = Validator::make(['comentario' => $request['comentario']],
-                    ['comentario'=> 'required|string'], 
-                    ['comentario.required'=> 'Debe ingresar un comentario']);
-            if($v->fails()){
-                return back()->withErrors($v->messages());
-            }else{
-                Comentario::create([
-                    'usuario_id' => \Auth::user()->id,
-                    'aviso_id' => $request['aviso_id'],
-                    'contenido' => $request['comentario']
-                ]);
-                return back();
-            }
-        }
+        if(!$request->ajax()) return redirect('/');
+
+        $comentario = new Comentario();
+
+        $comentario->usuario_id = \Auth::user()->id;
+        $comentario->aviso_id = $request->aviso_id;
+        $comentario->contenido = $request->contenido;
+        $comentario->save();
     }
 }

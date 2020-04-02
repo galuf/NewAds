@@ -1,15 +1,13 @@
-@extends('layouts.app')
-
-@section('content')
-
-<!-- CONTENIDO -->
-
 <?php
     $tomar = '/login';
     $registro = '/register';
     if(isset($_GET['poneraviso'])){
         $tomar = '/login/poneraviso';
         $registro = '/register/poneraviso';
+    }
+    if(isset($_GET['ver-contenido'])){
+        $tomar = '/login/ver-contenido/'.$_GET['ver-contenido'];
+        $registro = '/register/ver-contenido/'.$_GET['ver-contenido'];
     }
 ?>
 
@@ -153,5 +151,3 @@
         </div>
     </div>
 </div>
-
-@endsection

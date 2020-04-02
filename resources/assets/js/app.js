@@ -18,7 +18,21 @@ window.Vue = require('vue');
 Vue.component('avisos-principal', require('./components/Avisos.vue'));
 Vue.component('poner-aviso', require('./components/PonerAviso.vue'));
 Vue.component('aviso-ver-mas',require('./components/AvisoVerMas.vue'));
+Vue.component('buscador',require('./components/Buscador.vue'));
+Vue.component('listar-aviso',require('./components/ListarAviso.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        contenido: 0,
+        filtro: '',
+        busqueda:''
+    },
+    methods:{
+        dameDatos(event){
+            this.contenido = event.contenido
+            this.filtro = event.filtro
+            this.busqueda = event.busqueda
+        }
+    }   
 });

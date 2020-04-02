@@ -34,23 +34,19 @@
     <div id="app">
 
         <!-- CABECERA -->
-        <header class=" container-fluid p-0 cabecera">
+        <header class=" container-fluid p-0 cabecera fixed-top">
             <div class="container ">
                 <div class="row" >
                         <!-- logo -->
                     <div class="col-7 col-sm-2 col-md-2 col-lg-3 p-0 pt-1 pl-2 pt-sm-3 pt-md-3 pt-lg-1"> 
-                        <a href="{{route('index')}}" > <img src="{{asset('img/logo.png')}}" alt="newads" class="fluid logotipo"></a>
+                        {{-- <a href="{{route('index')}}" > <img src="{{asset('img/logo.png')}}" alt="newads" class="fluid logotipo"></a>
+                         --}}
+                         <a @click="contenido=0"> <img src="{{asset('img/logo.png')}}" alt="newads" class="fluid logotipo"></a>
                     </div>
                         <!-- buscador -->
-                    <div class="d-none d-sm-block col-sm-8 col-9 col-md-8 col-lg-6  p-3 ">
-                        <div class="input-group md-form form-sm form-2 pl-0">
-                            <input class="form-control my-0 py-1 lime-border" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">
-                            <div class="input-group-append">
-                                <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-search text-grey"
-                                    aria-hidden="true"></i></span>
-                            </div>
-                            </div>
-                    </div>
+                            <buscador :contenido="contenido" :filtro="busqueda" :busqueda="busqueda"
+                                        v-on:datos="dameDatos($event)">
+                            </buscador>
                         <!-- redes
                     <div class="d-none d-lg-block col-lg-2 redes1">
                         <ul class="d-flex justify-content-end pt-4 mr-0">
@@ -63,7 +59,8 @@
                         <!-- user -->
                     @guest
                         <div class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
-                            <a href="{{ route('registro') }}" class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></a>    
+                            {{-- <a href="{{ route('registro') }}" class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></a>     --}}
+                            <a @click='contenido=2' class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></a>
                         </div>
                     @else
                         <div class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-2 pl-sm-0 pt-lg-1 d-flex justify-content-end ">
@@ -91,7 +88,7 @@
         </header>
 
         <!-- barra de categorias para movil -->
-        <div class="container-fluid d-block d-sm-none py-2 d-flex justify-content-between">
+        <div class="container-fluid d-block d-sm-none py-2 d-flex justify-content-between cat_movil">
             <div class=""><a href="" class=""><i class="fa fa-fw fa-file-alt float-left icon_cat_mov"></i></a> </div>
             <div class=""><a href="" class=""><i class="fab fa-fw fa-houzz float-left icon_cat_mov"></i></a> </div>
             <div class=""><a href="" class=""><i class="fa fa-fw fa-car float-left icon_cat_mov"></i></a> </div>
@@ -106,7 +103,7 @@
         <div class="container d-block d-sm-none py-2">
             <div class="input-group md-form form-sm form-2 pl-0">
                 <input class="form-control my-0 py-1 lime-border" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">
-                <div class="input-group-append">
+                <div @click="contenido=1" class="input-group-append">
                 <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-search text-grey"
                     aria-hidden="true"></i></span>
                 </div>
@@ -114,7 +111,7 @@
         </div>
     
         <main>
-            @yield('content')
+            @yield('contenido')
         </main>
 
         <!-- PIE -->

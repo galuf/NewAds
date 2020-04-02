@@ -442,6 +442,9 @@ header .logotipo {
     .derecho {
         display: none;
     }
+    .cat_movil{
+        padding-top: 60px !important;
+    }
 }
 
 /* PAGINA CATEGORIAS */
@@ -495,4 +498,13 @@ header .logotipo {
 .img-container img{
     width:100%;
     height:auto;
+}
+
+/* BARRA categorias tmp ******************* */
+.barra_categorias{
+    padding-top: 70px;
+}
+
+.icon_cat_mov{
+    font-size: 25px;
 }

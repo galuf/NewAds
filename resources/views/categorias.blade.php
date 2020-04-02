@@ -95,9 +95,9 @@
                     <a href="#"><i class="fa fa-fw fa-search"></i> Buscar</a>
                     <a href="#"><i class="fa fa-fw fa-envelope"></i> Contactos</a>
                     <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-                  </div>
+                </div>
 
-                  <div class="titulo_izq p-2">
+                <div class="titulo_izq p-2">
                     Categorías
                 </div>
                 <!-- A vertical navbar -->
@@ -114,7 +114,7 @@
                     <a href="#"><i class="fa fa-fw fa-volleyball-ball"></i> Deporte</a>
                     <a href="#"><i class="fa fa-fw fa-utensils"></i> Eventos</a>
                     <a href="#"><i class="fa fa-fw fa-palette"></i> Arte</a>
-                  </div>
+                </div>
                 
             </div>
             <!-- lado centro derecho -->
@@ -181,7 +181,7 @@
                 </div>
             </div>
                 
-                <!-- fin lado centro derecho -->
+            <!-- fin lado centro derecho -->
         </div>
     </div>
 </div>

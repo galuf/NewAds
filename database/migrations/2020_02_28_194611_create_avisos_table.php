@@ -21,6 +21,8 @@ class CreateAvisosTable extends Migration
             $table->integer('usuario_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
             $table->integer('distrito_id')->unsigned();
+            $table->integer('provincia_id')->unsigned();
+            $table->integer('region_id')->unsigned();
             $table->integer('estado')->unsigned();
             $table->string('direccion');
             $table->string('telefono');

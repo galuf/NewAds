@@ -8,14 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login(Request $request,$url='index'){
+    public function login(Request $request,$url='index',$id=''){
         $this->validate($request,[
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
 
         if(Auth::attempt(['email' =>$request->email , 'password' => $request->password])){
-                return redirect()->route($url); 
+            
+            if($id != '') return redirect($url.'?ads='.$id);
+            
+            return redirect()->route($url); 
         }
         return back()
         ->withErrors(['email' => 'Usuario o Contraseña incorrectos'])

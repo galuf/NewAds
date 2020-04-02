@@ -45,7 +45,14 @@
           
     {{-- <aviso-ver-mas id={{$_GET['id']}} ></aviso-ver-mas> --}}
         {{-- <div>{{$_GET['ads']}}</div> --}}
-        <aviso-ver-mas ads="{{$_GET['ads']}}"></aviso-ver-mas>
+        @guest
+            <?php $user = 0; ?>
+            
+        @else
+            <?php $user = auth()->user()->id; ?>
+        @endguest
+    
+        <aviso-ver-mas ads="{{$_GET['ads']}}" user="{{$user}}" ></aviso-ver-mas>
     <!-- fin lado centro derecho -->
          
       </div>

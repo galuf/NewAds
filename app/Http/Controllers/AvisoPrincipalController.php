@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Aviso;
-
+use App\Comentario;
 class AvisoPrincipalController extends Controller
 {
     public function index(Request $request)
@@ -51,6 +51,8 @@ class AvisoPrincipalController extends Controller
         $aviso->usuario_id =$request->usuario_id;
         $aviso->categoria_id =$request->categoria_id;
         $aviso->distrito_id =$request->distrito_id;
+        $aviso->provincia_id = $request->provincia_id;
+        $aviso->region_id = $request->region_id;
         $aviso->estado = 1;
         $aviso->direccion =$request->direccion;
         $aviso->telefono =$request->telefono;
@@ -78,13 +80,20 @@ class AvisoPrincipalController extends Controller
         //         ->where('id','=',$id)->first();
         $aviso = Aviso::find($id);
         //return view('paginas.veraviso',['aviso' => $aviso]);
-        
+        $usuario = [];
+        foreach($aviso->comentarios as $comentario){
+            array_push($usuario,$comentario->user);
+        }
+
         return [
             'aviso' => $aviso,
             'region' =>$aviso->distrito->provincia->region,
             'provincia' => $aviso->distrito->provincia,
+            'distrito' => $aviso->distrito,
             'usuario' => $aviso->usuario,
-            'comentarios' => $aviso->comentarios
+            'comentarios' => $aviso->comentarios,
+            'categoria' =>$aviso->categoria,
+            'coment_user' => $usuario,
         ];
     }
 }

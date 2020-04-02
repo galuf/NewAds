@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-@section('contenido')
+@section('content')
 
-<!-- CONTENIDO -->
 <div class="contenido container-fluid pt-2">
   <div class="container">
       <div class="row">
@@ -21,9 +20,9 @@
                   <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
               </div>
 
-                <div class="titulo_izq p-2">
+              <div class="titulo_izq p-2">
                   Categorías
-                </div>
+              </div>
               <!-- A vertical navbar -->
               <div class="navbar bg-light">
                   <a class="" href="#"><i class="fa fa-fw fa-file-alt"></i> Alquileres</a>
@@ -41,9 +40,32 @@
               </div>
               
           </div>
-        
-          <poner-aviso></poner-aviso>      
+          <!-- lado centro derecho -->
+          <div class="col-12 col-md-9 p-0 p-md-3"> 
+            @foreach ($avisos as $aviso)                  
+              <div class="p-0 py-1">
+                <div class="cuadro_aviso_i p-2 pb-3 mr-0 mr-md-1">
+                  <div class="row">
+                    <div class="col-0 col-sm-3 img_aviso img-container d-flex align-items-center">
+                        <img src=" {{$aviso->imagen}} " alt="" class="img-fluid">
+                    </div>
+                    
+                    <div class="col-12 col-sm-9">
+                        <div class="titulo_aviso"><a href=""> {{$aviso->titulo}} </a></div>
+                        <div class="hora_aviso">Hace 1 hora</div>
+                        
+                        <p class="texto_aviso pt-1"> {{$aviso->contenido}} </p>
+                        <a href=""><div class="ver_aviso">Ver más...</div></a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+          <!-- fin lado centro derecho -->
       </div>
   </div>
 </div>
+
 @endsection

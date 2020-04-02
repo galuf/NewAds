@@ -383,6 +383,8 @@ export default {
             'usuario_id' : this.usuario.id,
             'categoria_id' : this.categoria_id,
             'distrito_id' : this.distrito_id,
+            'provincia_id': this.provincia_id,
+            'region_id' : this.region_id,
             'direccion' :  this.direccion,
             'telefono' : this.usuario.telefono,
             'email' : this.usuario.email,
@@ -392,6 +394,7 @@ export default {
             'fecha_inicio': this.fecha_inicio,//this.fecha_inicio,
         }).then( (res) => {
             console.log('aviso creado')
+            //window.location.href = 'some url';
             alert('Se creo el aviso');
         }).catch((err)=>{
             console.log( 'ha habido un error enviando : ' + err)

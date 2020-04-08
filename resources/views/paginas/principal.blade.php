@@ -4,7 +4,7 @@
         <div class="mx-2">
             <a href=""><img class="img-fluid" src="img/a1.svg" alt="" width="90"></a>
         </div>
-         <div class="mx-2">
+        <div class="mx-2">
             <a href=""><img class="img-fluid" src="img/a2.svg" alt="" width="90"></a>
         </div>
         <div class="mx-2">
@@ -32,7 +32,7 @@
             <a href=""><img class="img-fluid" src="img/a10.svg" alt="" width="90"></a>
         </div>
     </div>
-</div>
+  </div>
   
 
 <!-- CONTENIDO -->

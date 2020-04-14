@@ -340,16 +340,7 @@ export default {
     },
     datosUsuario(){
         let me = this;
-        axios.get('/usuario')
-            .then(function (response) {
-                //console.log(response);
-                var respuesta = response.data;
-                me.usuario = respuesta.usuario;
-                //console.log(me.usuario)
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
+        me.usuario = this.$store.state.usuario;
     },
     validarAvisos(){
         this.estado_errores = 0;

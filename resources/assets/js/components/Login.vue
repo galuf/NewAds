@@ -10,7 +10,6 @@
         <div class="pull-right">
             <h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>
         </div>
-                    
       </div>
     
       <div class="form-body">
@@ -60,7 +59,7 @@
 </template>
 
 <script>
-import { bus } from '../app'
+
 export default {
   data(){
     return{
@@ -73,18 +72,27 @@ export default {
   },
   methods:{
     iniciarSesion(){
+      //console.log(this.$route.query)
       let me = this
       axios.post('/login',{
         email: this.correo,
         password : this.password
       })
       .then( res => {  
+        //console.log(this.$route.query.to)
         this.stateError = false
         this.errors = {}
-        bus.$emit('sesion', {sesion :true})
-        me.$router.push({path:'/'})
+        this.$store.commit('login',res.data.usuario)
+        
+        if(this.$route.query.to){
+          me.$router.push({path: '/ponerAviso'})
+        }else{
+          me.$router.push({path:'/'})
+        }
+      
       })
       .catch(err =>{
+        console.log(err.response)
         this.stateError = true
         this.errors = err.response.data.errors
       })

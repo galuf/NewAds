@@ -11,9 +11,9 @@ Route::get('/regiones','RegionController@index');
 Route::get('/provincia','ProvinciaController@index');
 Route::get('/distrito','DistritoController@index');
 // Route::get('/usuario','UserController@index');
-// Route::post('/aviso_crear','AvisoPrincipalController@create');
+Route::post('/aviso_crear','AvisoPrincipalController@create');
 
-// Route::get('/contenido/{id?}','AvisoPrincipalController@ver');
+Route::get('/contenido/{id?}','AvisoPrincipalController@ver');
 
 // //Auth::routes();
 // Route::get('/registro', function(){

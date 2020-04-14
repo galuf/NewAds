@@ -143,7 +143,7 @@ export default{
                 me.distrito = distrito
                 me.usuario_coment = coment_user
                 console.log(me.usuario_coment)
-                this.comentario=''
+                me.comentario=''
         })
         .catch(function (error) {
             console.log(error)

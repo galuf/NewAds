@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import { bus } from '../app'
 export default {
   data(){
     return {
@@ -87,10 +86,10 @@ export default {
         password_confirmation : this.password_confirmation
       })
       .then( res => {  
-        console.log(res)
         this.stateError = false
         this.errors = {}
-        bus.$emit('sesion', {sesion :true})
+        this.$store.commit('login',res.data.usuario)
+        
         me.$router.push({path:'/'})
       })
       .catch(err =>{

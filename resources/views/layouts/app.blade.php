@@ -36,6 +36,9 @@
         <header class=" container-fluid p-0 cabecera fixed-top">
             <div class="container ">
                 <div class="row" >
+                    
+                    {{-- <div v-text="$store.state.usuario"></div> --}}
+
                         <!-- logo -->
                     <div class="col-7 col-sm-2 col-md-2 col-lg-3 p-0 pt-1 pl-2 pt-sm-3 pt-md-3 pt-lg-1" @click='reset'> 
                         <router-link to='/'> <img src="{{asset('img/logo.png')}}" alt="newads" class="fluid logotipo"></router-link>
@@ -46,12 +49,12 @@
                                 
                         <!-- user -->
                     
-                        <div v-if="!sesion" class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
+                        <div v-if="!$store.state.sesion" class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
                             <router-link to='/auth' class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></router-link>
                         </div>
                     
                         <div v-else class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-2 pl-sm-0 pt-lg-1 d-flex justify-content-end ">
-                            
+                            <div v-text="$store.state.usuario.nombre" style="color:white;"></div>
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <img class="avatar" src="{{asset('img/avatar1.png')}}" alt=" Avatar">
                             </a>
@@ -63,7 +66,6 @@
                                 </button>
                             </div>
                         </div>
-                    
                 </div>
 
             </div>

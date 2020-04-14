@@ -22,7 +22,9 @@ class RegisterController extends Controller
         ]);
         if(Auth::attempt(['email'=>$request['email'] , 'password' => $request['password'] ])){
             if($id != '') return redirect($url.'?ads='.$id);
-            return response()->json('Todo correcto', 200);
+            $usuario = User::where('email','=',$request['email'])->first();
+            return response()->json(['usuario' => $usuario],200);
+            //return response()->json('Todo correcto', 200);
             //return redirect()->route($url);
         }
     }    

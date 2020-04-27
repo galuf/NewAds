@@ -2,9 +2,10 @@
   <!-- lado centro derecho -->
       <div class="col-12 col-md-9 p-0">
         
-        <div v-if="categoria!=''" class="d-flex flex-row justify-content-around">
-          <h1 v-text="categorias[categoria]" ></h1>
+        <div v-if="categoria!=''" class="d-flex flex-row justify-content-around titulo-categoria" :style='{backgroundColor:categorias[categoria][1]}'>
+          <h3 v-text="categorias[categoria][0]"></h3>
         </div>
+        
         <div v-if="filtro!='' && busqueda!=''">
           <div> <strong>Resultados Para :</strong> Filtro :{{filtro}} Busqueda : {{ busqueda }}</div>
         </div>
@@ -18,13 +19,13 @@
               <div class="col-12 col-sm-8 pl-sm-0 pr-sm-3">
                   <!-- avatar aviso -->
                   <div class="float-right ">
-                      <a href=""><img class="avatar_aviso" src="img/avatar1.png" alt=" Avatar"></a>
+                      <a href=""><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></a>
                   </div>
                   <div class="titulo_aviso"><a href="">{{aviso.titulo}}</a></div>
-                  <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}</div>
+                  <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp; </div>
                   <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
                   <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
-                  <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
+                  <a @click="favorito(aviso.id)" class="float-left" data-toggle="tooltip" data-placement="top"
                       title="Agregar a favoritos"><i class="far fa-star"></i>
                   </a>
                   <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
@@ -45,28 +46,34 @@ import Buscador from './Buscador'
 export default {
   components:{
     Buscador
-  },
-  props : ['filtro', 'busqueda','categoria'],
+  }, 
+  //props : ['filtro', 'busqueda','categoria'],
   data(){
     return {
+      filtro: '',
+      busqueda : '',
+      categoria: '',
       arrayAvisos : [],
       search : false,
       categorias: {
-        '1': 'Alquileres',
-        '2': 'Casas y Lotes',
-        '3': 'Automoviles',
-        '4': 'Necesito',
-        '5': 'Empleos',
-        '7': 'Informatica',
-        '8': 'Mascotas',
-        '9': 'Hogar',
-        '10': 'Deporte',
-        '11': 'Eventos'
-      }
+        '1': ['Alquileres', '#3C0D6F'],
+        '2': ['Casas y Lotes', '#E41B4D'],
+        '3': ['Automoviles', '#E4CE00'],
+        '4': ['Necesito', '#E38801'],
+        '5': ['Empleos', '#6CD92F'],
+        '7': ['Informatica', '#04C7C0'],
+        '8': ['Mascotas', '#E14877'],
+        '9': ['Hogar', '#C425C6'],
+        '10': ['Deporte', '#5F2764'],
+        '11': ['Eventos', '#222A96']
+      },
     }
   },
   computed:{
     listaAvisos(){
+      this.filtro = this.$store.state.filtro
+      this.busqueda = this.$store.state.busqueda
+      this.categoria = this.$store.state.categoria
       let me = this;
       let url = '/buscador?filtro='+this.filtro+'&busqueda='+this.busqueda+'&categoria='+this.categoria;
       axios.get(url)
@@ -82,10 +89,41 @@ export default {
       //console.log(this.$route.path)
     }
   },
-  methods:{
+  methods:{ 
+
+    unico : async function(aviso,usuario){
+      let me = this;
+      let url = '/favoritoUnico?usuario_id='+usuario+'&aviso_id='+aviso
+      const valor = await axios.get(url)
+      return valor.data.favorito;
+    },
+    favorito : async function(aviso){
+      let b = await this.unico(aviso,this.$store.state.usuario.id)
+      if(!this.$store.state.sesion){
+          this.$router.push({path: '/auth'})
+      }else{
+        if(b.length === 0){
+          let me = this;
+          const url = '/favorito'
+          const favoritoValor = await axios.post(url,{
+            'aviso_id' : aviso,
+            'usuario_id' : this.$store.state.usuario.id
+          })
+          //console.log(`el id del aviso es : ${aviso} y el id de usuario es : ${this.$store.state.usuario.id}`)
+        }else if(b.length != 0 && b[0].estado_favorito == 0){
+          let me = this
+          const url = '/activarFavorito'
+          const favoritoActivar = await axios.put(url,{
+            'id':b[0].id
+          })
+          //console.log('Se activo Favorito')
+        } 
+        alert('Se agrego a Ver mas Tarde')     
+      }
+    },
     dameHora(fecha1,fecha2){
-        console.log(fecha1 + ' fecha 1 ');
-        console.log(fecha2 + 'fecha 2');
+        //console.log(fecha1 + ' fecha 1 ');
+        //console.log(fecha2 + 'fecha 2');
         let f1 = fecha1.split(' ');
         let f2 = fecha2.split(' ');
         let s1 = f1[0];
@@ -142,6 +180,17 @@ export default {
     this.search = this.$route.path != '/';
     let fecha = new Date();
     this.fecha_actual = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-'+(fecha.getDate())+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds();
+  },
+  destroyed(){
+    this.$store.commit('buscador',{filtro:'', busqueda:'',categoria:''})
   }
 }
 </script>
+
+<style>
+  .titulo-categoria{
+    border-radius:10px;
+    color: white;
+    margin-bottom: 8px;
+  }
+</style>

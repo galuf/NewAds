@@ -20,4 +20,7 @@ class Aviso extends Model
     public function comentarios(){
         return $this->hasMany('App\Comentario');
     }
+    public function favoritos(){
+        return $this->hasMany('App\Favorito');
+    }
 }

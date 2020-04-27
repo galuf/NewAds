@@ -8,6 +8,7 @@ Vue.component('aviso-ver-mas',require('./components/AvisoVerMas.vue'));
 Vue.component('buscador',require('./components/Buscador.vue'));
 Vue.component('listar-aviso',require('./components/ListarAviso.vue'));
 Vue.component('app', require('./components/App.vue'))
+Vue.component('user-logo', require('./components/UserLogo.vue'))
 
 import router from './router'
 import store from  './store'
@@ -30,21 +31,7 @@ const app = new Vue({
     },
     methods:{
         reset(){
-            bus.$emit('datos', {filtro :this.filtro, busqueda:this.busqueda,contenido:1})
-            bus.$emit('categoria', {categoria:this.categoria})
-        },
-        logOut(){
-            axios.post('/logoutver-contenido',{})
-                .then(res => {
-                    //console.log(res)
-                    store.commit('logout')
-                    if(this.$route.path != '/')
-                        this.$router.push({path: '/'})
-                    //this.sesion = false
-                })
-                .catch(err =>{
-                    console.log(err)
-                })
+            this.$store.commit('buscador',{filtro:'',busqueda:'',categoria:''})
         }
     }
 });

@@ -50,7 +50,7 @@
                     <div class="row pb-3">
                         <div class="col-2 col-sm-1 ">
                             <div class= "">
-                                <a href=""><img class="avatar_aviso" src="img/avatar1.png" alt=" Avatar"></a>
+                                <a href=""><img class="avatar_aviso" :src="( usuario_coment[index].avatar|| 'img/avatar1.png' )" alt=" Avatar"></a>
                             </div>
                         </div>
                     
@@ -75,7 +75,7 @@
         <div class="px-4 p-2 pr-3">
             <div class="row">
                 <div class= "col-2 col-sm-1">
-                    <a href=""><img class="avatar_aviso" src="img/avatar1.png" alt=" Avatar"></a>
+                    <a href=""><img class="avatar_aviso" :src=" ($store.state.usuario.avatar || 'img/avatar1.png' )" alt=" Avatar"></a>
                 </div>
                 <div class="col-10 col-sm-11 form-group">
                     <form >

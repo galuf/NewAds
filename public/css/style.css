@@ -378,7 +378,16 @@ header .logotipo {
         height: 30px;
         width: 75px;
     }
-
+    .filtro{
+        font-size: 11px;
+    }
+    .buscador{
+        font-size: 11px;
+    }
+    .btn_reg{
+        font-size: 13px;
+        padding-left: 4px !important;
+    }
 }
 
 

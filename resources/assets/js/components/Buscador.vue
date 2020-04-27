@@ -1,7 +1,8 @@
 <template>
   <div class="d-none d-sm-block col-sm-8 col-9 col-md-8 col-lg-6  p-3 ">
     <div class="input-group md-form form-sm form-2 pl-0">
-      <select v-model="filtro" name="categoria" id="option" class="form-control" style="width:5px;">
+      <select v-model="filtro" name="categoria" id="option" class="filtro pl-2">
+        <option disabled value="">Filtro de Búsqueda</option>
         <option value="usuario">Usuario</option>
         <option value="region">Region</option>
         <option value="provincia">Provincia</option>
@@ -10,9 +11,9 @@
         <option value="contenido">Contenido</option>
       </select>
 
-      <input @keyup.enter="presionar" class="form-control my-0 py-1 lime-border" v-model="busqueda" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">
+      <input @keyup.enter="presionar" class="form-control my-0 py-1 lime-border buscador" v-model="busqueda" type="text" placeholder="Encuentra lo que buscas" aria-label="Search">
       <div @click="presionar" class="input-group-append">
-          <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-search text-grey"
+          <span class="input-group-text lime lighten-2 buscador-boton" id="basic-text1"><i class="fas fa-search text-grey"
               aria-hidden="true"></i></span>
       </div>
     </div>
@@ -20,7 +21,6 @@
 </template>
 
 <script>
-import { bus } from '../app'
 export default {
   data(){
     return {
@@ -30,10 +30,36 @@ export default {
   },
   methods:{
     presionar(){
-      bus.$emit('datos', {filtro :this.filtro, busqueda:this.busqueda,contenido:1})
-      this.filtro = '',
+      this.$store.commit('buscador',{filtro: this.filtro, busqueda: this.busqueda, categoria:''})
+      this.filtro = ''
       this.busqueda = ''
+      if(this.$route.path != '/')
+        this.$router.push({path: '/'})
     }
   }
 }
 </script>
+
+<style>
+/* buscador y select ******************* */
+.filtro {
+    background-color: rgba(247, 248, 246, 0.6);
+  
+    border-top-left-radius:      20px;
+    border-bottom-left-radius:   20px;
+    cursor: pointer;
+    color: rgba(0,0,0,.6);
+    
+}
+.buscador{
+   
+    background-color: #fafcf9;
+}
+.buscador-boton{
+    background-color:#85b260;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+    
+}
+</style>

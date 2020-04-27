@@ -45,27 +45,11 @@
                     </div>
                         <!-- buscador -->
                             
-                        <buscador v-if="$route.path == '/'"></buscador>
+                        <buscador></buscador>
                                 
                         <!-- user -->
                     
-                        <div v-if="!$store.state.sesion" class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-3 pl-sm-0 pt-lg-1 pl-lg-5 d-flex justify-content-end">
-                            <router-link to='/auth' class="btn_registrar"><button type="button" class="btn btn-primary btn_reg mt-1 mt-lg-3 pl-sm-0 pl-lg-3 pl-md-3">Registrarse</button></router-link>
-                        </div>
-                    
-                        <div v-else class= "col-5 col-sm-2 col-md-2 col-lg-3 pt-1 pt-sm-2 pl-sm-0 pt-lg-1 d-flex justify-content-end ">
-                            <div v-text="$store.state.usuario.nombre" style="color:white;"></div>
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img class="avatar" src="{{asset('img/avatar1.png')}}" alt=" Avatar">
-                            </a>
-                            
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <button class="dropdown-item"
-                                    @click="logOut">
-                                    Cerrar Sesion
-                                </button>
-                            </div>
-                        </div>
+                        <user-logo />
                 </div>
 
             </div>

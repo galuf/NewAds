@@ -79,17 +79,17 @@ export default {
         password : this.password
       })
       .then( res => {  
-        //console.log(this.$route.query.to)
+        //console.log(this.$route.)
         this.stateError = false
         this.errors = {}
         this.$store.commit('login',res.data.usuario)
-        
+      
         if(this.$route.query.to){
           me.$router.push({path: '/ponerAviso'})
         }else{
-          me.$router.push({path:'/'})
+          me.$router.go(-1)
         }
-      
+
       })
       .catch(err =>{
         console.log(err.response)

@@ -22,6 +22,10 @@ class UserTableSeeder extends Seeder
         $user->email = 'alex@alex.com';
         $user->password = bcrypt('admin');
         $user->telefono = '969641703';
+        $user->region = 'Puno';
+        $user->provincia = 'Puno';
+        $user->distrito = 'Puno';
+        $user->direccion = 'Av. Floral #611';
         $user->save();
         $user->roles()->attach($role_admin);
 
@@ -31,6 +35,10 @@ class UserTableSeeder extends Seeder
         $user->email = 'user@user.com';
         $user->password = bcrypt('user');
         $user->telefono = '969641703';
+        $user->region = 'Puno';
+        $user->provincia = 'Puno';
+        $user->distrito = 'Puno';
+        $user->direccion = 'Av. Floral #611';
         $user->save();
         $user->roles()->attach($role_user);
 

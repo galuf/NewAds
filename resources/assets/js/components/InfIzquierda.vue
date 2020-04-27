@@ -10,10 +10,10 @@
           
           <!-- A vertical navbar -->
           <div class="navbar bg-light">
-            <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Inicio</a>
-            <a href="#"><i class="fa fa-fw fa-search"></i> Buscar</a>
-            <a href="#"><i class="fa fa-fw fa-envelope"></i> Contactos</a>
-            <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+            <a @click="cambia(1)" ><i class="far fa-file-alt"></i> Mis avisos</a>
+            <a @click="cambia(2)" ><i class="fas fa-envelope-open-text"></i> Avisos favoritos</a>
+            <a @click="cambia(0)" class="" ><i class="fas fa-address-card"></i> Mi perfil</a>
+            <a @click="cambia(3)" ><i class="fa fa-fw fa-user"></i> Cambiar contraseña</a>
           </div>
 
           <div class="titulo_izq p-2">
@@ -37,3 +37,27 @@
           </div>
       </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    cambia(contenido){
+      if(!this.$store.state.sesion){
+        this.$router.push({path: '/auth'})
+      }else{
+        this.$store.commit('contenidoCambio',contenido)
+        if(this.$route.path != '/perfilUsuario')
+          this.$router.push({path: '/perfilUsuario'});
+      }
+    }
+  },
+  // destroyed(){
+  //   this.$store.commit('contenidoCambio',0)
+  // }
+}
+</script>

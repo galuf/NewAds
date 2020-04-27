@@ -163,7 +163,7 @@ class BuscadorController extends Controller
                             ->get();    
             }
         }elseif($categoria != '' && ($buscar == '' || $criterio == '')){
-            $avisos = Aviso::where('categoria_id','like','%'.$categoria.'%')
+            $avisos = Aviso::where('categoria_id','=',$categoria)
                 ->join('distritos','avisos.distrito_id','=','distritos.id')
                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                 ->join('regions','provincias.region_id','=','regions.id')

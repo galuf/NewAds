@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { bus } from '../app'
 export default {
     data(){
         return{
@@ -47,8 +46,21 @@ export default {
     methods : {
         cambia(element){
             this.categoria = element
-            bus.$emit('categoria', {categoria:this.categoria})
+            this.$store.commit('categoria',this.categoria)
         }
     }
 }
 </script>
+
+<style>
+    /* BARRA DE BOTONES ******************* */
+    .barra_categorias img:hover{
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    }
+
+    .barra_categorias{
+    background: linear-gradient( #fff, #9fabce, #fff);
+    }
+</style>

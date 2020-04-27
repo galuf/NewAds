@@ -3,10 +3,10 @@ import VueRouter from 'vue-router';
 
 import PrincipalPage from './pages/Principal'
 import Auth from './pages/Auth'
-import Categorias from './pages/Categorias'
 import PonerAviso from './pages/PonerAviso'
 import VerContenidoAviso from './pages/VerContenidoAviso'
-
+import Perfil from './pages/Perfil'
+import EditarContenidoAviso from './pages/EditarContenidoAviso'
 import store from './store'
 
 Vue.use(VueRouter);
@@ -25,11 +25,6 @@ const router = new VueRouter({
       component: Auth
     },
     {
-      path:'/categoria',
-      name:'Categoria',
-      component: Categorias
-    },
-    {
       path: '/ponerAviso',
       name:'PonerAviso',
       component: PonerAviso,
@@ -39,6 +34,16 @@ const router = new VueRouter({
       path:'/verContenidoAviso',
       name: 'VerContenido',
       component : VerContenidoAviso
+    },
+    {
+      path:'/editarContenidoAviso',
+      name: 'EditarContenido',
+      component : EditarContenidoAviso
+    },
+    {
+      path:'/perfilUsuario',
+      name: 'PerfilUsuario',
+      component : Perfil
     }
   ]
 })

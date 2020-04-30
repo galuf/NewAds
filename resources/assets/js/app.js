@@ -9,7 +9,9 @@ Vue.component('buscador',require('./components/Buscador.vue'));
 Vue.component('listar-aviso',require('./components/ListarAviso.vue'));
 Vue.component('app', require('./components/App.vue'))
 Vue.component('user-logo', require('./components/UserLogo.vue'))
-
+Vue.component('buscador-movil',require('./components/BuscadorMovil.vue'))
+Vue.component('barra-categoria-movil',require('./components/BarraCategoriaMovil.vue'))
+Vue.component('menu-movil', require('./components/MenuMovil.vue'))
 import router from './router'
 import store from  './store'
 

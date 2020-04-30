@@ -7,13 +7,13 @@
         <div class="titulo_izq p-2">
               Opciones
         </div>
-          
+        
           <!-- A vertical navbar -->
           <div class="navbar bg-light">
-            <a @click="cambia(1)" ><i class="far fa-file-alt"></i> Mis avisos</a>
-            <a @click="cambia(2)" ><i class="fas fa-envelope-open-text"></i> Avisos favoritos</a>
-            <a @click="cambia(0)" class="" ><i class="fas fa-address-card"></i> Mi perfil</a>
-            <a @click="cambia(3)" ><i class="fa fa-fw fa-user"></i> Cambiar contraseña</a>
+            <a @click="cambia(1)" class="miPerfil" ><i class="miPerfil far fa-file-alt"></i> Mis avisos</a>
+            <a @click="cambia(2)" class="miPerfil"><i class="miPerfil fas fa-envelope-open-text"></i> Ver más tarde</a>
+            <a @click="cambia(0)" class="miPerfil"><i class="miPerfil fas fa-address-card"></i> Mi perfil</a>
+            <a @click="cambia(3)" class="miPerfil"><i class="miPerfil fa fa-fw fa-user"></i> Cambiar contraseña</a>
           </div>
 
           <div class="titulo_izq p-2">
@@ -22,18 +22,18 @@
           
           <!-- A vertical navbar -->
           <div class="navbar bg-light">
-            <a class="" href="#"><i class="fa fa-fw fa-file-alt"></i> Alquileres</a>
-            <a href="#"><i class="fab fa-fw fa-houzz"></i> Casas y lotes</a>
-            <a href="#"><i class="fa fa-fw fa-car"></i> Automóviles</a>
-            <a href="#"><i class="fa fa-fw fa-book-reader"></i> Necesito</a>
-            <a href="#"><i class="fa fa-fw fa-search-location"></i> Busco empleo</a>
-            <a href="#"><i class="fa fa-fw fa-user-graduate"></i>Educación</a>
-            <a href="#"><i class="fa fa-fw fa-laptop-code"></i> Informática</a>
-            <a href="#"><i class="fa fa-fw fa-cat"></i> Mascotas</a>
-            <a href="#"><i class="fa fa-fw fa-couch"></i> Hogar</a>
-            <a href="#"><i class="fa fa-fw fa-volleyball-ball"></i> Deporte</a>
-            <a href="#"><i class="fa fa-fw fa-utensils"></i> Eventos</a>
-            <a href="#"><i class="fa fa-fw fa-palette"></i> Arte</a>
+            <a class="miPerfil" @click="cambiaCategoria(1)"><i class="fa fa-fw fa-file-alt"></i> Alquileres</a>
+            <a class="miPerfil" @click="cambiaCategoria(2)"><i class="fab fa-fw fa-houzz"></i> Casas y lotes</a>
+            <a class="miPerfil" @click="cambiaCategoria(3)"><i class="fa fa-fw fa-car"></i> Automóviles</a>
+            <a class="miPerfil" @click="cambiaCategoria(4)"><i class="fa fa-fw fa-book-reader"></i> Necesito</a>
+            <a class="miPerfil" @click="cambiaCategoria(5)"><i class="fa fa-fw fa-search-location"></i> Busco empleo</a>
+            <!-- <a class="miPerfil" @click="cambiaCategoria(6)"><i class="fa fa-fw fa-user-graduate"></i>Educación</a> -->
+            <a class="miPerfil" @click="cambiaCategoria(7)"><i class="fa fa-fw fa-laptop-code"></i> Informática</a>
+            <a class="miPerfil" @click="cambiaCategoria(8)"><i class="fa fa-fw fa-cat"></i> Mascotas</a>
+            <a class="miPerfil" @click="cambiaCategoria(9)"><i class="fa fa-fw fa-couch"></i> Hogar</a>
+            <a class="miPerfil" @click="cambiaCategoria(10)"><i class="fa fa-fw fa-volleyball-ball"></i> Deporte</a>
+            <a class="miPerfil" @click="cambiaCategoria(11)"><i class="fa fa-fw fa-utensils"></i> Eventos</a>
+            <!-- <a class="miPerfil" @click="cambiaCategoria(12)"><i class="fa fa-fw fa-palette"></i> Arte</a> -->
           </div>
       </div>
 </template>
@@ -42,10 +42,16 @@
 export default {
   data(){
     return {
-
+      categoria:''
     }
   },
   methods:{
+    cambiaCategoria(elemento){
+      if(this.$route.path != '/')
+          this.$router.push({path: '/'});
+      this.categoria = elemento  
+      this.$store.commit('categoria',this.categoria)
+    },
     cambia(contenido){
       if(!this.$store.state.sesion){
         this.$router.push({path: '/auth'})
@@ -61,3 +67,9 @@ export default {
   // }
 }
 </script>
+
+<style>
+  .miPerfil{
+    cursor: pointer;
+  }
+</style>

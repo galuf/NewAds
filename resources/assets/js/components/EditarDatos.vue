@@ -1,164 +1,162 @@
 <template>
     <!-- lado centro derecho -->
-  <div class="col-12 col-md-9 p-0 p-md-3">
-    <div class="titulo"><h3>Datos de Usuario</h3></div>
+  <div class="col-12 col-md-9 p-0 p-md-1">
+    <div class="titulo"><h4>Datos de Usuario</h4></div>
+    
     <div class="p-0 py-2 cuadro_aviso_i mb-2"> 
         <div class=" p-2 pr-3">
             <div class="row">
-                <div class="col-0 col-sm-3">
+                
+                <div class="col-12 col-sm-3">
                     <div class="img_usuario"><img :src="( imagenURL || ($store.state.usuario.avatar || 'img/avatar1.png' ))" class="img-fluid img_aviso"></div>
                     <div class="texto_perfil small">Carga o cambia tu imagen</div>
                     <div class="form-group">
                         <input type="file" @change ='obtenerImagen' class="form-control-file border form-control" name="file">
                     </div>
                 </div>
-                
-    <!-- Datos del Usuario -->
-    <div class="p-0 py-2 cuadro_aviso_i mb-2">
-        <div class="formulario_cont p-2 pr-3">
-            
-            <!-- Input nombre de Usuario -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Nombres:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <input disabled type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
-                </div>
-            </div>
-            <!-- FIn de Input nombre de Usuario -->
-            
-            <!-- Input Apellidos de Usuario -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Apellidos:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <input disabled type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
-                </div>
-            </div>
-            <!-- Fin de Input Apellido de Usuario -->
 
-            <!-- Input email de Usuario -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Correo electrónico:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <input disabled type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico" v-model="usuario.email">
-                </div>
-            </div>
-            <!-- Fin de Input email de Usuario -->
-
-            <!-- Input Telefono de Usuario -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Teléfono:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <input type="text" class="form-control" id="telefono" placeholder="Ingrese el número de teléfono" v-model="usuario.telefono">
-                    <div v-show="estado_errores && errores.telefono" class="div-error">
-                        <div class="text-error">
-                            <div v-text="errores.telefono" style="color:red;"></div>
+                <div class="col-12 col-sm-9">
+                    <!-- Input nombre de Usuario -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                        <label for="" class="control-label">Nombres:</label>
+                        </div>
+                        <div class="col-12 col-sm-10 form-group">
+                            <input disabled type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Fin de Input Telefono de Usuario -->
-        </div>
-      </div> 
-      <!-- Fin de Datos del Usuario -->
-            <!-- Seleccion de Region-->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Región:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <select v-model='region_id' name="region" id="option" class="form-control">
-                        <option disabled value="" v-text=" usuario.region || 'Seleccione una Region'"></option>
-                        <option v-for='(region,index) in regiones' :key="index" :value="region.id" v-text="region.nombre"></option>
-                    </select>
+                    <!-- FIn de Input nombre de Usuario -->
 
-                    <div v-show="estado_errores && errores.region" class="div-error">
-                        <div class="text-error">
-                            <div v-text="errores.region" style="color:red;"></div>
+                    <!-- Input Apellidos de Usuario -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Apellidos:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <input disabled type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Fin de Seleccion de Region-->
+                    <!-- Fin de Input Apellido de Usuario -->
 
-            <!-- Seleccion de Provincia -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Provincia:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <select v-model='provincia_id' name="provincia" id="option" class="form-control">
-                        {{listarProvincia}}
-                        <option disabled value="" v-text=" usuario.region || 'Seleccione una Provincia'"></option>
-                        <option v-for='(provincia,index) in provincias' :key="index" :value="provincia.id" v-text="provincia.nombre"></option>   
-                    </select>
-                        <div v-show="estado_errores && errores.provincia" class="div-error">
-                            <div class="text-error" >
-                                <div v-text="errores.provincia" style="color:red;"></div>
+                    <!-- Input email de Usuario -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Correo electrónico:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <input disabled type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico" v-model="usuario.email">
+                        </div>
+                    </div>
+                    <!-- Fin de Input email de Usuario -->
+
+                    <!-- Input Telefono de Usuario -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Teléfono:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <input type="text" class="form-control" id="telefono" placeholder="Ingrese el número de teléfono" v-model="usuario.telefono">
+                            <div v-show="estado_errores && errores.telefono" class="div-error">
+                                <div class="text-error">
+                                    <div v-text="errores.telefono" style="color:red;"></div>
+                                </div>
                             </div>
                         </div>
-                </div>
-            </div>
-            <!-- Fin de Seleccion de Provincia-->
-
-            <!-- Seleccion de Distrito-->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group">
-                    <label for="" class="control-label">Distrito:</label>
-                </div>
-
-                <div class="col-12 col-sm-10 form-group">
-                    <select v-model='distrito_id' name="distrito" id="option" class="form-control">
-                        {{listarDistrito}}
-                        <option disabled value="" v-text=" usuario.distrito || 'Seleccione un Distrito'"></option>
-                        <option v-for='(distrito,index) in distritos' :key="index" :value="distrito.id" v-text="distrito.nombre"></option>   
-                    </select>    
+                    </div>
+                    <!-- Fin de Input Telefono de Usuario -->
                     
-                    <div v-show="estado_errores && errores.distrito" class="div-error">
-                        <div class="text-error">
-                            <div v-text="errores.distrito" style="color:red;"></div>
+                    <!-- Seleccion de Region-->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Región:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <select v-model='region_id' name="region" id="option" class="form-control">
+                                <option disabled value="" v-text=" usuario.region || 'Seleccione una Region'"></option>
+                                <option v-for='(region,index) in regiones' :key="index" :value="region.id" v-text="region.nombre"></option>
+                            </select>
+
+                            <div v-show="estado_errores && errores.region" class="div-error">
+                                <div class="text-error">
+                                    <div v-text="errores.region" style="color:red;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Fin de Seleccion de Distrito-->
+                    <!-- Fin de Seleccion de Region-->
 
-            <!-- Input de Direccion -->
-            <div class="row">
-                <div class="col-0 col-sm-2 form-group ">
-                    <label for="" class="control-label">Dirección:</label>
-                </div>
-                
-                <div class="col-12 col-sm-10 form-group">
-                    <input v-model="usuario.direccion" type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
-                    <div v-show="estado_errores && errores.direccion" class="div-error">
-                        <div class="text-error">
-                            <div v-text="errores.direccion" style="color:red;"></div>
+                    <!-- Seleccion de Provincia -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Provincia:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <select v-model='provincia_id' name="provincia" id="option" class="form-control">
+                                {{listarProvincia}}
+                                <option disabled value="" v-text=" usuario.region || 'Seleccione una Provincia'"></option>
+                                <option v-for='(provincia,index) in provincias' :key="index" :value="provincia.id" v-text="provincia.nombre"></option>   
+                            </select>
+                                <div v-show="estado_errores && errores.provincia" class="div-error">
+                                    <div class="text-error" >
+                                        <div v-text="errores.provincia" style="color:red;"></div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
+                    <!-- Fin de Seleccion de Provincia-->
+
+                    <!-- Seleccion de Distrito-->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group">
+                            <label for="" class="control-label">Distrito:</label>
+                        </div>
+
+                        <div class="col-12 col-sm-10 form-group">
+                            <select v-model='distrito_id' name="distrito" id="option" class="form-control">
+                                {{listarDistrito}}
+                                <option disabled value="" v-text=" usuario.distrito || 'Seleccione un Distrito'"></option>
+                                <option v-for='(distrito,index) in distritos' :key="index" :value="distrito.id" v-text="distrito.nombre"></option>   
+                            </select>    
+                            
+                            <div v-show="estado_errores && errores.distrito" class="div-error">
+                                <div class="text-error">
+                                    <div v-text="errores.distrito" style="color:red;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin de Seleccion de Distrito-->
+
+                    <!-- Input de Direccion -->
+                    <div class="row">
+                        <div class="col-0 col-sm-2 form-group ">
+                            <label for="" class="control-label">Dirección:</label>
+                        </div>
+                        
+                        <div class="col-12 col-sm-10 form-group">
+                            <input v-model="usuario.direccion" type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
+                            <div v-show="estado_errores && errores.direccion" class="div-error">
+                                <div class="text-error">
+                                    <div v-text="errores.direccion" style="color:red;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin de Input de Direccion -->
+
+                    <button class="btn btn-primary" @click="editarPerfil()"> Guardar </button>
+
                 </div>
-            </div>
-            <!-- Fin de Input de Direccion -->
 
-        </div>
-
-        <button class="btn btn-primary" @click="editarPerfil()"> Editar </button>
-            
+            </div>   
         </div>
     </div>
+  
   </div>    
   <!-- fin lado centro derecho -->
 

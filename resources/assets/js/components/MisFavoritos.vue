@@ -1,6 +1,10 @@
 <template>
   <div class="col-12 col-md-9 p-0">
-    <h2>Mis favoritos</h2>
+    
+    <div class="d-flex flex-row justify-content-around titulo">
+          <h4 v-text="'Ver más tarde'"></h4>
+    </div>
+
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
         <div class="row">
             <div class="col-0 col-sm-4 img-container">
@@ -15,13 +19,6 @@
                 <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}</div>
                 <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
                 <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
-                
-                <button class=" btn btn-primary float-left" 
-                        data-toggle="tooltip" 
-                        data-placement="top"
-                        @click="eliminar(aviso.id)">
-                    Quitar de Ver Mas Tarde
-                </button>
 
                 <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
                     title="Categoría"><i class="fa fa-fw fa-file-alt"></i>
@@ -29,6 +26,14 @@
                 <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
                     <div class="ver_aviso">Ver más...</div>
                 </router-link>
+                <div class="d-flex justify-content-end pt-3">
+                    <button class=" btn btn-danger " 
+                        data-toggle="tooltip" 
+                        data-placement="top"
+                        @click="eliminar(aviso.id)">
+                        Quitar: Ver más tarde
+                    </button>
+                </div>
             </div>
         </div>
     </div>    
@@ -132,3 +137,15 @@ export default {
   }
 }
 </script>
+
+<style>
+    .titulo{
+        display: flex;
+        justify-content: center;
+        border-radius:10px;
+        color: black;
+        margin-bottom: 8px;
+        background-color: #D3D3D3;
+        padding: 5px;
+    }
+</style>

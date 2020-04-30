@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-4"></div>
-    <div class="contenido container-fluid pt-2 p-1">
+    <div class="contenido container-fluid pt-4 mt-1 p-1">
       <div class="container">
           <div class="row">
               <!-- lado izquierdo -->

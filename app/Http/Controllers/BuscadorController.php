@@ -17,7 +17,8 @@ class BuscadorController extends Controller
         $categoria = $request->categoria;
 
         if($categoria == '' && ($buscar == '' || $criterio == '')){
-            $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+            $avisos = Aviso::where('estado','=',1)
+                            ->join('distritos','avisos.distrito_id','=','distritos.id')
                             ->join('provincias','distritos.provincia_id','=','provincias.id')
                             ->join('regions','provincias.region_id','=','regions.id')
                             ->join('users','avisos.usuario_id','=','users.id')
@@ -26,6 +27,7 @@ class BuscadorController extends Controller
                                     'distritos.nombre as nombre_distrito',
                                     'provincias.nombre as nombre_provincia',
                                     'regions.nombre as nombre_region',
+                                    'users.id as id_usuario',
                                     'users.nombre as nombre_usuario',
                                     'users.apellido as apellido_usuario',
                                     'users.avatar as avatar_usuario', 
@@ -38,7 +40,8 @@ class BuscadorController extends Controller
                                     ->orwhere('apellido','like','%'.$buscar.'%')->first();
                 if($id_usuario){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -47,6 +50,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario', 
@@ -61,7 +65,8 @@ class BuscadorController extends Controller
                 $id_region = Region::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_region){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -70,6 +75,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -84,7 +90,8 @@ class BuscadorController extends Controller
                 $id_provincia = Provincia::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_provincia){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -93,6 +100,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -107,7 +115,8 @@ class BuscadorController extends Controller
                 $id_distrito = Distrito::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_distrito){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -116,6 +125,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -128,6 +138,7 @@ class BuscadorController extends Controller
                 }
             }elseif($criterio == 'titulo'){
                 $avisos = Aviso::where('titulo','like','%'.$buscar.'%')
+                                ->where('estado','=',1)
                                 ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
@@ -137,6 +148,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -146,6 +158,7 @@ class BuscadorController extends Controller
 
             }elseif($criterio == 'contenido'){
                 $avisos = Aviso::where('contenido','like','%'.$buscar.'%')
+                            ->where('estado','=',1)
                             ->join('distritos','avisos.distrito_id','=','distritos.id')
                             ->join('provincias','distritos.provincia_id','=','provincias.id')
                             ->join('regions','provincias.region_id','=','regions.id')
@@ -155,6 +168,7 @@ class BuscadorController extends Controller
                                     'distritos.nombre as nombre_distrito',
                                     'provincias.nombre as nombre_provincia',
                                     'regions.nombre as nombre_region',
+                                    'users.id as id_usuario',
                                     'users.nombre as nombre_usuario',
                                     'users.apellido as apellido_usuario',
                                     'users.avatar as avatar_usuario',
@@ -164,6 +178,7 @@ class BuscadorController extends Controller
             }
         }elseif($categoria != '' && ($buscar == '' || $criterio == '')){
             $avisos = Aviso::where('categoria_id','=',$categoria)
+                ->where('estado','=',1)
                 ->join('distritos','avisos.distrito_id','=','distritos.id')
                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                 ->join('regions','provincias.region_id','=','regions.id')
@@ -173,6 +188,7 @@ class BuscadorController extends Controller
                         'distritos.nombre as nombre_distrito',
                         'provincias.nombre as nombre_provincia',
                         'regions.nombre as nombre_region',
+                        'users.id as id_usuario',
                         'users.nombre as nombre_usuario',
                         'users.apellido as apellido_usuario',
                         'users.avatar as avatar_usuario',
@@ -185,7 +201,8 @@ class BuscadorController extends Controller
                                     ->orwhere('apellido','like','%'.$buscar.'%')->first();
                 if($id_usuario){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -194,6 +211,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario', 
@@ -209,7 +227,8 @@ class BuscadorController extends Controller
                 $id_region = Region::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_region){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -218,6 +237,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -233,7 +253,8 @@ class BuscadorController extends Controller
                 $id_provincia = Provincia::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_provincia){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -242,6 +263,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -257,7 +279,8 @@ class BuscadorController extends Controller
                 $id_distrito = Distrito::where('nombre','like','%'.$buscar.'%')->first();
                 if($id_distrito){
 
-                    $avisos = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                    $avisos = Aviso::where('estado','=',1)
+                                ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
                                 ->join('regions','provincias.region_id','=','regions.id')
                                 ->join('users','avisos.usuario_id','=','users.id')
@@ -266,6 +289,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -279,6 +303,7 @@ class BuscadorController extends Controller
                 }
             }elseif($criterio == 'titulo'){
                 $avisos = Aviso::where('titulo','like','%'.$buscar.'%')
+                                ->where('estado','=',1)
                                 ->where('categoria_id',$categoria)
                                 ->join('distritos','avisos.distrito_id','=','distritos.id')
                                 ->join('provincias','distritos.provincia_id','=','provincias.id')
@@ -289,6 +314,7 @@ class BuscadorController extends Controller
                                         'distritos.nombre as nombre_distrito',
                                         'provincias.nombre as nombre_provincia',
                                         'regions.nombre as nombre_region',
+                                        'users.id as id_usuario',
                                         'users.nombre as nombre_usuario',
                                         'users.apellido as apellido_usuario',
                                         'users.avatar as avatar_usuario',
@@ -298,6 +324,7 @@ class BuscadorController extends Controller
 
             }elseif($criterio == 'contenido'){
                 $avisos = Aviso::where('contenido','like','%'.$buscar.'%')
+                            ->where('estado','=',1)
                             ->where('categoria_id',$categoria)
                             ->join('distritos','avisos.distrito_id','=','distritos.id')
                             ->join('provincias','distritos.provincia_id','=','provincias.id')
@@ -308,6 +335,7 @@ class BuscadorController extends Controller
                                     'distritos.nombre as nombre_distrito',
                                     'provincias.nombre as nombre_provincia',
                                     'regions.nombre as nombre_region',
+                                    'users.id as id_usuario',
                                     'users.nombre as nombre_usuario',
                                     'users.apellido as apellido_usuario',
                                     'users.avatar as avatar_usuario',

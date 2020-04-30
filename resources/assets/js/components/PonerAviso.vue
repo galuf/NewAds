@@ -1,6 +1,6 @@
 <template>
     <!-- lado centro derecho -->
-    <div class="col-12 col-md-9 p-0 p-md-3">
+    <div class="col-12 col-md-9 p-0 p-md-1">
     <form action="" method="post" enctype="multipart/form-data"> 
       <!-- Datos de Ubicacion del Anuncio -->
       <div class="p-0 py-2 cuadro_aviso_i mb-2">
@@ -191,7 +191,7 @@
                 </div>
                 
                 <div class="col-12 col-sm-10 form-group">
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
+                    <input disabled type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
                 <div v-show="estado_errores && errores.nombre" class="div-error">
                     <div class="text-error">
                         <div v-text="errores.nombre" style="color:red;"></div>
@@ -208,7 +208,7 @@
                 </div>
                 
                 <div class="col-12 col-sm-10 form-group">
-                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
+                    <input disabled type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
                     <div v-show="estado_errores && errores.apellido" class="div-error">
                         <div class="text-error">
                             <div v-text="errores.apellido" style="color:red;"></div>

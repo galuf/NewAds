@@ -19,21 +19,33 @@
               <div class="col-12 col-sm-8 pl-sm-0 pr-sm-3">
                   <!-- avatar aviso -->
                   <div class="float-right ">
-                      <a href=""><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></a>
+                      <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
                   </div>
-                  <div class="titulo_aviso"><a href="">{{aviso.titulo}}</a></div>
+                  <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
                   <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp; </div>
                   <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
                   <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
-                  <a @click="favorito(aviso.id)" class="float-left" data-toggle="tooltip" data-placement="top"
-                      title="Agregar a favoritos"><i class="far fa-star"></i>
-                  </a>
-                  <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
-                      title="Categoría"><i class="fa fa-fw fa-file-alt"></i>
-                  </a>
-                  <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
-                      <div class="ver_aviso">Ver más...</div>
-                  </router-link>
+                  
+                  <div class="propiedades-aviso">
+
+                    <div>
+                      <a @click="favorito(aviso.id)" class="ver-mas-tarde float-left" data-toggle="tooltip" data-placement="top"
+                          title="Agregar a ver más tarde"><i class="fas fa-clock reloj"></i>
+                      </a>
+                      
+                      <a class="float-left" data-toggle="tooltip" data-placement="top"
+                          :title="categorias[aviso.categoria_id][0]">
+                          <i :class="`${categorias[aviso.categoria_id][2]} reloj`" 
+                              :style="`color: ${categorias[aviso.categoria_id][1]}`">
+                          </i>
+                      </a>
+                    </div>
+                    
+                    <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
+                        <div class="ver_aviso"> <button class="btn btn-primary">Ver más</button> </div>
+                    </router-link>
+                  
+                  </div>
               </div>
           </div>
         </div>    
@@ -56,16 +68,16 @@ export default {
       arrayAvisos : [],
       search : false,
       categorias: {
-        '1': ['Alquileres', '#3C0D6F'],
-        '2': ['Casas y Lotes', '#E41B4D'],
-        '3': ['Automoviles', '#E4CE00'],
-        '4': ['Necesito', '#E38801'],
-        '5': ['Empleos', '#6CD92F'],
-        '7': ['Informatica', '#04C7C0'],
-        '8': ['Mascotas', '#E14877'],
-        '9': ['Hogar', '#C425C6'],
-        '10': ['Deporte', '#5F2764'],
-        '11': ['Eventos', '#222A96']
+        '1': ['Alquileres', '#3C0D6F' , 'fa fa-fw fa-file-alt'],
+        '2': ['Casas y Lotes', '#E41B4D', 'fab fa-fw fa-houzz'],
+        '3': ['Automoviles', '#E4CE00', 'fa fa-fw fa-car'],
+        '4': ['Necesito', '#E38801','fa fa-fw fa-book-reader'],
+        '5': ['Empleos', '#6CD92F','fa fa-fw fa-search-location'],
+        '7': ['Informatica', '#04C7C0','fa fa-fw fa-laptop-code'],
+        '8': ['Mascotas', '#E14877','fa fa-fw fa-cat'],
+        '9': ['Hogar', '#C425C6','fa fa-fw fa-couch'],
+        '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
+        '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
       },
     }
   },
@@ -192,5 +204,14 @@ export default {
     border-radius:10px;
     color: white;
     margin-bottom: 8px;
+  }
+  .reloj{
+    font-size: 20px;
+    margin : 7px;
+    cursor: pointer;
+  }
+  .propiedades-aviso{
+    display: flex;
+    justify-content: space-between;
   }
 </style>

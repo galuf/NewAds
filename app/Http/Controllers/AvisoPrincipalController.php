@@ -159,7 +159,7 @@ class AvisoPrincipalController extends Controller
     }
     public function quitarAviso(Request $request){
         $aviso = Aviso::findOrFail($request->id);
-        $aviso->estado = 2;
+        $aviso->estado = 0;
         $aviso->save();
     }
 }

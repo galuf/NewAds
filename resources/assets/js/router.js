@@ -7,6 +7,8 @@ import PonerAviso from './pages/PonerAviso'
 import VerContenidoAviso from './pages/VerContenidoAviso'
 import Perfil from './pages/Perfil'
 import EditarContenidoAviso from './pages/EditarContenidoAviso'
+import SuPerfil from './pages/SuPerfil'
+
 import store from './store'
 
 Vue.use(VueRouter);
@@ -44,6 +46,11 @@ const router = new VueRouter({
       path:'/perfilUsuario',
       name: 'PerfilUsuario',
       component : Perfil
+    },
+    {
+      path:'/suPerfil',
+      name: 'SuPerfil',
+      component: SuPerfil
     }
   ]
 })

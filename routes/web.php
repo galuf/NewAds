@@ -24,6 +24,7 @@ Route::get('/misAvisos','AvisoPrincipalController@misAvisos');
 Route::get('/buscador','BuscadorController@index');
 Route::get('/misFavoritos','FavoritoController@verFavoritos');
 Route::get('/favoritoUnico','FavoritoController@favoritoUnico');
+Route::get('/perfilAjeno','UserController@perfilAjeno');
 // Route::get('/categoria/{id}','CategoriaController@index');
 Route::put('/favoritoQuitar','FavoritoController@quitarFavorito');
 Route::put('/activarFavorito','FavoritoController@activarFavorito');

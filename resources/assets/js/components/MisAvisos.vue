@@ -1,6 +1,8 @@
 <template>
   <div class="col-12 col-md-9 p-0">
-    <h1>Mis avisos</h1>
+    <div class="d-flex flex-row justify-content-around titulo">
+        <h4 v-text="'Mis Avisos'"></h4>
+    </div>
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
       <div class="row">
           <div class="col-0 col-sm-4 img-container">
@@ -9,25 +11,19 @@
           <div class="col-12 col-sm-8 pl-sm-0 pr-sm-3">
               <!-- avatar aviso -->
               <div class="float-right ">
-                  <a href=""><img class="avatar_aviso" :src="( aviso.avatar_usuario || 'img/avatar1.png')" alt=" Avatar"></a>
+                <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
               </div>
-              <div class="titulo_aviso"><a href="">{{aviso.titulo}}</a></div>
+              <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
               <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}&nbsp; </div>
               <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
               <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
-              <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
-                  title="Agregar a favoritos"><i class="far fa-star"></i>
-              </a>
-              <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
-                  title="Categoría"><i class="fa fa-fw fa-file-alt"></i>
-              </a>
-              <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
-                  <div class="ver_aviso">Ver más...</div>
-              </router-link>
+              <div class="d-flex justify-content-end pt-4">  
                 <router-link :to="'/editarContenidoAviso?ads=' + aviso.id">
                     <button class="btn btn-primary"> Editar aviso </button>
                 </router-link>
-                <button @click="quitarAviso(aviso.id)" class="btn btn-danger" > Quitar Aviso </button>
+
+                <button @click="quitarAviso(aviso.id)" class="btn btn-danger mx-2" > Quitar Aviso </button>
+              </div>
           </div>
       </div>
     </div>    
@@ -44,15 +40,49 @@ export default {
   },
   methods:{
     quitarAviso(id){
-        console.log(id)
-        let me = this
-        let url = '/quitarAviso'
-        axios.put(url,{
-            'id' : id
-        }).then( res => {
-            this.listaAvisos()
-        }).catch( err => {
-            console.log(err)
+        
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+        title: '¿Esta seguro?',
+        text: "Su anuncio se quitara",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, quitar',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.value) {
+            swalWithBootstrapButtons.fire(
+            'Borrado',
+            'Tu aviso a sido quitado',
+            'success'
+            )
+            let me = this
+            let url = '/quitarAviso'
+            axios.put(url,{
+                'id' : id
+            }).then( res => {
+                this.listaAvisos()
+            }).catch( err => {
+                console.log(err)
+            })
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'Tu aviso no se quito',
+            'error'
+            )
+        }
         })
     },
     dameHora(fecha1,fecha2){
@@ -132,3 +162,15 @@ export default {
   }
 }
 </script>
+
+<style>
+    .titulo{
+        display: flex;
+        justify-content: center;
+        border-radius:10px;
+        color: black;
+        margin-bottom: 8px;
+        background-color: #D3D3D3;
+        padding: 5px;
+    }
+</style>

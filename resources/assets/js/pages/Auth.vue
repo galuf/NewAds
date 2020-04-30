@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-4"></div>
-    <div class="contenido container-fluid pt-2">
+    <div class="contenido container-fluid pt-2 mt-2">
     <div class="container">
         <div class="row">
             

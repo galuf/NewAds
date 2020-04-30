@@ -1,7 +1,11 @@
 <template>
   <!-- lado centro derecho -->
-  <div class="col-12 col-md-9 p-0 p-md-3">
-    <div class="titulo"><h3>Datos de Usuario</h3></div>
+  <div class="col-12 col-md-9 p-0 p-md-1">
+    
+    <div class="d-flex flex-row justify-content-around titulo">
+          <h4 v-text="'Mi perfil'"></h4>
+    </div>
+    
     <div class="p-0 py-2 cuadro_aviso_i mb-2"> 
         <div class=" p-2 pr-3">
             <div class="row">
@@ -10,13 +14,13 @@
                 </div>
                 
                 <div class="col-12 col-sm-9 datos">
-                    <p>Nombres: {{usuario.nombre}} </p>
-                    <p>Apellidos: {{usuario.apellido}} </p>
-                    <p>Lugar: {{(usuario.region || '') +'-'+ (usuario.provincia || '') +'-'+ (usuario.distrito || '')}} </p>
-                    <p>Dirección: {{usuario.direccion}} </p>
-                    <p>Correo electrónico: {{usuario.email}}</p>
-                    <p>Teléfono: {{usuario.telefono}}</p>
-                    <div class="boton-editar">
+                    <p> <strong> Nombres: </strong>  {{usuario.nombre}} </p>
+                    <p> <strong> Apellidos: </strong>  {{usuario.apellido}} </p>
+                    <p> <strong> Lugar: </strong>  {{(usuario.region || '') +'-'+ (usuario.provincia || '') +'-'+ (usuario.distrito || '')}} </p>
+                    <p> <strong> Dirección: </strong>  {{usuario.direccion}} </p>
+                    <p> <strong> Correo electrónico: </strong>  {{usuario.email}}</p>
+                    <p> <strong> Teléfono: </strong>  {{usuario.telefono}}</p>
+                    <div class="boton-editar d-flex justify-content-end">
                         <button class="btn btn-primary"
                                 @click="editar">Editar Datos</button>
                     </div>
@@ -57,6 +61,11 @@ export default {
     .titulo{
         display: flex;
         justify-content: center;
+        border-radius:10px;
+        color: black;
+        margin-bottom: 8px;
+        background-color: #D3D3D3;
+        padding: 5px;
     }
     .boton-editar{
         display: flex;

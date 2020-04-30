@@ -18,14 +18,16 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/jquery.jdSlider.css')}}">
-    <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     
     <!-- vinculo de js -->
-    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}" ></script>
     <script src="{{asset('js/all.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('js/jquery.jdSlider-latest.js')}}"></script>
+    {{-- <script src="{{asset('js/popper.min.js')}}" ></script> --}}
+    <script src="{{asset('js/bootstrap.min.js')}}" ></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> --}}
 
 
 </head>
@@ -33,7 +35,7 @@
 
     <div id="app">
         <!-- CABECERA -->
-        <header class=" container-fluid p-0 cabecera fixed-top">
+        <header class=" container-fluid p-0 cabecera fixed-top d-none d-sm-block">
             <div class="container ">
                 <div class="row" >
                     
@@ -55,27 +57,20 @@
             </div>
         </header>
 
+        <!-- barra de logo cabecera mara movil -->
+    <header class=" container-fluid d-block d-sm-none cabecera fixed-top">
+        <menu-movil />    
+    </header>
+
+
         <!-- barra de categorias para movil -->
-        <div class="container-fluid d-block d-sm-none py-2 d-flex justify-content-between cat_movil">
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-file-alt float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fab fa-fw fa-houzz float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-car float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-book-reader float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-search-location float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-user-graduate float-left icon_cat_mov"></i></a> </div>
-            <div class=""><a href="" class=""><i class="fa fa-fw fa-laptop-code float-left icon_cat_mov"></i></a> </div>
+        <div class="d-sm-none">
+            <barra-categoria-movil />
         </div>
-
+        
         <!-- buscador para movil -->
-
-        <div class="container d-block d-sm-none py-2">
-            <div class="input-group md-form form-sm form-2 pl-0">
-                <input class="form-control my-0 py-1 lime-border" type="text" placeholder="¿Qué buscas en Puno?" aria-label="Search">
-                <div @click="contenido=1" class="input-group-append">
-                    <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-search text-grey"
-                        aria-hidden="true"></i></span>
-                </div>
-            </div>
+        <div class="d-sm-none">
+            <buscador-movil />
         </div>
     
         <main>

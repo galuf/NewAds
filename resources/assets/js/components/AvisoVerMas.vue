@@ -1,6 +1,6 @@
 <template>
 
- <div class="col-12 col-md-9 p-0 p-md-3">
+ <div class="col-12 col-md-9 p-0 p-md-1">
     <!-- carga datos del aviso -->
     <div class="p-0 pb-2 cuadro_aviso_i mb-2">
         

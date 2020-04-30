@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="p-5"></div>
-      <div class="contenido container-fluid pt-2">
+    <div class="p-4 bg-danger"></div>
+      <div class="contenido container-fluid pt-4 mt-2">
         <div class="container">
             <div class="row">
               <inf-izquierda />

@@ -1,6 +1,6 @@
 <template>
       <!-- lado centro derecho -->
-    <div class="col-12 col-md-9 p-0 p-md-3">
+    <div class="col-12 col-md-9 p-0 p-md-1">
     <form action="" method="post" enctype="multipart/form-data"> 
       <!-- Datos de Ubicacion del Anuncio -->
       <div class="p-0 py-2 cuadro_aviso_i mb-2">
@@ -259,9 +259,9 @@
     </form>
         
     <!-- boton enviar aviso -->
-    <div class="container-fluid btn_ver_mas pt-2">
-        <button @click="crearAviso()" type="button" class="btn btn-primary btn_mas">Guardar Aviso</button>
-        <button @click="cancelar()" class="btn btn-danger">Cancelar</button>
+    <div class="container-fluid btn_ver_mas pt-2 d-flex justify-content-end">
+        <button @click="crearAviso()" type="button" class="btn btn-primary">Guardar Aviso</button>
+        <button @click="cancelar()" class="btn btn-danger mx-2">Cancelar</button>
     </div>
     <!-- Fin boton enviar aviso -->
 

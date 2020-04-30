@@ -1,7 +1,7 @@
 <template>
   <div class="contenido container-fluid pt-2">
-        <div class="p-5"></div>
-    <div class="container">
+        <div class="p-4"></div>
+    <div class="container pt-4">
       <div class="row">
         <!-- lado izquierdo -->
         <inf-izquierda />

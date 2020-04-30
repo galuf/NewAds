@@ -67,4 +67,8 @@ class UserController extends Controller
         $usuario->save(); 
         return response()->json(['usuario' => $usuario],200);
     }
+    public function perfilAjeno(Request $request){
+        $usuario = User::find($request->id);
+        return ['usuario' => $usuario];
+    }
 }

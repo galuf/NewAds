@@ -28,6 +28,7 @@ class FavoritoController extends Controller
                                 ->join('users','avisos.usuario_id','=','users.id')
                                 ->join('categorias','avisos.categoria_id','=','categorias.id')
                                 ->select('favoritos.*',
+                                    'avisos.id as aviso_id',    
                                     'avisos.direccion',
                                     'avisos.telefono',
                                     'avisos.email',
@@ -35,6 +36,9 @@ class FavoritoController extends Controller
                                     'avisos.imagen',
                                     'avisos.contenido',
                                     'avisos.fecha_inicio',
+                                    'avisos.categoria_id',
+                                    'avisos.estado',
+                                    'avisos.usuario_id as id_usuario',
                                     'distritos.nombre as nombre_distrito',
                                     'provincias.nombre as nombre_provincia',
                                     'regions.nombre as nombre_region',

@@ -3,7 +3,7 @@
   <div class="col-12 col-md-9 p-0 p-md-1">
     
     <div class="d-flex flex-row justify-content-around titulo">
-          <h4 v-text="'Mi perfil'"></h4>
+          <div class="texto-perfil" v-text="'Mi perfil'"></div>
     </div>
     
     <div class="p-0 py-2 cuadro_aviso_i mb-2"> 
@@ -16,7 +16,7 @@
                 <div class="col-12 col-sm-9 datos">
                     <p> <strong> Nombres: </strong>  {{usuario.nombre}} </p>
                     <p> <strong> Apellidos: </strong>  {{usuario.apellido}} </p>
-                    <p> <strong> Lugar: </strong>  {{(usuario.region || '') +'-'+ (usuario.provincia || '') +'-'+ (usuario.distrito || '')}} </p>
+                    <p> <strong> Lugar: </strong>  {{(usuario.region||'') +' - '+ (usuario.provincia||'')+' - '+(usuario.distrito||'')}} </p>
                     <p> <strong> Dirección: </strong>  {{usuario.direccion}} </p>
                     <p> <strong> Correo electrónico: </strong>  {{usuario.email}}</p>
                     <p> <strong> Teléfono: </strong>  {{usuario.telefono}}</p>

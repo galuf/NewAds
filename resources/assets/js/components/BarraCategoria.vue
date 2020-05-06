@@ -1,62 +1,72 @@
 <template>
-  <!-- BARRA DE CATEGORIAS -->
-    <div class="container-fluid barra_categorias d-none d-sm-block">
+     <!-- BARRA DE CATEGORIAS -->
+    <div class="container-fluid barra_categorias d-none d-md-block">
         <div class="d-flex flex-row justify-content-center py-1 baner">
-            <div @click="cambia(1)" class="boton1 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+            
+            <div @click="cambia(1)" class="boton1 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-file-alt boton_icono1 "></i>
                 </div>
                 <div class=" subtitulo ">ALQUILERES</div>
             </div>
-            <div @click="cambia(2)" class="boton2 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(2)" class="boton2 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fab fa-houzz boton_icono2"></i>
                 </div>
                 <div class=" subtitulo ">CASAS-LOTES</div>
             </div>
-            <div @click="cambia(3)" class="boton3 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(3)" class="boton3 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-car boton_icono3 "></i>
                 </div>
                 <div class=" subtitulo ">AUTOMÓVILES</div>
             </div>
-            <div @click="cambia(4)" class="boton4 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(4)" class="boton4 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-book-reader boton_icono4"></i>
                 </div>
                 <div class=" subtitulo ">NECESITO</div>
-            </div>   
-            <div @click="cambia(5)" class="boton5 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+            </div>
+
+            <div @click="cambia(5)" class="boton5 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-search-location boton_icono5 "></i>
                 </div>
                 <div class=" subtitulo ">EMPLEOS</div>
             </div>
-            <div @click="cambia(7)" class="boton6 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(7)" class="boton6 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-laptop-code boton_icono6"></i>
                 </div>
                 <div class=" subtitulo ">INFORMÁTICA</div>
-            </div>   
-            <div @click="cambia(8)" class="boton7 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+            </div>  
+
+            <div @click="cambia(8)" class="boton7 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-cat boton_icono7 "></i>
                 </div>
                 <div class=" subtitulo ">MASCOTAS</div>
             </div>
-            <div @click="cambia(9)" class="boton8 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(9)" class="boton8 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-couch boton_icono8"></i>
                 </div>
                 <div class=" subtitulo ">HOGAR</div>
-            </div>   
-            <div @click="cambia(10)" class="boton9 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+            </div>
+
+            <div @click="cambia(10)" class="boton9 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-volleyball-ball boton_icono9 "></i>
                 </div>
                 <div class=" subtitulo ">DEPORTE</div>
             </div>
-            <div @click="cambia(11)" class="boton10 d-flex flex-column justify-content-center align-items-center pt-1 mx-2">
+
+            <div @click="cambia(11)" class="boton10 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fa fa-fw fa-utensils boton_icono10"></i>
                 </div>
@@ -83,14 +93,11 @@ export default {
 </script>
 
 <style>
-    /* BARRA DE BOTONES ******************* */
-
+ /* BARRA DE BOTONES ******************* */
     .barra_categorias{
     background: linear-gradient( #fff, #9fabce, #fff);
     }
-
     /* barra botones nuevo */
-
 .boton1{
     border-radius: 10px;
     background-color: #775997;
@@ -98,7 +105,6 @@ export default {
     height: 103px;
     cursor:pointer;
 }
-
 .boton_icono1{
     color: #390074;
     font-size: 50px;
@@ -114,7 +120,6 @@ export default {
     color: #e41b4d;
     font-size: 50px;
 }
-
 .boton3{
     border-radius: 10px;
     background-color: #e9d94b;
@@ -137,7 +142,6 @@ export default {
     color: #e38801;
     font-size: 50px;
 }
-
 .boton5{
     border-radius: 10px;
     background-color: #6cd92f;
@@ -160,7 +164,6 @@ export default {
     color: #04c7c0;
     font-size: 50px;
 }
-
 .boton7{
     border-radius: 10px;
     background-color: #e14877;
@@ -183,7 +186,6 @@ export default {
     color: #c425c6;
     font-size: 50px;
 }
-
 .boton9{
     border-radius: 10px;
     background-color: #5f2764;
@@ -217,14 +219,11 @@ export default {
     background-color: white;
     width: 80px;
     height: 80px;
-
 }
-
 .subtitulo{
     font-size: 12px;
     color: white;
     font-weight: bold;
     
 }
-
 </style>

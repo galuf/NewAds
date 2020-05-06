@@ -28,6 +28,9 @@ export default {
   components :{
     Login,
     Registro
+  },
+  mounted(){
+    window.scroll (0, 0);
   }  
 }
 </script>

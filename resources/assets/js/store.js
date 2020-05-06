@@ -12,7 +12,11 @@ const store = new Vuex.Store({
         categoria:'',
         contenido: 0,
         sesion:!!user.content,
-        usuario: (!!user.content ? JSON.parse(user.content) : {})
+        usuario: (!!user.content ? JSON.parse(user.content) : {}),
+        mensaje:{
+            estado : false,
+            texto: ''
+        }
     },
     mutations:{
         login(state,usuario){
@@ -33,6 +37,13 @@ const store = new Vuex.Store({
         },
         contenidoCambio(state,cont){
             state.contenido = cont
+        },
+        mensajeShow(state,texto){
+            state.mensaje.texto = texto
+            state.mensaje.estado = true
+            setTimeout(()=>{ state.mensaje.estado = false 
+                state.mensaje.texto = ''
+            }, 3000);
         }
     }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="contenido container-fluid pt-2">
-        <div class="p-4"></div>
+        <div class="p-3 p-md-4"></div>
     <div class="container pt-4">
       <div class="row">
         <!-- lado izquierdo -->
@@ -27,6 +27,7 @@ export default {
     }
   },
   mounted(){
+    window.scroll (0, 0);
     console.log(this.$route.query.ads)
   }
   

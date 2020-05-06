@@ -149,7 +149,7 @@
 
             <!-- Input COntenido del aviso -->
             <div class="row">
-                <div class="col-0 col-sm-2 form-group">
+                <div class="col-12 col-sm-2 form-group">
                     <label for="" class="control-label">Contenido del aviso:</label>
                 </div>
                 
@@ -167,13 +167,17 @@
 
             <!-- Input Imagen del aviso -->
             <div class="row">
-                <div class="col-0 col-sm-2 form-group">
+                <div class="col-12 col-sm-4 form-group">
                     <label for="" class="control-label">Imagen del aviso:</label>
                 </div>
-                <div class="img_usuario"><img :src="( imagen )" class="img-fluid img_aviso"></div>
-                <div class="col-12 col-sm-10 form-group">
+
+                <div class="img-usuario col-sm-4">
+                    <img class="img-fluid img_aviso" :src="( imagen )" >
+                    <div class="form-group">
                     <input type="file" @change ='obtenerImagen' class="form-control-file border form-control" name="file">
+                    </div>
                 </div>
+                <div class="col-sm-4"></div>
             </div>
             <!-- Fin de Imagen del aviso -->
         </div>

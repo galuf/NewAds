@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link rel="icon" href="">
+    <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
     <title>NewAds</title>
     
     
@@ -58,20 +58,10 @@
         </header>
 
         <!-- barra de logo cabecera mara movil -->
-    <header class=" container-fluid d-block d-sm-none cabecera fixed-top">
-        <menu-movil />    
-    </header>
+        <header class=" container-fluid d-block d-sm-none cabecera fixed-top py-1">
+            <menu-movil />    
+        </header>
 
-
-        <!-- barra de categorias para movil -->
-        <div class="d-sm-none">
-            <barra-categoria-movil />
-        </div>
-        
-        <!-- buscador para movil -->
-        <div class="d-sm-none">
-            <buscador-movil />
-        </div>
     
         <main>
             <app />
@@ -84,30 +74,26 @@
                     <div class="col-12 col-sm-4">
                         <div class="pl-1 pl-md-5">
                             <ul class="navbar-nav">
-                                <li><a href="" class="">Acerca de NewAds</a></li>
-                                <li><a href="" class="">Contáctenos</a></li>
-                                <li><a href="" class="">Lo más buscado</a></li>
-                                <li><a href="" class="">Busquedas recientes</a></li>
-    
+                                <li><router-link to="/fotter" @click="scroll">Acerca de NewAds</router-link></li>
+                                <li><router-link to="/fotter" @click="scroll">Contáctenos</router-link></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-12 col-sm-4">
                         <div class="pl-1 pl-md-5">
                             <ul class="navbar-nav">
-                                <li><a href="" class="">Centro de ayuda</a></li>
-                                <li><a href="" class="">Politicas de privacidad</a></li>
-                                <li><a href="" class="">Terminos y condiciones</a></li>
+                                <li><router-link to="/fotter" @click="scroll">Politicas de privacidad</router-link></li>
+                                <li><router-link to="/fotter" @click="scroll">Terminos y condiciones</router-link></li>
                              </ul>
                         </div>
                     </div>
                     <div class="col-12 col-sm-4">
                         <div class="redes2">
                             <ul class="d-flex justify-content-center pt-4 mr-0">
-                                <li><a href="" class=""><i class="fab fa-facebook-f float-left lead ml-3"></i></a></li>
-                                <li><a href="" class=""><i class="fab fa-instagram float-left lead ml-3"></i></a></li>
-                                <li><a href="" class=""><i class="fab fa-twitter float-left lead ml-3"></i></a></li>
-                                <li><a href="" class=""><i class="fab fa-youtube float-left lead ml-3"></i></a></li>
+                                <li><a class=""><i class="fab fa-facebook-f float-left lead ml-3"></i></a></li>
+                                <li><a class=""><i class="fab fa-instagram float-left lead ml-3"></i></a></li>
+                                <li><a class=""><i class="fab fa-twitter float-left lead ml-3"></i></a></li>
+                                <li><a class=""><i class="fab fa-youtube float-left lead ml-3"></i></a></li>
                             </ul>
                         </div>
                     </div>

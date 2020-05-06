@@ -12,6 +12,7 @@ Vue.component('user-logo', require('./components/UserLogo.vue'))
 Vue.component('buscador-movil',require('./components/BuscadorMovil.vue'))
 Vue.component('barra-categoria-movil',require('./components/BarraCategoriaMovil.vue'))
 Vue.component('menu-movil', require('./components/MenuMovil.vue'))
+Vue.component('mensaje-accion',require('./components/MensajeAccion.vue'))
 import router from './router'
 import store from  './store'
 
@@ -33,7 +34,11 @@ const app = new Vue({
     },
     methods:{
         reset(){
+            window.scroll (0, 0);
             this.$store.commit('buscador',{filtro:'',busqueda:'',categoria:''})
+        },
+        scroll(){
+            window.scroll (0, 0)
         }
     }
 });

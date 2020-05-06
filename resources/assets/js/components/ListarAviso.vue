@@ -3,14 +3,19 @@
       <div class="col-12 col-md-9 p-0">
         
         <div v-if="categoria!=''" class="d-flex flex-row justify-content-around titulo-categoria" :style='{backgroundColor:categorias[categoria][1]}'>
-          <h3 v-text="categorias[categoria][0]"></h3>
+          <div class="texto-categoria" v-text="categorias[categoria][0]"></div>
         </div>
         
         <div v-if="filtro!='' && busqueda!=''">
-          <div> <strong>Resultados Para :</strong> Filtro :{{filtro}} Busqueda : {{ busqueda }}</div>
+          <div class="filtro-texto"> <strong>Resultados: </strong> Filtro <i class="fas fa-caret-right"></i> {{filtro}} Busqueda: {{ busqueda }}</div>
         </div>
 
         {{listaAvisos}}
+        
+        <div v-if="arrayAvisos.length == 0">
+          <h4>Aun no ahi anuncios para mostrar. Sube tu anuncio</h4>
+        </div>
+        
         <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
           <div class="row">
               <div class="col-0 col-sm-4 img-container">
@@ -44,17 +49,17 @@
                     <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
                         <div class="ver_aviso"> <button class="btn btn-primary">Ver más</button> </div>
                     </router-link>
-                  
                   </div>
               </div>
           </div>
-        </div>    
+        </div>   
       </div>
           <!-- fin lado centro derecho -->
 </template>
 
 <script>
 import Buscador from './Buscador'
+
 export default {
   components:{
     Buscador
@@ -102,7 +107,6 @@ export default {
     }
   },
   methods:{ 
-
     unico : async function(aviso,usuario){
       let me = this;
       let url = '/favoritoUnico?usuario_id='+usuario+'&aviso_id='+aviso
@@ -130,7 +134,7 @@ export default {
           })
           //console.log('Se activo Favorito')
         } 
-        alert('Se agrego a Ver mas Tarde')     
+        this.$store.commit('mensajeShow','Se agrego a ver más tarde')     
       }
     },
     dameHora(fecha1,fecha2){
@@ -200,6 +204,15 @@ export default {
 </script>
 
 <style>
+  .filtro-texto{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    color: #b2a10c;
+  }
+  .texto-categoria{
+    font-size: 24px;
+    font-weight: bold;
+  }
   .titulo-categoria{
     border-radius:10px;
     color: white;
@@ -213,5 +226,10 @@ export default {
   .propiedades-aviso{
     display: flex;
     justify-content: space-between;
+  }
+  @media (max-width:575px){
+    .texto-categoria{
+      font-size: 16px;
+    }
   }
 </style>

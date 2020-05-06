@@ -8,6 +8,7 @@ import VerContenidoAviso from './pages/VerContenidoAviso'
 import Perfil from './pages/Perfil'
 import EditarContenidoAviso from './pages/EditarContenidoAviso'
 import SuPerfil from './pages/SuPerfil'
+import Fotter from './pages/Fotter'
 
 import store from './store'
 
@@ -51,6 +52,11 @@ const router = new VueRouter({
       path:'/suPerfil',
       name: 'SuPerfil',
       component: SuPerfil
+    },
+    {
+      path:'/fotter',
+      name:'Fotter',
+      component: Fotter
     }
   ]
 })

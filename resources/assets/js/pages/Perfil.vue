@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="p-4 bg-danger"></div>
+    <div class=" p-3 p-md-4 bg-danger"></div>
       <div class="contenido container-fluid pt-4 mt-2">
         <div class="container">
             <div class="row">
@@ -40,6 +40,9 @@ export default {
     MisAvisos,
     MisFavoritos,
     EditarDatos
+  },
+  mounted(){
+    window.scroll (0, 0);
   }
 }
 </script>

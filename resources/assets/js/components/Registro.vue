@@ -46,8 +46,9 @@
                 <input v-model="password_confirmation" type="password" class="form-control" placeholder="Confirma tu Contraseña" name="password_confirmation" required>
             </div>
 
-            <div class="texto_reg">Al hacer clic en Registrarte, aceptas las Condiciones y 
-                la Política de privacidad. Es posible 
+            <div class="texto_reg">Al hacer clic en Registrarte, aceptas las <a href=""> <router-link to="/fotter"> Condiciones y 
+                la Política</router-link> 
+                </a> de privacidad. Es posible 
                 que te enviemos notificaciones por SMS que podrás desactivar cuando desees.</div>
 
             <div class="form-footer">
@@ -96,6 +97,7 @@ export default {
         }else{
           me.$router.go(-1)
         }
+        this.$store.commit('mensajeShow',`Bienvenido ${this.$store.state.usuario.nombre}`)
         //me.$router.push({path:'/'})
       })
       .catch(err =>{

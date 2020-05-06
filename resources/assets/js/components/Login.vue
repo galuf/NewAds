@@ -46,9 +46,9 @@
             <button @click="iniciarSesion" type="button" class="btn btn-info">
             <span class="glyphicon glyphicon-log-in"></span> Entrar
             </button>
-            <a class="btn btn-link" href="#">
+            <!-- <a class="btn btn-link" href="#">
               Forgot Your Password?
-            </a>
+            </a> -->
         </div>
         
         
@@ -89,7 +89,7 @@ export default {
         }else{
           me.$router.go(-1)
         }
-
+        this.$store.commit('mensajeShow',`Bienvenido ${this.$store.state.usuario.nombre}`)
       })
       .catch(err =>{
         console.log(err.response)

@@ -26,8 +26,8 @@
             <div class="row">
                 <div class="col-12 col-sm-6 texto_aviso ">
                     <p><strong> Nombre: </strong>{{ usuario.nombre}} {{usuario.apellido}}</p>
-                    <p><strong>Correo electrónico:</strong> {{aviso.email}} </p> 
-                    <p><strong>Celular de contacto:</strong> {{aviso.telefono}} </p> 
+                    <p><strong>Email:</strong> {{aviso.email}} </p> 
+                    <p><strong>Celular:</strong> {{aviso.telefono}} </p> 
                 </div>
                 <div class="col-12 col-sm-6 texto_aviso  ">
                     <p><strong>Categoría:</strong>  {{categoria.nombre}} </p>

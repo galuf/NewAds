@@ -134,6 +134,10 @@ header .logotipo {
 .texto p{
     font-size: 12px;
 }
+.texto-perfil{
+    font-size: 24px;
+    font-weight: bold;
+}
 
 /* lado izquierdo */
 
@@ -307,6 +311,28 @@ header .logotipo {
 /* Tablet vertical (MD revisamos en 768px) */
 @media (max-width:991px) and (min-width:768px){
 
+    .boton1, .boton2, .boton3, .boton4, .boton5,
+      .boton6, .boton7, .boton8, .boton9, .boton10{
+        border-radius: 7px;
+        width: 70px !important;
+        height: 77px !important;
+    }
+
+      .boton_icono1, .boton_icono2, .boton_icono3, .boton_icono4, .boton_icono5, .boton_icono6,
+      .boton_icono7, .boton_icono8, .boton_icono9, .boton_icono10 {
+          font-size: 30px !important;
+      }
+      .subtitulo{
+        font-size: 8px !important;
+    }
+    .circulo{
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .user-name{
+        display:none !important;
+    }
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -395,6 +421,9 @@ header .logotipo {
 /* Movil vertical (revisamos en 320px) */
 @media (max-width:575px){
 
+    .texto-perfil{
+        font-size: 16px;
+    }
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr;

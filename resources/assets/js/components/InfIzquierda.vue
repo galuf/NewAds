@@ -13,7 +13,7 @@
             <a @click="cambia(1)" class="miPerfil" ><i class="miPerfil far fa-file-alt"></i> Mis avisos</a>
             <a @click="cambia(2)" class="miPerfil"><i class="miPerfil fas fa-envelope-open-text"></i> Ver más tarde</a>
             <a @click="cambia(0)" class="miPerfil"><i class="miPerfil fas fa-address-card"></i> Mi perfil</a>
-            <a @click="cambia(3)" class="miPerfil"><i class="miPerfil fa fa-fw fa-user"></i> Cambiar contraseña</a>
+            <!-- <a @click="cambia(3)" class="miPerfil"><i class="miPerfil fa fa-fw fa-user"></i> Cambiar contraseña</a> -->
           </div>
 
           <div class="titulo_izq p-2">
@@ -47,12 +47,14 @@ export default {
   },
   methods:{
     cambiaCategoria(elemento){
+      window.scroll (0, 0);
       if(this.$route.path != '/')
           this.$router.push({path: '/'});
       this.categoria = elemento  
       this.$store.commit('categoria',this.categoria)
     },
     cambia(contenido){
+      window.scroll (0, 0);
       if(!this.$store.state.sesion){
         this.$router.push({path: '/auth'})
       }else{

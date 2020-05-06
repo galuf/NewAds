@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="p-3 p-md-4"></div>
+    <div class=" p-3 p-md-4 bg-danger"></div>
       <div class="contenido container-fluid pt-4 mt-2">
         <div class="container">
-          <div class="row">
-            <inf-izquierda />
-            
-            <perfil-ajeno :id="$route.query.id"/>
-
+            <div class="row">
+              <inf-izquierda />
+              <acerca-de />
           </div>
         </div>
       </div>
@@ -15,16 +13,12 @@
 </template>
 
 <script>
+import AcercaDe from '../components/AcercaDe'
 import InfIzquierda from '../components/InfIzquierda'
-import PerfilAjeno from '../components/PerfilAjeno'
-
 export default {
   components:{
-    PerfilAjeno,
+    AcercaDe,
     InfIzquierda
-  },
-  mounted(){
-    window.scroll (0, 0);
-  }  
+  }
 }
 </script>

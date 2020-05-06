@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-md-9 p-0">
     <div class="d-flex flex-row justify-content-around titulo">
-        <h4 v-text="'Mis Avisos'"></h4>
+        <div class="texto-perfil" v-text="'Mis Avisos'"></div>
     </div>
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
       <div class="row">
@@ -11,7 +11,7 @@
           <div class="col-12 col-sm-8 pl-sm-0 pr-sm-3">
               <!-- avatar aviso -->
               <div class="float-right ">
-                <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
+                <router-link :to="'/suPerfil?id='+aviso.usuario_id" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
               </div>
               <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
               <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}&nbsp; </div>

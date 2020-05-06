@@ -1,7 +1,7 @@
 <template>
     <!-- lado centro derecho -->
   <div class="col-12 col-md-9 p-0 p-md-1">
-    <div class="titulo"><h4>Datos de Usuario</h4></div>
+    <div class="titulo"><div class="texto-perfil">Datos de Usuario</div></div>
     
     <div class="p-0 py-2 cuadro_aviso_i mb-2"> 
         <div class=" p-2 pr-3">
@@ -148,8 +148,9 @@
                         </div>
                     </div>
                     <!-- Fin de Input de Direccion -->
-
-                    <button class="btn btn-primary" @click="editarPerfil()"> Guardar </button>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" @click="editarPerfil()"> Guardar </button>
+                    </div>
 
                 </div>
 

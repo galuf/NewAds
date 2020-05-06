@@ -2,7 +2,7 @@
   <div class="col-12 col-md-9 p-0">
     
     <div class="d-flex flex-row justify-content-around titulo">
-          <h4 v-text="'Ver más tarde'"></h4>
+          <div class="texto-perfil" v-text="'Ver más tarde'"></div>
     </div>
 
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
@@ -13,27 +13,39 @@
             <div class="col-12 col-sm-8 pl-sm-0 pr-sm-3">
                 <!-- avatar aviso -->
                 <div class="float-right ">
-                    <a href=""><img class="avatar_aviso" src="img/avatar1.png" alt=" Avatar"></a>
+                    <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
                 </div>
-                <div class="titulo_aviso"><a href="">{{aviso.titulo}}</a></div>
+                <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.aviso_id">{{aviso.titulo}}</router-link></div>
                 <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}</div>
                 <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
                 <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
 
-                <a href="" class="float-left" data-toggle="tooltip" data-placement="top"
-                    title="Categoría"><i class="fa fa-fw fa-file-alt"></i>
-                </a>
-                <router-link :to="'/verContenidoAviso?ads=' + aviso.id">
-                    <div class="ver_aviso">Ver más...</div>
-                </router-link>
-                <div class="d-flex justify-content-end pt-3">
-                    <button class=" btn btn-danger " 
-                        data-toggle="tooltip" 
-                        data-placement="top"
-                        @click="eliminar(aviso.id)">
-                        Quitar: Ver más tarde
-                    </button>
-                </div>
+                <div class="propiedades-aviso mt-5">
+                    
+                    <a class="float-left" data-toggle="tooltip" data-placement="top"
+                        :title="categorias[aviso.categoria_id][0]">
+                        <i :class="`${categorias[aviso.categoria_id][2]} reloj`" 
+                                :style="`color: ${categorias[aviso.categoria_id][1]}`">
+                        </i>
+                    </a>
+
+                    <div v-if="aviso.estado == 0" style="color:red;">Este aviso fue dado de baja</div>
+
+                    <div class="d-flex">    
+                        <router-link :to="'/verContenidoAviso?ads=' + aviso.aviso_id">
+                            <div class="ver_aviso"> <button class="btn btn-primary">Ver más</button> </div>
+                        </router-link>
+                        
+                        <div class="d-flex justify-content-end ml-3">
+                            <button class=" btn btn-danger " 
+                                data-toggle="tooltip" 
+                                data-placement="top"
+                                @click="eliminar(aviso.id)">
+                                Quitar
+                            </button>
+                        </div>
+                    </div>
+                </div>    
             </div>
         </div>
     </div>    
@@ -45,6 +57,18 @@ export default {
   data(){
     return{
       arrayAvisos : [],
+      categorias: {
+        '1': ['Alquileres', '#3C0D6F' , 'fa fa-fw fa-file-alt'],
+        '2': ['Casas y Lotes', '#E41B4D', 'fab fa-fw fa-houzz'],
+        '3': ['Automoviles', '#E4CE00', 'fa fa-fw fa-car'],
+        '4': ['Necesito', '#E38801','fa fa-fw fa-book-reader'],
+        '5': ['Empleos', '#6CD92F','fa fa-fw fa-search-location'],
+        '7': ['Informatica', '#04C7C0','fa fa-fw fa-laptop-code'],
+        '8': ['Mascotas', '#E14877','fa fa-fw fa-cat'],
+        '9': ['Hogar', '#C425C6','fa fa-fw fa-couch'],
+        '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
+        '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
+      }
     }
   },
   methods:{
@@ -148,4 +172,13 @@ export default {
         background-color: #D3D3D3;
         padding: 5px;
     }
+    .propiedades-aviso{
+    display: flex;
+    justify-content: space-between;
+    }
+    .reloj{
+    font-size: 20px;
+    margin : 7px;
+    cursor: pointer;
+  }
 </style>

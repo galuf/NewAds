@@ -21,13 +21,13 @@
                         <option value="3">Automóviles</option>
                         <option value="4">Necesito</option>
                         <option value="5">Empleo</option>
-                        <option value="6">Educación</option>
+                        <!-- <option value="6">Educación</option> -->
                         <option value="7">Informática</option>
                         <option value="8">Mascotas</option>
                         <option value="9">Hogar</option>
                         <option value="10">Deporte</option>
                         <option value="11">Eventos</option>
-                        <option value="12">Arte</option>
+                        <!-- <option value="12">Arte</option> -->
                     </select>
                     
                     <div v-show="estado_errores && errores.categoria" class="div-error">
@@ -167,13 +167,19 @@
 
             <!-- Input Imagen del aviso -->
             <div class="row">
-                <div class="col-0 col-sm-2 form-group">
+                <div class="col-12 col-sm-4 form-group">
                     <label for="" class="control-label">Imagen del aviso:</label>
                 </div>
-                
-                <div class="col-12 col-sm-10 form-group">
+
+                <div class="img-usuario col-sm-4">
+                    
+                    <img v-if="categoria_id != ''" class="img-fluid img_aviso" :src="( imagen || '/img/categoria/'+categoria_id+'.jpg')" >
+                    
+                    <div class="form-group">
                     <input type="file" @change ='obtenerImagen' class="form-control-file border form-control" name="file">
+                    </div>
                 </div>
+                <div class="col-sm-4"></div>
             </div>
             <!-- Fin de Imagen del aviso -->
         </div>
@@ -278,6 +284,7 @@ export default {
         provincia_id: '',
         distrito_id: '',
         categoria_id:'',
+        imagenCategoria:'',
         usuario:{},
         direccion:'',
         titulo:'',
@@ -290,7 +297,6 @@ export default {
     }
  },
  computed:{
-
    listarProvincia(){
       let me = this;
       axios.get('/provincia?region_id='+this.region_id)
@@ -386,7 +392,8 @@ export default {
         }).then( (res) => {
             console.log('aviso creado')
             //window.location.href = 'some url';
-            alert('Se creo el aviso');
+            this.$router.push({path: '/'})
+            this.$store.commit('mensajeShow','Aviso Creado')
         }).catch((err)=>{
             console.log( 'ha habido un error enviando : ' + err)
         })

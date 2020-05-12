@@ -12,8 +12,10 @@
 
         {{listaAvisos}}
         
-        <div v-if="arrayAvisos.length == 0">
-          <h4>Aun no ahi anuncios para mostrar. Sube tu anuncio</h4>
+        <spinner v-show="loading"/>
+
+        <div class="d-flex justify-content-center" v-if="(arrayAvisos.length == 0 && loading==false)">
+          <h5>Aún no hay anuncios para mostrar, sube tu anuncio.</h5>
         </div>
         
         <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
@@ -29,7 +31,7 @@
                   <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
                   <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp; </div>
                   <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
-                  <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
+                  <p class="texto_aviso pt-1" v-text="contenidoVisual(aviso.contenido)"></p>
                   
                   <div class="propiedades-aviso">
 
@@ -59,10 +61,11 @@
 
 <script>
 import Buscador from './Buscador'
-
+import Spinner from './Spinner'
 export default {
   components:{
-    Buscador
+    Buscador,
+    Spinner
   }, 
   //props : ['filtro', 'busqueda','categoria'],
   data(){
@@ -84,6 +87,7 @@ export default {
         '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
         '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
       },
+      loading:true,
     }
   },
   computed:{
@@ -97,6 +101,7 @@ export default {
             .then((response)=>{
               let respuesta= response.data
               me.arrayAvisos = respuesta.avisos
+              me.loading = false
               //console.log(me.arrayAvisos)
             })
             .catch((error)=>{
@@ -114,10 +119,10 @@ export default {
       return valor.data.favorito;
     },
     favorito : async function(aviso){
-      let b = await this.unico(aviso,this.$store.state.usuario.id)
       if(!this.$store.state.sesion){
-          this.$router.push({path: '/auth'})
+        this.$router.push({path: '/auth'})
       }else{
+        let b = await this.unico(aviso,this.$store.state.usuario.id)
         if(b.length === 0){
           let me = this;
           const url = '/favorito'
@@ -136,6 +141,15 @@ export default {
         } 
         this.$store.commit('mensajeShow','Se agrego a ver más tarde')     
       }
+    },
+    contenidoVisual(texto){
+      let txt = texto.split(' ')
+      if(txt.length > 15) {
+        txt = txt.slice(0,15)
+        txt.push('...')
+      }
+      txt = txt.join(' ')
+      return txt
     },
     dameHora(fecha1,fecha2){
         //console.log(fecha1 + ' fecha 1 ');

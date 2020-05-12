@@ -4,7 +4,7 @@
     <div class="d-flex flex-row justify-content-around titulo">
           <div class="texto-perfil" v-text="'Ver más tarde'"></div>
     </div>
-
+    <spinner v-show="loading"/>
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
         <div class="row">
             <div class="col-0 col-sm-4 img-container">
@@ -16,7 +16,7 @@
                     <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
                 </div>
                 <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.aviso_id">{{aviso.titulo}}</router-link></div>
-                <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}</div>
+                <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp;</div>
                 <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
                 <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
 
@@ -53,7 +53,11 @@
 </template>
 
 <script>
+import Spinner from './Spinner'
 export default {
+  components:{
+      Spinner
+  },
   data(){
     return{
       arrayAvisos : [],
@@ -68,7 +72,8 @@ export default {
         '9': ['Hogar', '#C425C6','fa fa-fw fa-couch'],
         '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
         '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
-      }
+      },
+      loading: true
     }
   },
   methods:{
@@ -81,7 +86,7 @@ export default {
             this.listaAvisos()
         })
         .catch(err => {
-
+            console.log(err)
         })
     },
     dameHora(fecha1,fecha2){
@@ -146,6 +151,7 @@ export default {
               let respuesta= response.data
               me.arrayAvisos = respuesta.favoritos
               //console.log(me.arrayAvisos)
+              me.loading = false
             })
             .catch((error)=>{
               console.log( 'Hubo un error en ListarAviso' + error)

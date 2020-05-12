@@ -14,7 +14,7 @@
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
                     <i class="fab fa-houzz boton_icono2"></i>
                 </div>
-                <div class=" subtitulo ">CASAS-LOTES</div>
+                <div class=" subtitulo ">CASAS</div>
             </div>
 
             <div @click="cambia(3)" class="boton3 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">

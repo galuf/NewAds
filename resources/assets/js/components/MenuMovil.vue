@@ -5,8 +5,7 @@
         <div class="d-flex align-items-center" @click='reset'>
             <router-link to='/'> <img src="img/logo.png" alt="newads" class="fluid logo_movil" width="100px"></router-link>
         </div>
-    
-        <nav class="hamburger ">
+        <nav class="hamburger">
             <button class="hamburger__button" @click="openMobile()">
                 <span class="hamburger__button-bar"></span>
                 <span class="hamburger__button-bar"></span>
@@ -52,7 +51,7 @@
 export default {
   data(){
       return {
-          estado : false
+          estado : true
       }
   },
   methods : {
@@ -147,9 +146,6 @@ export default {
 }
 
 @media (min-width: 40rem) {
-    .hamburger__button {
-        display: none;
-    }
     .desktop__navigation div {
         display: block;
     }

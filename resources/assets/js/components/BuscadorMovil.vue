@@ -1,5 +1,5 @@
 <template>
-  <div class="container d-block d-sm-none py-2">
+  <div class="container d-block d-md-none py-2">
       <div class="input-group md-form form-sm form-2 pl-0">
           <select v-model="filtro" name="categoria" id="option" class="filtro pl-2">
             <option disabled value="">Filtro</option>
@@ -24,14 +24,14 @@
 export default {
   data(){
     return {
-      filtro:'',
+      filtro:'contenido',
       busqueda:'',
     }
   },
   methods:{
     presionar(){
       this.$store.commit('buscador',{filtro: this.filtro, busqueda: this.busqueda, categoria:''})
-      this.filtro = ''
+      this.filtro = 'contenido'
       this.busqueda = ''
       if(this.$route.path != '/')
         this.$router.push({path: '/'})

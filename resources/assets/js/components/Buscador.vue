@@ -24,14 +24,14 @@
 export default {
   data(){
     return {
-      filtro:'',
+      filtro:'contenido',
       busqueda:'',
     }
   },
   methods:{
     presionar(){
       this.$store.commit('buscador',{filtro: this.filtro, busqueda: this.busqueda, categoria:''})
-      this.filtro = ''
+      this.filtro = 'contenido'
       this.busqueda = ''
       if(this.$route.path != '/')
         this.$router.push({path: '/'})

@@ -396,6 +396,7 @@ export default {
         if(this.validarAvisos()){
             console.log(this.errores+ '  ');
             console.log(this.usuario.telefono)
+            window.scroll (0, 0);
             return
         }
         //console.log(`${this.region_id} ${this.provincia_id} ${this.distrito_id}`)
@@ -415,7 +416,9 @@ export default {
         }).then( (res) => {
             console.log('aviso modificado')
             //window.location.href = 'some url';
-            alert('Se modifico el aviso Correctamente');
+            //alert('Se modifico el aviso Correctamente');
+            this.$router.push({path: '/'})
+            this.$store.commit('mensajeShow','Aviso Modificado')
         }).catch((err)=>{
             console.log( 'ha habido un error enviando : ' + err)
         })

@@ -3,12 +3,13 @@
     <barra-categoria />
 
     <!-- barra de categorias para movil -->
-    <div class="d-sm-none">
+    <div class="d-md-none">
+        <div class="p-4 d-sm-block  d-none"></div>
         <barra-categoria-movil />
     </div>
     
     <!-- buscador para movil -->
-    <div class="d-sm-none">
+    <div class="d-md-none">
         <buscador-movil />
     </div>
 

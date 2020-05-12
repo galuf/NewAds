@@ -3,6 +3,7 @@
     <div class="d-flex flex-row justify-content-around titulo">
         <div class="texto-perfil" v-text="'Mis Avisos'"></div>
     </div>
+    <spinner v-show="loading"/>
     <div class="cuadro_aviso_i p-2 mr-0 mr-md-1 mb-2" v-for="aviso in arrayAvisos" :key="aviso.id">
       <div class="row">
           <div class="col-0 col-sm-4 img-container">
@@ -32,10 +33,15 @@
 
 <script>
 import Swal from 'sweetalert2'
+import Spinner from './Spinner'
 export default {
+  components:{
+      Spinner
+  },
   data(){
     return{
       arrayAvisos : [],
+      loading: true,
     }
   },
   methods:{
@@ -146,6 +152,7 @@ export default {
             .then((response)=>{
               let respuesta= response.data
               me.arrayAvisos = respuesta.aviso
+              me.loading = false
               //console.log(me.arrayAvisos)
             })
             .catch((error)=>{

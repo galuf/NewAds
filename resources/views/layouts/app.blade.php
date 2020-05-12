@@ -35,7 +35,7 @@
 
     <div id="app">
         <!-- CABECERA -->
-        <header class=" container-fluid p-0 cabecera fixed-top d-none d-sm-block">
+        <header class=" container-fluid p-0 cabecera fixed-top d-none d-md-block">
             <div class="container ">
                 <div class="row" >
                     
@@ -58,7 +58,7 @@
         </header>
 
         <!-- barra de logo cabecera mara movil -->
-        <header class=" container-fluid d-block d-sm-none cabecera fixed-top py-1">
+        <header class=" container-fluid d-block d-md-none cabecera fixed-top py-1">
             <menu-movil />    
         </header>
 

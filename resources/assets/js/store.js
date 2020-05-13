@@ -16,7 +16,8 @@ const store = new Vuex.Store({
         mensaje:{
             estado : false,
             texto: ''
-        }
+        },
+        page:1
     },
     mutations:{
         login(state,usuario){
@@ -44,6 +45,9 @@ const store = new Vuex.Store({
             setTimeout(()=>{ state.mensaje.estado = false 
                 state.mensaje.texto = ''
             }, 3000);
+        },
+        changePages(state,p){
+            state.page = p
         }
     }
 })

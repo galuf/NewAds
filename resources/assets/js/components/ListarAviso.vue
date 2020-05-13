@@ -11,9 +11,6 @@
         </div>
 
         {{listaAvisos}}
-        
-        <spinner v-show="loading"/>
-
         <div class="d-flex justify-content-center" v-if="(arrayAvisos.length == 0 && loading==false)">
           <h5>Aún no hay anuncios para mostrar, sube tu anuncio.</h5>
         </div>
@@ -54,7 +51,11 @@
                   </div>
               </div>
           </div>
-        </div>   
+        </div>  
+        <spinner v-show="loading"/>
+        <div v-if="(next_page != last_page)" class="container-fluid btn_ver_mas pt-2">
+          <button @click="cargaMas()" type="button" class="btn btn-primary btn_mas">Más avisos</button>
+        </div>
       </div>
           <!-- fin lado centro derecho -->
 </template>
@@ -88,6 +89,8 @@ export default {
         '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
       },
       loading:true,
+      next_page : '',
+      last_page: null,
     }
   },
   computed:{
@@ -95,13 +98,16 @@ export default {
       this.filtro = this.$store.state.filtro
       this.busqueda = this.$store.state.busqueda
       this.categoria = this.$store.state.categoria
+      this.next_page = this.$store.state.page
       let me = this;
-      let url = '/buscador?filtro='+this.filtro+'&busqueda='+this.busqueda+'&categoria='+this.categoria;
+      let url = '/buscador?filtro='+this.filtro+'&busqueda='+this.busqueda+'&categoria='+this.categoria+'&page='+this.next_page;
       axios.get(url)
             .then((response)=>{
               let respuesta= response.data
-              me.arrayAvisos = respuesta.avisos
+              if(me.next_page == 1) me.arrayAvisos = []
+              me.arrayAvisos = [...me.arrayAvisos, ...respuesta.avisos.data]
               me.loading = false
+              me.last_page = respuesta.avisos.last_page
               //console.log(me.arrayAvisos)
             })
             .catch((error)=>{
@@ -112,6 +118,10 @@ export default {
     }
   },
   methods:{ 
+    cargaMas(){
+      this.$store.commit('changePages',this.next_page + 1)
+      //this.next_page=this.next_page + 1
+    },
     unico : async function(aviso,usuario){
       let me = this;
       let url = '/favoritoUnico?usuario_id='+usuario+'&aviso_id='+aviso
@@ -207,12 +217,14 @@ export default {
     }
   },
   mounted(){
+    this.next_page = this.$store.state.page
     this.search = this.$route.path != '/';
     let fecha = new Date();
     this.fecha_actual = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-'+(fecha.getDate())+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds();
   },
   destroyed(){
     this.$store.commit('buscador',{filtro:'', busqueda:'',categoria:''})
+    this.$store.commit('changePages',1)
   }
 }
 </script>

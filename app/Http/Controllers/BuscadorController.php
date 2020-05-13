@@ -33,7 +33,8 @@ class BuscadorController extends Controller
                                     'users.avatar as avatar_usuario', 
                                     'categorias.nombre as nombre_categoria')
                             ->orderBy('id','desc')
-                            ->get();
+                            //->get()
+                            ->paginate(15);
         }elseif ($categoria == ''){
             if($criterio == 'usuario'){
                 $id_usuario = User::where('nombre','like','%'.$buscar.'%')
@@ -56,8 +57,9 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario', 
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
-                                ->where('usuario_id',$id_usuario->id);
+                                //->get()
+                                ->where('usuario_id',$id_usuario->id)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -81,8 +83,9 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
-                                ->where('region_id',$id_region->id);
+                                //->get()
+                                ->where('region_id',$id_region->id)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -106,8 +109,9 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
-                                ->where('provincia_id',$id_provincia->id);
+                                //->get()
+                                ->where('provincia_id',$id_provincia->id)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -131,8 +135,9 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
-                                ->where('distrito_id',$id_distrito->id);
+                                //->get()
+                                ->where('distrito_id',$id_distrito->id)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -154,7 +159,8 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get();
+                                //->get()
+                                ->paginate(15);
 
             }elseif($criterio == 'contenido'){
                 $avisos = Aviso::where('contenido','like','%'.$buscar.'%')
@@ -174,7 +180,8 @@ class BuscadorController extends Controller
                                     'users.avatar as avatar_usuario',
                                     'categorias.nombre as nombre_categoria')
                             ->orderBy('id','desc')
-                            ->get();    
+                            //->get()
+                            ->paginate(15);    
             }
         }elseif($categoria != '' && ($buscar == '' || $criterio == '')){
             $avisos = Aviso::where('categoria_id','=',$categoria)
@@ -194,7 +201,8 @@ class BuscadorController extends Controller
                         'users.avatar as avatar_usuario',
                         'categorias.nombre as nombre_categoria')
                 ->orderBy('id','desc')
-                ->get();
+                ->paginate(15);
+                //->get();
         }else{
             if($criterio == 'usuario'){
                 $id_usuario = User::where('nombre','like','%'.$buscar.'%')
@@ -217,9 +225,10 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario', 
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
+                                //->get()
                                 ->where('usuario_id',$id_usuario->id)
-                                ->where('categoria_id',$categoria);
+                                ->where('categoria_id',$categoria)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -243,9 +252,10 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
+                                //->get()
                                 ->where('region_id',$id_region->id)
-                                ->where('categoria_id',$categoria);
+                                ->where('categoria_id',$categoria)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -269,9 +279,10 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
+                                //->get()
                                 ->where('provincia_id',$id_provincia->id)
-                                ->where('categoria_id',$categoria);
+                                ->where('categoria_id',$categoria)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -295,9 +306,10 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get()
+                                //->get()
                                 ->where('distrito_id',$id_distrito->id)
-                                ->where('categoria_id',$categoria);
+                                ->where('categoria_id',$categoria)
+                                ->paginate(15);
                 }else{
                     $avisos = [];
                 }
@@ -320,7 +332,8 @@ class BuscadorController extends Controller
                                         'users.avatar as avatar_usuario',
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
-                                ->get();
+                                //->get();
+                                ->paginate(15);
 
             }elseif($criterio == 'contenido'){
                 $avisos = Aviso::where('contenido','like','%'.$buscar.'%')
@@ -341,9 +354,10 @@ class BuscadorController extends Controller
                                     'users.avatar as avatar_usuario',
                                     'categorias.nombre as nombre_categoria')
                             ->orderBy('id','desc')
-                            ->get();    
+                            //->get();
+                            ->paginate(15);    
             }
         }
-        return [ 'avisos' => $avisos];
+        return ['avisos' => $avisos];
     }
 }

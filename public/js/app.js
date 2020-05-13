@@ -14928,7 +14928,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         mensaje: {
             estado: false,
             texto: ''
-        }
+        },
+        page: 1
     },
     mutations: {
         login: function login(state, usuario) {
@@ -14955,6 +14956,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 state.mensaje.estado = false;
                 state.mensaje.texto = '';
             }, 3000);
+        },
+        changePages: function changePages(state, p) {
+            state.page = p;
         }
     }
 });
@@ -15017,6 +15021,7 @@ var app = new Vue({
         reset: function reset() {
             window.scroll(0, 0);
             this.$store.commit('buscador', { filtro: '', busqueda: '', categoria: '' });
+            this.$store.commit('changePages', 1);
         },
         scroll: function scroll() {
             window.scroll(0, 0);
@@ -52317,6 +52322,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
 //
 //
 //
@@ -52406,7 +52414,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         '10': ['Deporte', '#5F2764', 'fa fa-fw fa-volleyball-ball'],
         '11': ['Eventos', '#222A96', 'fa fa-fw fa-utensils']
       },
-      loading: true
+      loading: true,
+      next_page: '',
+      last_page: null
     };
   },
 
@@ -52415,12 +52425,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       this.filtro = this.$store.state.filtro;
       this.busqueda = this.$store.state.busqueda;
       this.categoria = this.$store.state.categoria;
+      this.next_page = this.$store.state.page;
       var me = this;
-      var url = '/buscador?filtro=' + this.filtro + '&busqueda=' + this.busqueda + '&categoria=' + this.categoria;
+      var url = '/buscador?filtro=' + this.filtro + '&busqueda=' + this.busqueda + '&categoria=' + this.categoria + '&page=' + this.next_page;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayAvisos = respuesta.avisos;
+        if (me.next_page == 1) me.arrayAvisos = [];
+        me.arrayAvisos = [].concat(_toConsumableArray(me.arrayAvisos), _toConsumableArray(respuesta.avisos.data));
         me.loading = false;
+        me.last_page = respuesta.avisos.last_page;
         //console.log(me.arrayAvisos)
       }).catch(function (error) {
         console.log('Hubo un error en ListarAviso' + error);
@@ -52430,6 +52443,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
   },
   methods: {
+    cargaMas: function cargaMas() {
+      this.$store.commit('changePages', this.next_page + 1);
+      //this.next_page=this.next_page + 1
+    },
+
     unico: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(aviso, usuario) {
         var me, url, valor;
@@ -52598,12 +52616,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
   },
   mounted: function mounted() {
+    this.next_page = this.$store.state.page;
     this.search = this.$route.path != '/';
     var fecha = new Date();
     this.fecha_actual = fecha.getFullYear() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getDate() + ' ' + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
   },
   destroyed: function destroyed() {
     this.$store.commit('buscador', { filtro: '', busqueda: '', categoria: '' });
+    this.$store.commit('changePages', 1);
   }
 });
 
@@ -53504,18 +53524,7 @@ var render = function() {
             ])
           ])
         : _vm._e(),
-      _vm._v("\n\n      " + _vm._s(_vm.listaAvisos) + "\n      \n      "),
-      _c("spinner", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.loading,
-            expression: "loading"
-          }
-        ]
-      }),
-      _vm._v(" "),
+      _vm._v("\n\n      " + _vm._s(_vm.listaAvisos) + "\n      "),
       _vm.arrayAvisos.length == 0 && _vm.loading == false
         ? _c("div", { staticClass: "d-flex justify-content-center" }, [
             _c("h5", [
@@ -53664,7 +53673,36 @@ var render = function() {
             ])
           ]
         )
-      })
+      }),
+      _vm._v(" "),
+      _c("spinner", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.loading,
+            expression: "loading"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _vm.next_page != _vm.last_page
+        ? _c("div", { staticClass: "container-fluid btn_ver_mas pt-2" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn_mas",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargaMas()
+                  }
+                }
+              },
+              [_vm._v("Más avisos")]
+            )
+          ])
+        : _vm._e()
     ],
     2
   )
@@ -54401,7 +54439,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* BARRA DE BOTONES ******************* */\n.botonM_icono1{\n    color: #390074;\n}\n.botonM_icono2{\n    color: #e41b4d;\n}\n.botonM_icono3{\n    color: #e4ce00;\n}\n.botonM_icono4{\n    color: #e38801;\n}\n.botonM_icono5{\n    color: #6cd92f;\n}\n.botonM_icono6{\n    color: #04c7c0;\n}\n.botonM_icono7{\n    color: #e14877;\n}\n.botonM_icono8{\n    color: #c425c6;\n}\n.botonM_icono9{\n    color: #5f2764;\n}\n.botonM_icono10{\n    color: #2731ad;\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* BARRA DE BOTONES ******************* */\n.botonM_icono1{\n    color: #390074;\n}\n.botonM_icono2{\n    color: #e41b4d;\n}\n.botonM_icono3{\n    color: #e4ce00;\n}\n.botonM_icono4{\n    color: #e38801;\n}\n.botonM_icono5{\n    color: #6cd92f;\n}\n.botonM_icono6{\n    color: #04c7c0;\n}\n.botonM_icono7{\n    color: #e14877;\n}\n.botonM_icono8{\n    color: #c425c6;\n}\n.botonM_icono9{\n    color: #5f2764;\n}\n.botonM_icono10{\n    color: #2731ad;\n}\n\n", ""]);
 
 // exports
 
@@ -54438,6 +54476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cambia: function cambia(element) {
             this.categoria = element;
             this.$store.commit('categoria', this.categoria);
+            this.$store.commit('changePages', 1);
         }
     }
 });
@@ -54734,7 +54773,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            estado: true
+            estado: false
         };
     },
 
@@ -54746,7 +54785,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.estado = false;
         },
         reset: function reset() {
+            window.scroll(0, 0);
             this.$store.commit('buscador', { filtro: '', busqueda: '', categoria: '' });
+            this.$store.commit('changePages', 1);
         },
         cambia: function cambia(contenido) {
             if (!this.$store.state.sesion) {
@@ -58700,7 +58741,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* BARRA DE BOTONES ******************* */\n.barra_categorias{\n    background: -webkit-gradient( linear, left top, left bottom, from(#fff), color-stop(#9fabce), to(#fff));\n    background: linear-gradient( #fff, #9fabce, #fff);\n}\n    /* barra botones nuevo */\n.boton1{\n    border-radius: 10px;\n    background-color: #775997;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono1{\n    color: #390074;\n    font-size: 50px;\n}\n.boton2{\n    border-radius: 10px;\n    background-color: #e95a7e;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono2{\n    color: #e41b4d;\n    font-size: 50px;\n}\n.boton3{\n    border-radius: 10px;\n    background-color: #e9d94b;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono3{\n    color: #e4ce00;\n    font-size: 50px;\n}\n.boton4{\n    border-radius: 10px;\n    background-color: #e38801;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono4{\n    color: #e38801;\n    font-size: 50px;\n}\n.boton5{\n    border-radius: 10px;\n    background-color: #6cd92f;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono5{\n    color: #6cd92f;\n    font-size: 50px;\n}\n.boton6{\n    border-radius: 10px;\n    background-color: #04c7c0;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono6{\n    color: #04c7c0;\n    font-size: 50px;\n}\n.boton7{\n    border-radius: 10px;\n    background-color: #e14877;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono7{\n    color: #e14877;\n    font-size: 50px;\n}\n.boton8{\n    border-radius: 10px;\n    background-color: #c425c6;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono8{\n    color: #c425c6;\n    font-size: 50px;\n}\n.boton9{\n    border-radius: 10px;\n    background-color: #5f2764;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono9{\n    color: #5f2764;\n    font-size: 50px;\n}\n.boton10{\n    border-radius: 10px;\n    background-color: #2731ad;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono10{\n    color: #2731ad;\n    font-size: 50px;\n}\n.boton1:hover, .boton2:hover, .boton3:hover, .boton4:hover, .boton5:hover,\n.boton6:hover, .boton7:hover, .boton8:hover, .boton9:hover, .boton10:hover{\n    border: 1px solid white;\n    border-radius: 10px;\n    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);\n            box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);\n}\n.circulo{\n    border-radius: 50%;\n    background-color: white;\n    width: 80px;\n    height: 80px;\n}\n.subtitulo{\n    font-size: 12px;\n    color: white;\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* BARRA DE BOTONES ******************* */\n.barra_categorias{\n    background: -webkit-gradient( linear, left top, left bottom, from(#fff), color-stop(#9fabce), to(#fff));\n    background: linear-gradient( #fff, #9fabce, #fff);\n}\n    /* barra botones nuevo */\n.boton1{\n    border-radius: 10px;\n    background-color: #775997;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono1{\n    color: #390074;\n    font-size: 50px;\n}\n.boton2{\n    border-radius: 10px;\n    background-color: #e95a7e;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono2{\n    color: #e41b4d;\n    font-size: 50px;\n}\n.boton3{\n    border-radius: 10px;\n    background-color: #e9d94b;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono3{\n    color: #e4ce00;\n    font-size: 50px;\n}\n.boton4{\n    border-radius: 10px;\n    background-color: #e38801;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono4{\n    color: #e38801;\n    font-size: 50px;\n}\n.boton5{\n    border-radius: 10px;\n    background-color: #6cd92f;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono5{\n    color: #6cd92f;\n    font-size: 50px;\n}\n.boton6{\n    border-radius: 10px;\n    background-color: #04c7c0;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono6{\n    color: #04c7c0;\n    font-size: 50px;\n}\n.boton7{\n    border-radius: 10px;\n    background-color: #e14877;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono7{\n    color: #e14877;\n    font-size: 50px;\n}\n.boton8{\n    border-radius: 10px;\n    background-color: #c425c6;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono8{\n    color: #c425c6;\n    font-size: 50px;\n}\n.boton9{\n    border-radius: 10px;\n    background-color: #5f2764;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono9{\n    color: #5f2764;\n    font-size: 50px;\n}\n.boton10{\n    border-radius: 10px;\n    background-color: #2731ad;\n    width: 90px;\n    height: 103px;\n    cursor:pointer;\n}\n.boton_icono10{\n    color: #2731ad;\n    font-size: 50px;\n}\n.boton1:hover, .boton2:hover, .boton3:hover, .boton4:hover, .boton5:hover,\n.boton6:hover, .boton7:hover, .boton8:hover, .boton9:hover, .boton10:hover{\n    border: 1px solid white;\n    border-radius: 10px;\n    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);\n            box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);\n}\n.circulo{\n    border-radius: 50%;\n    background-color: white;\n    width: 80px;\n    height: 80px;\n}\n.subtitulo{\n    font-size: 12px;\n    color: white;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -58801,6 +58842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cambia: function cambia(element) {
             this.categoria = element;
             this.$store.commit('categoria', this.categoria);
+            this.$store.commit('changePages', 1);
         }
     }
 });

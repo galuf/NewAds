@@ -87,6 +87,7 @@ export default {
         cambia(element){
             this.categoria = element
             this.$store.commit('categoria',this.categoria)
+            this.$store.commit('changePages',1)
         }
     }
 }

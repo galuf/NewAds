@@ -36,6 +36,7 @@ const app = new Vue({
         reset(){
             window.scroll (0, 0);
             this.$store.commit('buscador',{filtro:'',busqueda:'',categoria:''})
+            this.$store.commit('changePages',1)
         },
         scroll(){
             window.scroll (0, 0)

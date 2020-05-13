@@ -51,7 +51,7 @@
 export default {
   data(){
       return {
-          estado : true
+          estado : false
       }
   },
   methods : {
@@ -62,7 +62,9 @@ export default {
         this.estado = false
     },
     reset(){
+        window.scroll (0, 0);
         this.$store.commit('buscador',{filtro:'',busqueda:'',categoria:''})
+        this.$store.commit('changePages',1)
     },
     cambia(contenido){
       if(!this.$store.state.sesion){

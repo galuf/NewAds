@@ -42,6 +42,38 @@ class UserController extends Controller
             $src='/img/avatar/'.$filename;
             $path = public_path().$src;
             file_put_contents($path,$decoded);
+            if($extension == 'jpg'){
+                $img_origen = imagecreatefromjpeg($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 720;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagejpeg($img_destino,$path);
+            }else{
+                $img_origen = imagecreatefrompng($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 520;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagepng($img_destino,$path);
+            }
+
         }else{
             $src = '';
         }

@@ -14,10 +14,10 @@
               <div class="float-right ">
                 <router-link :to="'/suPerfil?id='+aviso.usuario_id" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
               </div>
-              <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
-              <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}}&nbsp; </div>
+              <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{contenidoVisual(aviso.titulo,10)}}</router-link></div>
+              <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} - {{aviso.nombre_distrito}}&nbsp; </div>
               <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
-              <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
+              <p class="texto_aviso pt-1" v-text="contenidoVisual(aviso.contenido,27)"></p>
               <div class="d-flex justify-content-end pt-4">  
                 <router-link :to="'/editarContenidoAviso?ads=' + aviso.id">
                     <button class="btn btn-primary"> Editar aviso </button>
@@ -160,7 +160,16 @@ export default {
             })
       //console.log(`computed function con estos datos : ${this.filtro} ${this.busqueda} ${this.categoria}`)
       //console.log(this.$route.path)
-    }
+    },
+    contenidoVisual(texto,letras){
+      let txt = texto.split(' ')
+      if(txt.length > letras) {
+        txt = txt.slice(0,letras)
+        txt.push('...')
+      }
+      txt = txt.join(' ')
+      return txt
+    },
   },
   mounted(){
     let fecha = new Date();

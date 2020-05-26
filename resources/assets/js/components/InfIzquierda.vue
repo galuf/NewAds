@@ -31,9 +31,10 @@
             <a class="miPerfil" @click="cambiaCategoria(7)"><i class="fa fa-fw fa-laptop-code"></i> Informática</a>
             <a class="miPerfil" @click="cambiaCategoria(8)"><i class="fa fa-fw fa-cat"></i> Mascotas</a>
             <a class="miPerfil" @click="cambiaCategoria(9)"><i class="fa fa-fw fa-couch"></i> Hogar</a>
-            <a class="miPerfil" @click="cambiaCategoria(10)"><i class="fa fa-fw fa-volleyball-ball"></i> Deporte</a>
+            <a class="miPerfil" @click="cambiaCategoria(10)"><i class="fa fa-fw fa-bullhorn"></i> Anúnciate</a>
             <a class="miPerfil" @click="cambiaCategoria(11)"><i class="fa fa-fw fa-utensils"></i> Eventos</a>
             <!-- <a class="miPerfil" @click="cambiaCategoria(12)"><i class="fa fa-fw fa-palette"></i> Arte</a> -->
+          
           </div>
       </div>
 </template>

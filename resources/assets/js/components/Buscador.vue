@@ -30,6 +30,7 @@ export default {
   },
   methods:{
     presionar(){
+      window.scroll (0, 0);
       this.$store.commit('buscador',{filtro: this.filtro, busqueda: this.busqueda, categoria:''})
       this.filtro = 'contenido'
       this.busqueda = ''

@@ -61,9 +61,9 @@
 
             <div @click="cambia(10)" class="boton9 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">
                 <div class=" circulo d-flex flex-column justify-content-center align-items-center" >
-                    <i class="fa fa-fw fa-volleyball-ball boton_icono9 "></i>
+                    <i class="fa fa-fw fas fa-bullhorn boton_icono9 "></i>
                 </div>
-                <div class=" subtitulo ">DEPORTE</div>
+                <div class=" subtitulo ">ANÚNCIATE</div>
             </div>
 
             <div @click="cambia(11)" class="boton10 d-flex flex-column justify-content-center align-items-center pt-1 mx-lg-2 mx-md-1">

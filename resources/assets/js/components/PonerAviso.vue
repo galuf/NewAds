@@ -12,7 +12,7 @@
                   <div class="col-0 col-sm-2 form-group">
                       <label for="" class="control-label">Categoría:</label>
                   </div>
-                  
+                  {{categoriaChange}}
                   <div class="col-12 col-sm-10 form-group"> 
                     <select v-model="categoria_id" name="categoria" id="option" class="form-control" >
                         <option disabled value="">Seleccione una Categoria</option>
@@ -25,14 +25,14 @@
                         <option value="7">Informática</option>
                         <option value="8">Mascotas</option>
                         <option value="9">Hogar</option>
-                        <option value="10">Deporte</option>
+                        <option value="10">Anúnciate</option>
                         <option value="11">Eventos</option>
                         <!-- <option value="12">Arte</option> -->
                     </select>
                     
                     <div v-show="estado_errores && errores.categoria" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.categoria" style="color:red;"></div>
+                            <div v-text="errores.categoria" class="error"></div>
                         </div>
                     </div>
                   
@@ -56,7 +56,7 @@
                   
                     <div v-show="estado_errores && errores.region" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.region" style="color:red;"></div>
+                            <div v-text="errores.region" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -77,7 +77,7 @@
                       </select>
                         <div v-show="estado_errores && errores.provincia" class="div-error">
                             <div class="text-error" >
-                                <div v-text="errores.provincia" style="color:red;"></div>
+                                <div v-text="errores.provincia" class="error"></div>
                             </div>
                         </div>
                   </div>
@@ -99,7 +99,7 @@
                     
                     <div v-show="estado_errores && errores.distrito" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.distrito" style="color:red;"></div>
+                            <div v-text="errores.distrito" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -116,7 +116,7 @@
                       <input v-model="direccion" type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
                     <div v-show="estado_errores && errores.direccion" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.direccion" style="color:red;"></div>
+                            <div v-text="errores.direccion" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -140,7 +140,7 @@
                     <input v-model="titulo" type="text" class="form-control" id="titulo_aviso" placeholder="Ingrese el título del aviso">
                     <div v-show="estado_errores && errores.titulo" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.titulo" style="color:red;"></div>
+                            <div v-text="errores.titulo" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     
                     <div v-show="estado_errores && errores.contenido" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.contenido" style="color:red;"></div>
+                            <div v-text="errores.contenido" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -177,6 +177,11 @@
                     
                     <div class="form-group">
                     <input type="file" @change ='obtenerImagen' class="form-control-file border form-control" name="file">
+                    </div>
+                    <div v-show="estado_errores && errores.imagen" class="div-error">
+                        <div class="text-error">
+                            <div v-text="errores.imagen" class="error"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-4"></div>
@@ -200,7 +205,7 @@
                     <input disabled type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
                 <div v-show="estado_errores && errores.nombre" class="div-error">
                     <div class="text-error">
-                        <div v-text="errores.nombre" style="color:red;"></div>
+                        <div v-text="errores.nombre" class="error"></div>
                     </div>
                 </div>
                 </div>
@@ -217,7 +222,7 @@
                     <input disabled type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
                     <div v-show="estado_errores && errores.apellido" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.apellido" style="color:red;"></div>
+                            <div v-text="errores.apellido" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -235,7 +240,7 @@
                 
                     <div v-show="estado_errores && errores.email" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.email" style="color:red;"></div>
+                            <div v-text="errores.email" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -252,7 +257,7 @@
                     <input type="text" class="form-control" id="telefono" placeholder="Ingrese el número de teléfono" v-model="usuario.telefono">
                     <div v-show="estado_errores && errores.telefono" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.telefono" style="color:red;"></div>
+                            <div v-text="errores.telefono" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -266,15 +271,22 @@
         
     <!-- boton enviar aviso -->
     <div class="container-fluid btn_ver_mas pt-2">
-        <button @click="crearAviso()" type="button" class="btn btn-primary btn_mas">Enviar aviso</button>
+        <button v-if="loading == false" @click="crearAviso()" type="button" class="btn btn-primary btn_mas">Enviar aviso</button>
+        <button v-if="loading" type="button" class="btn btn-primary btn_mas"><spinner2 /></button>
     </div>
     <!-- Fin boton enviar aviso -->
-
+    <div v-show="loading" class="alert alert-info" role="alert">Cargando, espere por favor</div>
     </div>
 </template>
 
 <script>
+import Spinner from './Spinner'
+import Spinner2 from './Spinner2'
 export default {
+components:{
+    Spinner,
+    Spinner2
+  },
  data(){
     return{
         regiones:[],
@@ -293,7 +305,9 @@ export default {
         contenido:'',
         fecha_inicio:'',
         errores:{},  
-        estado_errores : 0   
+        estado_errores : 0,
+        loading : false,
+        imagen_error: false   
     }
  },
  computed:{
@@ -320,16 +334,33 @@ export default {
         .catch(function (error) {
             console.log(error)
         })
+    },
+    categoriaChange(){
+        if(this.categoria_id){
+            this.imagen = ''
+            this.imagen_error = false
+        }
     }
  }, 
  methods:{
     obtenerImagen(e){
-        let file = e.target.files[0]
-        let fileReader = new FileReader()
-        fileReader.readAsDataURL(file)
+        this.imagen_error = false
+        let extencion = e.target.files[0].name.split('.') 
+        let ext = extencion[extencion.length-1]
+        let extensiones_permitidas = ["png","jpg", "jpeg"];
+        if(extensiones_permitidas.includes(ext)){
+            let file = e.target.files[0]
+            let fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
 
-        fileReader.onload = (e)=>{
+            fileReader.onload = (e)=>{
             this.imagen = e.target.result;
+            console.log('permitido')
+        }
+        }else{
+            console.log('No permitido')
+            this.imagen_error = true
+            this.imagen = ''
         }
     },
     listarRegiones() {
@@ -362,6 +393,7 @@ export default {
         if( this.usuario.apellido == '' ) this.errores.apellido = "Ingrese su apellido";
         if( this.usuario.email == '' ) this.errores.email = "Ingrese su correo electronico";
         if( this.usuario.telefono == '' || this.usuario.telefono == null ) this.errores.telefono = "Ingrese su telefono";
+        if( this.imagen_error) this.errores.imagen = "Formato de imagen invalido (ingrese .jpg, .jpeg, .png)"
         if(Object.entries(this.errores) != 0){
             this.estado_errores = 1;
         }
@@ -377,6 +409,7 @@ export default {
             return
         }
         let me = this;
+        this.loading = true
         axios.post('/aviso_crear',{
             'usuario_id' : this.usuario.id,
             'categoria_id' : this.categoria_id,
@@ -391,6 +424,7 @@ export default {
             'contenido' : this.contenido,
             'fecha_inicio': this.fecha_inicio,//this.fecha_inicio,
         }).then( (res) => {
+            this.loading = false
             console.log('aviso creado')
             //window.location.href = 'some url';
             this.$router.push({path: '/'})
@@ -413,3 +447,11 @@ export default {
 
 }
 </script>
+
+<style>
+.error{
+    color: red;
+    font-size: 12;
+    margin-left: 5px;
+  }
+</style>

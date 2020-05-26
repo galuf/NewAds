@@ -4,6 +4,7 @@
     <div @click="cambia(1)" class=""><i class="botonM_icono1 fa fa-fw fa-file-alt float-left icon_cat_mov"></i> </div>
     <div @click="cambia(2)" class=""><i class="botonM_icono2 fab fa-fw fa-houzz float-left icon_cat_mov"></i> </div>
     <div @click="cambia(3)" class=""><i class="botonM_icono3 fa fa-fw fa-car float-left icon_cat_mov"></i> </div>
+    <div @click="cambia(10)" class=""><i class="botonM_icono10 fa fa-fw fas fa-bullhorn float-left icon_cat_mov"></i> </div>
     <div @click="cambia(4)" class=""><i class="botonM_icono4 fa fa-fw fa-book-reader float-left icon_cat_mov"></i> </div>
     <div @click="cambia(5)" class=""><i class="botonM_icono5 fa fa-fw fa-search-location float-left icon_cat_mov"></i> </div>
     <div @click="cambia(8)" class=""><i class="botonM_icono7 fa fa-fw fa-cat float-left icon_cat_mov"></i> </div>
@@ -70,7 +71,7 @@ export default {
 }
 
 .botonM_icono10{
-    color: #2731ad;
+    color: #5F2764;
 }
 
 </style>

@@ -17,7 +17,8 @@ const store = new Vuex.Store({
             estado : false,
             texto: ''
         },
-        page:1
+        page:1,
+        spinner : false
     },
     mutations:{
         login(state,usuario){
@@ -48,6 +49,9 @@ const store = new Vuex.Store({
         },
         changePages(state,p){
             state.page = p
+        },
+        spinner(state,p){
+            state.spinner = p
         }
     }
 })

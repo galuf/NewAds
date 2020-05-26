@@ -84,7 +84,7 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('region_id',$id_region->id)
+                                ->where('avisos.region_id',$id_region->id)
                                 ->paginate(15);
                 }else{
                     $avisos = [];
@@ -110,13 +110,13 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('provincia_id',$id_provincia->id)
+                                ->where('avisos.provincia_id',$id_provincia->id)
                                 ->paginate(15);
                 }else{
                     $avisos = [];
                 }
             }elseif($criterio == 'distrito'){
-                $id_distrito = Distrito::where('nombre','like','%'.$buscar.'%')->first();
+                $id_distrito = Distrito::where('nombre','like',$buscar)->first();
                 if($id_distrito){
 
                     $avisos = Aviso::where('estado','=',1)
@@ -136,7 +136,7 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('distrito_id',$id_distrito->id)
+                                ->where('avisos.distrito_id',$id_distrito->id)
                                 ->paginate(15);
                 }else{
                     $avisos = [];
@@ -253,8 +253,8 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('region_id',$id_region->id)
-                                ->where('categoria_id',$categoria)
+                                ->where('avisos.region_id',$id_region->id)
+                                ->where('avisos.categoria_id',$categoria)
                                 ->paginate(15);
                 }else{
                     $avisos = [];
@@ -280,14 +280,14 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('provincia_id',$id_provincia->id)
-                                ->where('categoria_id',$categoria)
+                                ->where('avisos.provincia_id',$id_provincia->id)
+                                ->where('avisos.categoria_id',$categoria)
                                 ->paginate(15);
                 }else{
                     $avisos = [];
                 }
             }elseif($criterio == 'distrito'){
-                $id_distrito = Distrito::where('nombre','like','%'.$buscar.'%')->first();
+                $id_distrito = Distrito::where('nombre','like',$buscar)->first();
                 if($id_distrito){
 
                     $avisos = Aviso::where('estado','=',1)
@@ -307,8 +307,8 @@ class BuscadorController extends Controller
                                         'categorias.nombre as nombre_categoria')
                                 ->orderBy('id','desc')
                                 //->get()
-                                ->where('distrito_id',$id_distrito->id)
-                                ->where('categoria_id',$categoria)
+                                ->where('avisos.distrito_id',$id_distrito->id)
+                                ->where('avisos.categoria_id',$categoria)
                                 ->paginate(15);
                 }else{
                     $avisos = [];

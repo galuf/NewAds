@@ -17,28 +17,28 @@
             <div class=" form-group">
                 <input v-model="nombre" type="text" class="form-control" placeholder="Nombre" name="name" required autofocus>
                 <div v-if="stateError && (errors.nombre)">
-                  <span v-text="errors.nombre[0]" style="color:red;"></span>
+                  <span v-text="errors.nombre[0]" class="error"></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <input v-model="apellidos" type="text" class="form-control" placeholder="Apellidos" name="lastname" required autofocus>
                 <div v-if="stateError && (errors.apellidos)">
-                  <span v-text="errors.apellidos[0]" style="color:red;"></span>
+                  <span v-text="errors.apellidos[0]" class="error"></span>
                 </div>
             </div>   
 
             <div class=" form-group">
                 <input v-model="email" type="email" name="email" class="form-control"  placeholder="Correo electrónico"  required>
                 <div v-if="stateError && (errors.email)">
-                  <span v-text="errors.email[0]" style="color:red;"></span>
+                  <span v-text="errors.email[0]" class="error"></span>
                 </div>
             </div>
 
             <div class=" form-group">
                 <input v-model="password" type="password" name="password" class="form-control" placeholder="Contraseña"  required>
                 <div v-if="stateError && (errors.password)">
-                  <span v-text="errors.password[0]" style="color:red;"></span>
+                  <span v-text="errors.password[0]" class="error"></span>
                 </div>
             </div>
 
@@ -52,8 +52,11 @@
                 que te enviemos notificaciones por SMS que podrás desactivar cuando desees.</div>
 
             <div class="form-footer">
-                <button type="button" class="btn btn-info" @click="registrar">
+                <button v-if="!loading" type="button" class="btn btn-info" @click="registrar">
                 <span class="glyphicon glyphicon-log-in"></span> Registrarte
+                </button>
+                <button v-else type="button" class="btn btn-info">
+                <spinner2 />
                 </button>
             </div>
         </form>
@@ -64,7 +67,11 @@
 </template>
 
 <script>
+import Spinner2 from './Spinner2'
 export default {
+  components:{
+    Spinner2
+  },
   data(){
     return {
       nombre : '',
@@ -73,12 +80,15 @@ export default {
       password : '',
       password_confirmation : '',
       stateError : false,
-      errors : {}
+      errors : {},
+      loading: false
     }
   },
   methods:{
     registrar(){
+      this.loading = true
       let me = this
+      //console.log(this.$route.query.contenido)
       axios.post('/register',{
         nombre : this.nombre,
         apellidos : this.apellidos,
@@ -87,20 +97,27 @@ export default {
         password_confirmation : this.password_confirmation
       })
       .then( res => {
-        console.log(this.$route.query.to)  
+        setTimeout(()=>{
+          //console.log(this.$route.query.to)  
         this.stateError = false
         this.errors = {}
         this.$store.commit('login',res.data.usuario)
         
         if(this.$route.query.to){
           me.$router.push({path: '/ponerAviso'})
-        }else{
+        }else if(this.$route.query.contenido){
+          me.$router.push({path: '/verContenidoAviso', query:{ads : this.$route.query.contenido}  })
+        }
+        else{
           me.$router.go(-1)
         }
         this.$store.commit('mensajeShow',`Bienvenido ${this.$store.state.usuario.nombre}`)
         //me.$router.push({path:'/'})
+        this.loading = false
+        },2000)
       })
       .catch(err =>{
+        this.loading = false
         //console.log(err.response.data.errors)
         this.stateError = true
         this.errors = err.response.data.errors
@@ -111,3 +128,11 @@ export default {
   }
 }
 </script>
+
+<style>
+  .error{
+    color: red;
+    font-size: 12;
+    margin-left: 5px;
+  }
+</style>

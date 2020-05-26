@@ -14,8 +14,8 @@
                 </div>
 
                 <div class="col-12 col-sm-8 ">
-                    <div class="titulo_aviso"><a href="" v-text="aviso.titulo"></a></div>
-                    <div class="lugar_aviso float-left font-weight-bold"> {{region.nombre}} &nbsp;</div>
+                    <div class="titulo_aviso"><a v-text="aviso.titulo"></a></div>
+                    <div class="lugar_aviso float-left font-weight-bold"> {{aviso.nombre_region}} &nbsp;</div>
                     <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)" >&nbsp;</div>
                     
                     <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
@@ -25,13 +25,13 @@
             <hr class="line" style="border: .5px solid #ADD8E6">
             <div class="row">
                 <div class="col-12 col-sm-6 texto_aviso ">
-                    <p><strong> Nombre: </strong>{{ usuario.nombre}} {{usuario.apellido}}</p>
+                    <p><strong> Nombre: </strong> {{aviso.nombre_usuario}} {{aviso.apellido_usuario}}</p>
                     <p><strong>Email:</strong> {{aviso.email}} </p> 
                     <p><strong>Celular:</strong> {{aviso.telefono}} </p> 
                 </div>
                 <div class="col-12 col-sm-6 texto_aviso  ">
-                    <p><strong>Categoría:</strong>  {{categoria.nombre}} </p>
-                    <p><strong>Lugar:</strong> {{region.nombre}}-{{provincia.nombre}}-{{distrito.nombre}}</p>
+                    <p><strong>Categoría:</strong>  {{aviso.nombre_categoria}} </p>
+                    <p><strong>Lugar:</strong> {{aviso.nombre_region}} - {{aviso.nombre_provincia}} - {{aviso.nombre_distrito}}</p>
                     <p><strong>Dirección:</strong> {{aviso.direccion}} </p>
                 </div>
             </div>
@@ -50,19 +50,26 @@
                     <div class="row pb-3">
                         <div class="col-2 col-sm-1 ">
                             <div class= "">
-                                <a href=""><img class="avatar_aviso" :src="( usuario_coment[index].avatar|| 'img/avatar1.png' )" alt=" Avatar"></a>
+                                <router-link :to="'/suPerfil?id='+comentario.usuario_id" >
+                                    <img class="avatar_aviso" :src="( comentario.avatar|| 'img/avatar1.png' )" alt=" Avatar">
+                                </router-link>
                             </div>
                         </div>
                     
                         <div class="col-10 col-sm-11">
-                            <div class=""><a href="" v-text="usuario_coment[index].nombre + ' ' + usuario_coment[index].apellido"></a></div>
+                            <div class="">
+                                <router-link :to="'/suPerfil?id='+comentario.usuario_id" v-text="comentario.nombre_usuario + ' ' + comentario.apellido_usuario"></router-link>
+                            </div>
                             <p class="m-0 texto_aviso" v-text="comentario.contenido"></p>
                         </div>
 
                     </div>
+                    <div class="eliminar_comentario" v-if="comentario.usuario_id == $store.state.usuario.id" @click="eliminar_coment(comentario.id)">Eliminar</div>
                     <hr class="line" style="border: .5px solid #ADD8E6">
                 </div>
-                
+                <div class="d-flex justify-content-end">
+                    <button v-if="next_page != last_page" class="btn btn-primary" @click="cargaMas()">Más comentarios</button>
+                </div>
             <!-- @endforeach -->
         </div>
     </div>
@@ -90,7 +97,7 @@
                     </div>
                         
                     <button class="btn btn-primary" type="button" @click='subirComentario' >Enviar comentario</button>
-                    <a :href="'/registro?ver-contenido='+aviso.id" v-show="user==0" ><div class="ver_aviso float-right">Inicia sesión para comentar</div></a>
+                    <router-link :to="'/auth?contenido='+aviso.id" v-show="user==0" ><div class="ver_aviso float-right">Inicia sesión para comentar</div></router-link>
                     <!-- @guest
                         <a href=""><div class="ver_aviso float-right">Inicia sesión para comentar</div></a>
                     @endguest -->
@@ -119,51 +126,73 @@ export default{
       usuario_coment:[],
       categoria:{},
       distrito:{},
-      comentario:''
+      comentario:'',
+      fecha_actual:'',
+      next_page : '',
+      last_page: null,
     }
   },
-  computed:{
-      
-  },
   methods: {
-    dameAviso : function (){
-      //console.log(this.ads)
-      let me = this;
-        axios.get('/contenido/'+me.ads)
+    eliminar_coment(id){
+        let me = this
+        let url = '/quitarComentario?id='+id
+        axios.delete(url)
+        .then(res=>{
+            console.log('Mensaje Eliminado.')
+            me.$store.commit('mensajeShow','Comentario Eliminado')
+            this.next_page = 1
+            this.dameComentarios()
+        }).catch(err => {
+            console.log('Hubo un error : ' + err)
+        })
+    },
+    cargaMas(){
+        this.next_page = this.next_page + 1
+        this.dameComentarios()
+    },
+    dameComentarios(){
+        let me = this;
+        axios.get('/comentsAds/'+me.ads+'?page='+this.next_page)
             .then(function (response) {
                 //console.log(response);
                 var respuesta = response.data;
-                let {aviso, region, provincia, usuario, comentarios ,categoria, distrito, coment_user} = respuesta
-                me.aviso = aviso
-                me.region = region
-                me.provincia = provincia
-                me.usuario = usuario
-                me.comentarios = comentarios
-                me.categoria = categoria
-                me.distrito = distrito
-                me.usuario_coment = coment_user
-                console.log(me.usuario_coment)
+                console.log(respuesta)
+                let {data} = respuesta.comentarios
+                console.log(data)
+                if(me.next_page == 1) me.comentarios = []
+                me.comentarios = [...me.comentarios, ...data]
+                me.last_page = respuesta.comentarios.last_page
                 me.comentario=''
         })
         .catch(function (error) {
             console.log(error)
         })
     },
-    subirComentario: function(){
+    dameAviso : function (){
+        let me = this;
+        axios.get('/contenido/'+me.ads)
+            .then(function (response) {
+                var respuesta = response.data;
+                let {aviso} = respuesta
+                me.aviso = aviso
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    },
+    subirComentario: async function(){
+        
         this.errores = []
         this.estadoErrores = 0
         if(this.validarComentario()) return
 
         let me = this;
-        axios.post('/comentar',{
+        const coment = await axios.post('/comentAviso',{
+            'user_id' : this.$store.state.usuario.id,
             'contenido' : this.comentario,
             'aviso_id' : this.aviso.id
-        }).then( (res) => {
-            console.log('comentario creado')
-        }).catch((err)=>{
-            console.log( 'ha habido un error enviando : ' + err)
         })
-        this.dameAviso()
+        this.dameComentarios()
         this.comentario=''
     },
     validarComentario: function(){
@@ -176,7 +205,7 @@ export default{
         }
         return this.estadoErrores;
     },
-    dameHora(fecha1,fecha2){
+    dameHora(fecha1='0-0-0 0:0:0',fecha2){
         console.log(fecha1 + ' fecha 1 ');
         console.log(fecha2 + 'fecha 2');
         let f1 = fecha1.split(' ');
@@ -232,11 +261,25 @@ export default{
     }
   },
   mounted(){
+    this.next_page = 1
     let fecha = new Date();
     this.fecha_actual = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-'+(fecha.getDate())+' '+fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds();
     this.dameAviso()
+    this.dameComentarios()
 
+  },
+  destroyed(){
+    this.next_page = 1
+    this.last_page = null
   }
 }
 
 </script>
+<style>
+    .eliminar_comentario{
+        font-size: 12px;
+        color: #1F9AE9;
+        text-align-last: right;
+        cursor: pointer;
+    }
+</style>

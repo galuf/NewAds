@@ -15,10 +15,10 @@
                 <div class="float-right ">
                     <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
                 </div>
-                <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.aviso_id">{{aviso.titulo}}</router-link></div>
-                <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp;</div>
+                <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.aviso_id">{{ contenidoVisual(aviso.titulo,10)}}</router-link></div>
+                <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} - {{aviso.nombre_distrito}} &nbsp;</div>
                 <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
-                <p class="texto_aviso pt-1" v-text="aviso.contenido"></p>
+                <p class="texto_aviso pt-1" v-text=" contenidoVisual(aviso.contenido,27)"></p>
 
                 <div class="propiedades-aviso mt-5">
                     
@@ -70,7 +70,7 @@ export default {
         '7': ['Informatica', '#04C7C0','fa fa-fw fa-laptop-code'],
         '8': ['Mascotas', '#E14877','fa fa-fw fa-cat'],
         '9': ['Hogar', '#C425C6','fa fa-fw fa-couch'],
-        '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
+        '10': ['Anunciate', '#5F2764','fa fa-fw fas fa-bullhorn'],
         '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
       },
       loading: true
@@ -79,7 +79,7 @@ export default {
   methods:{
     eliminar(aviso){
         let me = this
-        let url = '/favoritoQuitar'
+        let url = '/quitarFavorito'
         axios.put(url,{
             'id': aviso
         }).then(res => {
@@ -88,6 +88,15 @@ export default {
         .catch(err => {
             console.log(err)
         })
+    },
+    contenidoVisual(texto,letras){
+      let txt = texto.split(' ')
+      if(txt.length > letras) {
+        txt = txt.slice(0,letras)
+        txt.push('...')
+      }
+      txt = txt.join(' ')
+      return txt
     },
     dameHora(fecha1,fecha2){
         console.log(fecha1 + ' fecha 1 ');

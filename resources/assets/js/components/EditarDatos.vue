@@ -61,7 +61,7 @@
                             <input type="text" class="form-control" id="telefono" placeholder="Ingrese el número de teléfono" v-model="usuario.telefono">
                             <div v-show="estado_errores && errores.telefono" class="div-error">
                                 <div class="text-error">
-                                    <div v-text="errores.telefono" style="color:red;"></div>
+                                    <div v-text="errores.telefono" class="error"></div>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
 
                             <div v-show="estado_errores && errores.region" class="div-error">
                                 <div class="text-error">
-                                    <div v-text="errores.region" style="color:red;"></div>
+                                    <div v-text="errores.region" class="error"></div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                             </select>
                                 <div v-show="estado_errores && errores.provincia" class="div-error">
                                     <div class="text-error" >
-                                        <div v-text="errores.provincia" style="color:red;"></div>
+                                        <div v-text="errores.provincia" class="error"></div>
                                     </div>
                                 </div>
                         </div>
@@ -125,7 +125,7 @@
                             
                             <div v-show="estado_errores && errores.distrito" class="div-error">
                                 <div class="text-error">
-                                    <div v-text="errores.distrito" style="color:red;"></div>
+                                    <div v-text="errores.distrito" class="error"></div>
                                 </div>
                             </div>
                         </div>
@@ -142,15 +142,18 @@
                             <input v-model="usuario.direccion" type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
                             <div v-show="estado_errores && errores.direccion" class="div-error">
                                 <div class="text-error">
-                                    <div v-text="errores.direccion" style="color:red;"></div>
+                                    <div v-text="errores.direccion" class="error"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Fin de Input de Direccion -->
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary" @click="editarPerfil()"> Guardar </button>
+                        <button v-if="loading == false" @click="editarPerfil()" type="button" class="btn btn-primary">Guardar</button>
+                        <button v-if="loading" type="button" class="btn btn-primary"><spinner2 /></button>
                     </div>
+                    <!-- Fin boton enviar aviso -->
+                    <div v-show="loading" class="alert alert-info" role="alert">Cargando, espere por favor</div>
 
                 </div>
 
@@ -164,7 +167,11 @@
 </template>
 
 <script>
+import Spinner2 from './Spinner2'
 export default {
+  components:{
+      Spinner2
+  },  
   data(){
     return {
         regiones:[],
@@ -176,7 +183,8 @@ export default {
         usuario:{},
         errores:{},  
         estado_errores : 0,
-        imagen :''
+        imagen :'',
+        loading: false
     }
   },
  computed:{
@@ -215,6 +223,7 @@ export default {
             //console.log(this.usuario.telefono)
             return
         }
+        this.loading = true
         let me = this
         let url = '/editarPerfil'
         axios.put(url,{
@@ -227,6 +236,7 @@ export default {
             'imagen' : this.imagen
         })
         .then( res => {
+            this.loading = false
             this.$store.commit('login',res.data.usuario)
             this.$store.commit('contenidoCambio',0)
         })
@@ -291,3 +301,11 @@ export default {
 }
 }
 </script>
+
+<style>
+    .error{
+    color: red;
+    font-size: 12;
+    margin-left: 5px;
+    }
+</style>

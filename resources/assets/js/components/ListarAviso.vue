@@ -10,8 +10,10 @@
           <div class="filtro-texto"> <strong>Resultados: </strong> Filtro <i class="fas fa-caret-right"></i> {{filtro}} Busqueda: {{ busqueda }}</div>
         </div>
 
+        <spinner v-show="$store.state.spinner"/>
+
         {{listaAvisos}}
-        <div class="d-flex justify-content-center" v-if="(arrayAvisos.length == 0 && loading==false)">
+        <div class="d-flex justify-content-center" v-if="(arrayAvisos.length == 0 && $store.state.spinner==false)">
           <h5>Aún no hay anuncios para mostrar, sube tu anuncio.</h5>
         </div>
         
@@ -25,10 +27,10 @@
                   <div class="float-right ">
                       <router-link :to="'/suPerfil?id='+aviso.id_usuario" ><img class="avatar_aviso" :src="(aviso.avatar_usuario || 'img/avatar1.png' )" alt=" Avatar"></router-link>
                   </div>
-                  <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{aviso.titulo}}</router-link></div>
-                  <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} &nbsp; </div>
+                  <div class="titulo_aviso"><router-link :to="'/verContenidoAviso?ads=' + aviso.id">{{ contenidoVisual(aviso.titulo,10)}}</router-link></div>
+                  <div class="lugar_aviso float-left font-weight-bold">{{aviso.nombre_region}} - {{aviso.nombre_distrito}} &nbsp; </div>
                   <div class="hora_aviso" v-text=" ' hace ' + dameHora(aviso.fecha_inicio,fecha_actual)">&nbsp;</div>
-                  <p class="texto_aviso pt-1" v-text="contenidoVisual(aviso.contenido)"></p>
+                  <p class="texto_aviso pt-1" v-text="contenidoVisual(aviso.contenido,27)"></p>
                   
                   <div class="propiedades-aviso">
 
@@ -39,7 +41,7 @@
                       
                       <a class="float-left" data-toggle="tooltip" data-placement="top"
                           :title="categorias[aviso.categoria_id][0]">
-                          <i :class="`${categorias[aviso.categoria_id][2]} reloj`" 
+                          <i :class="`${categorias[aviso.categoria_id][2]} reloj2`" 
                               :style="`color: ${categorias[aviso.categoria_id][1]}`">
                           </i>
                       </a>
@@ -52,9 +54,9 @@
               </div>
           </div>
         </div>  
-        <spinner v-show="loading"/>
-        <div v-if="(next_page != last_page)" class="container-fluid btn_ver_mas pt-2">
-          <button @click="cargaMas()" type="button" class="btn btn-primary btn_mas">Más avisos</button>
+        <div v-if="(next_page != last_page && $store.state.spinner!=true)" class="container-fluid btn_ver_mas pt-2">
+          <button v-if="loading2 == false" @click="cargaMas()" type="button" class="btn btn-primary btn_mas">Más avisos</button>
+          <button v-else type="button" class="btn btn-primary btn_mas"><spinner2 /></button>
         </div>
       </div>
           <!-- fin lado centro derecho -->
@@ -63,10 +65,12 @@
 <script>
 import Buscador from './Buscador'
 import Spinner from './Spinner'
+import Spinner2 from './Spinner2'
 export default {
   components:{
     Buscador,
-    Spinner
+    Spinner,
+    Spinner2
   }, 
   //props : ['filtro', 'busqueda','categoria'],
   data(){
@@ -85,16 +89,17 @@ export default {
         '7': ['Informatica', '#04C7C0','fa fa-fw fa-laptop-code'],
         '8': ['Mascotas', '#E14877','fa fa-fw fa-cat'],
         '9': ['Hogar', '#C425C6','fa fa-fw fa-couch'],
-        '10': ['Deporte', '#5F2764','fa fa-fw fa-volleyball-ball'],
+        '10': ['Anúnciate', '#5F2764','fa fa-fw fas fa-bullhorn'],
         '11': ['Eventos', '#222A96','fa fa-fw fa-utensils']
       },
-      loading:true,
+      loading2: false,
       next_page : '',
       last_page: null,
     }
   },
   computed:{
     listaAvisos(){
+      this.$store.commit('spinner',true)
       this.filtro = this.$store.state.filtro
       this.busqueda = this.$store.state.busqueda
       this.categoria = this.$store.state.categoria
@@ -103,15 +108,24 @@ export default {
       let url = '/buscador?filtro='+this.filtro+'&busqueda='+this.busqueda+'&categoria='+this.categoria+'&page='+this.next_page;
       axios.get(url)
             .then((response)=>{
-              let respuesta= response.data
-              if(me.next_page == 1) me.arrayAvisos = []
-              me.arrayAvisos = [...me.arrayAvisos, ...respuesta.avisos.data]
-              me.loading = false
-              me.last_page = respuesta.avisos.last_page
-              //console.log(me.arrayAvisos)
+              if(response.data.avisos.length == 0){
+                me.arrayAvisos = []
+                me.$store.commit('spinner',false)
+                me.loading2 = false
+              }else{
+                let respuesta= response.data
+                if(me.next_page == 1) me.arrayAvisos = []
+                me.arrayAvisos = [...me.arrayAvisos, ...respuesta.avisos.data]
+                me.last_page = respuesta.avisos.last_page
+                //console.log(me.arrayAvisos)
+                this.loading2 = false
+                this.$store.commit('spinner',false)
+              }
             })
             .catch((error)=>{
-              console.log( 'Hubo un error en ListarAviso' + error)
+              me.loading2 = false
+              me.$store.commit('spinner',false)
+              console.log( 'Hubo un error en ListarAviso ' + error)
             })
       console.log(`computed function con estos datos : ${this.filtro} ${this.busqueda} ${this.categoria}`)
       //console.log(this.$route.path)
@@ -119,12 +133,13 @@ export default {
   },
   methods:{ 
     cargaMas(){
+      this.loading2 = true
       this.$store.commit('changePages',this.next_page + 1)
       //this.next_page=this.next_page + 1
     },
     unico : async function(aviso,usuario){
       let me = this;
-      let url = '/favoritoUnico?usuario_id='+usuario+'&aviso_id='+aviso
+      let url = '/unicoFavorito?usuario_id='+usuario+'&aviso_id='+aviso
       const valor = await axios.get(url)
       return valor.data.favorito;
     },
@@ -132,6 +147,7 @@ export default {
       if(!this.$store.state.sesion){
         this.$router.push({path: '/auth'})
       }else{
+        this.$store.commit('mensajeShow','Se agrego a ver más tarde')
         let b = await this.unico(aviso,this.$store.state.usuario.id)
         if(b.length === 0){
           let me = this;
@@ -147,15 +163,14 @@ export default {
           const favoritoActivar = await axios.put(url,{
             'id':b[0].id
           })
-          //console.log('Se activo Favorito')
+          console.log('Se activo Ver mas Tarde')
         } 
-        this.$store.commit('mensajeShow','Se agrego a ver más tarde')     
       }
     },
-    contenidoVisual(texto){
+    contenidoVisual(texto,letras){
       let txt = texto.split(' ')
-      if(txt.length > 15) {
-        txt = txt.slice(0,15)
+      if(txt.length > letras) {
+        txt = txt.slice(0,letras)
         txt.push('...')
       }
       txt = txt.join(' ')
@@ -248,6 +263,10 @@ export default {
     font-size: 20px;
     margin : 7px;
     cursor: pointer;
+  }
+  .reloj2{
+    font-size: 20px;
+    margin : 7px;
   }
   .propiedades-aviso{
     display: flex;

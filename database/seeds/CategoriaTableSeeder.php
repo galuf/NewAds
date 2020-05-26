@@ -20,7 +20,7 @@ class CategoriaTableSeeder extends Seeder
                         ['nombre'=> 'Informática', 'descripcion' => 'Venta de computadoras, laptop, impresoras, celulares, tablets...'],
                         ['nombre'=> 'Mascotas', 'descripcion' => 'Venta de diferentes tipos de mascotas: perritos de raza, gatos, loros, conejos...'],
                         ['nombre'=> 'Hogar', 'descripcion' => 'Muebles baratos, ropa, sofás, televisores, refrigerador, lavadoras, armarios, microondas...'],
-                        ['nombre'=> 'Deporte', 'descripcion' => 'Academias de deporte, tutores, implementos deportivos, canchas de grass sintético...'],
+                        ['nombre'=> 'Anunciate', 'descripcion' => 'Ofrece tus servicios o productos'],
                         ['nombre'=> 'Eventos', 'descripcion' => 'Organización de eventos, comidas, locales, quince años, promociones...'],
                         ['nombre'=> 'Arte', 'descripcion' => 'Bandas de músicos, orquestas, folclóricos, equipos de sonido, elencos...']
                       ];

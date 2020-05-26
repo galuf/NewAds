@@ -21,7 +21,7 @@
             </router-link>
           </a>
           <a @click="logOut">  
-            Cerrar Sesion
+            Cerrar Sesión
           </a>
         </div>
       </div>

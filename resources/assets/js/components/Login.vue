@@ -20,8 +20,8 @@
             <input v-model="correo" name="email" id='email' type="email" class="form-control" placeholder="Correo electrónico" required autofocus>
           </div> 
           <div v-if="stateError && (errors.email || errors.login)">
-            <span v-if="errors.email" v-text="errors.email[0]" style="color:red;"></span>
-            <span v-if="errors.login" v-text="errors.login[0]" style="color:red;"></span>
+            <span v-if="errors.email" v-text="errors.email[0]" class="error"></span>
+            <span v-if="errors.login" v-text="errors.login[0]" class="error"></span>
           </div>                    
         </div>
                     
@@ -32,10 +32,11 @@
                 <input v-model="password" 
                       name="password" id="password" 
                       type="password" class="form-control" 
-                      placeholder="Contraseña">
+                      placeholder="Contraseña"
+                      @keyup.enter="iniciarSesion">
             </div>  
             <div v-if="stateError && (errors.password)">
-              <span v-text="errors.password[0]" style="color:red;"></span>
+              <span v-text="errors.password[0]" class="error"></span>
             </div>                    
           </div>                    
         </div>
@@ -43,9 +44,13 @@
       </div>
         
         <div class="form-footer">
-            <button @click="iniciarSesion" type="button" class="btn btn-info">
+            <button v-if="!loading" @click="iniciarSesion" type="button" class="btn btn-info">
             <span class="glyphicon glyphicon-log-in"></span> Entrar
             </button>
+            <button v-else type="button" class="btn btn-info">
+            <spinner2 />
+            </button>
+            
             <!-- <a class="btn btn-link" href="#">
               Forgot Your Password?
             </a> -->
@@ -59,19 +64,23 @@
 </template>
 
 <script>
-
+import Spinner2 from './Spinner2'
 export default {
+  components :{
+    Spinner2
+  },
   data(){
     return{
       correo : '',
       password : '',
       errors : {},
-      stateError : false
-
+      stateError : false,
+      loading: false
     }
   },
   methods:{
     iniciarSesion(){
+      this.loading = true
       //console.log(this.$route.query)
       let me = this
       axios.post('/login',{
@@ -90,8 +99,10 @@ export default {
           me.$router.go(-1)
         }
         this.$store.commit('mensajeShow',`Bienvenido ${this.$store.state.usuario.nombre}`)
+        this.loading = false
       })
       .catch(err =>{
+        this.loading = false
         console.log(err.response)
         this.stateError = true
         this.errors = err.response.data.errors
@@ -102,3 +113,10 @@ export default {
   }
 }
 </script>
+<style>
+.error{
+    color: red;
+    font-size: 12;
+    margin-left: 5px;
+  }
+</style>

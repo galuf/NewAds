@@ -11,7 +11,7 @@
     
     <meta name="viewport" content="width=device-width initial-scale=1">
     <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
-    <title>NewAds</title>
+    <title>NewAdss</title>
     
     
     <!-- vinculo de css -->
@@ -90,10 +90,10 @@
                     <div class="col-12 col-sm-4">
                         <div class="redes2">
                             <ul class="d-flex justify-content-center pt-4 mr-0">
-                                <li><a class=""><i class="fab fa-facebook-f float-left lead ml-3"></i></a></li>
-                                <li><a class=""><i class="fab fa-instagram float-left lead ml-3"></i></a></li>
-                                <li><a class=""><i class="fab fa-twitter float-left lead ml-3"></i></a></li>
-                                <li><a class=""><i class="fab fa-youtube float-left lead ml-3"></i></a></li>
+                                <li><a href="https://www.facebook.com/NewAdss-104907901239031/" target="_blank" class=""><i class="fab fa-facebook-f float-left lead ml-3"></i></a></li>
+                                <li><a href="https://www.instagram.com/newadss/" target="_blank" class=""><i class="fab fa-instagram float-left lead ml-3"></i></a></li>
+                                <li><a href="https://twitter.com/AdssNew" target="_blank" class=""><i class="fab fa-twitter float-left lead ml-3"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCeB5ImQ5858R1dCkegFTFfw?disable_polymer=true" target="_blank" class=""><i class="fab fa-youtube float-left lead ml-3"></i></a></li>
                             </ul>
                         </div>
                     </div>

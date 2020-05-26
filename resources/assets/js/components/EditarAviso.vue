@@ -12,7 +12,6 @@
                   <div class="col-0 col-sm-2 form-group">
                       <label for="" class="control-label">Categoría:</label>
                   </div>
-                  
                   <div class="col-12 col-sm-10 form-group"> 
                     <select v-model="categoria_id" name="categoria" id="option" class="form-control" >
                         <option disabled value="">Seleccione una Categoria</option>
@@ -32,7 +31,7 @@
                     
                     <div v-show="estado_errores && errores.categoria" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.categoria" style="color:red;"></div>
+                            <div v-text="errores.categoria" class="error"></div>
                         </div>
                     </div>
                   
@@ -56,7 +55,7 @@
                   
                     <div v-show="estado_errores && errores.region" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.region" style="color:red;"></div>
+                            <div v-text="errores.region" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -77,7 +76,7 @@
                       </select>
                         <div v-show="estado_errores && errores.provincia" class="div-error">
                             <div class="text-error" >
-                                <div v-text="errores.provincia" style="color:red;"></div>
+                                <div v-text="errores.provincia" class="error"></div>
                             </div>
                         </div>
                   </div>
@@ -99,7 +98,7 @@
                     
                     <div v-show="estado_errores && errores.distrito" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.distrito" style="color:red;"></div>
+                            <div v-text="errores.distrito" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -116,7 +115,7 @@
                       <input v-model="aviso.direccion" type="text"  class="form-control" id="direccion" placeholder="Ingrese la direccion">
                     <div v-show="estado_errores && errores.direccion" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.direccion" style="color:red;"></div>
+                            <div v-text="errores.direccion" class="error"></div>
                         </div>
                     </div>
                   </div>
@@ -158,7 +157,7 @@
                     
                     <div v-show="estado_errores && errores.contenido" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.contenido" style="color:red;"></div>
+                            <div v-text="errores.contenido" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -178,6 +177,11 @@
                     </div>
                 </div>
                 <div class="col-sm-4"></div>
+                <div v-show="estado_errores && errores.imagen" class="div-error">
+                    <div class="text-error">
+                        <div v-text="errores.imagen" class="error"></div>
+                    </div>
+                </div>
             </div>
             <!-- Fin de Imagen del aviso -->
         </div>
@@ -198,7 +202,7 @@
                     <input disabled type="text" class="form-control" id="nombre" placeholder="Ingrese los nombres" v-model="usuario.nombre" >
                 <div v-show="estado_errores && errores.nombre" class="div-error">
                     <div class="text-error">
-                        <div v-text="errores.nombre" style="color:red;"></div>
+                        <div v-text="errores.nombre" class="error"></div>
                     </div>
                 </div>
                 </div>
@@ -215,7 +219,7 @@
                     <input disabled type="text" class="form-control" id="apellidos" placeholder="Ingrese los apellidos" v-model="usuario.apellido">
                     <div v-show="estado_errores && errores.apellido" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.apellido" style="color:red;"></div>
+                            <div v-text="errores.apellido" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -233,7 +237,7 @@
                 
                     <div v-show="estado_errores && errores.email" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.email" style="color:red;"></div>
+                            <div v-text="errores.email" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -250,7 +254,7 @@
                     <input type="text" class="form-control" id="telefono" placeholder="Ingrese el número de teléfono" v-model="usuario.telefono">
                     <div v-show="estado_errores && errores.telefono" class="div-error">
                         <div class="text-error">
-                            <div v-text="errores.telefono" style="color:red;"></div>
+                            <div v-text="errores.telefono" class="error"></div>
                         </div>
                     </div>
                 </div>
@@ -261,35 +265,46 @@
       <!-- Fin de Datos del Usuario -->
 
     </form>
-        
+    
     <!-- boton enviar aviso -->
     <div class="container-fluid btn_ver_mas pt-2 d-flex justify-content-end">
-        <button @click="crearAviso()" type="button" class="btn btn-primary">Guardar Aviso</button>
+        <button v-if="loading == false" @click="crearAviso()" type="button" class="btn btn-primary">Guardar Aviso</button>
+        <button v-if="loading" type="button" class="btn btn-primary"><spinner2 /></button>
         <button @click="cancelar()" class="btn btn-danger mx-2">Cancelar</button>
     </div>
     <!-- Fin boton enviar aviso -->
+    <div v-show="loading" class="alert alert-info" role="alert">Cargando, espere por favor</div>
 
     </div>
 </template>
 
 <script>
+import Spinner2 from './Spinner2'
 export default {
   props:['ads','user'],
+  components:{
+      Spinner2
+  },
   data(){
     return{
         regiones:[],
         provincias:[],
         distritos:[],
         region_id: '',
+        region_prev:'',
         provincia_id: '',
+        provincia_prev:'',
         distrito_id: '',
+        distrito_prev: '',
         categoria_id:'',
         aviso : {},
         usuario: {},
         errores:{},  
         estado_errores : 0,
         imagen: '',
-        modificador : false
+        modificador : false,
+        loading : false,
+        imagen_error : false
     }
  },
  computed:{
@@ -305,8 +320,8 @@ export default {
         .catch(function (error) {
             console.log(error)
         })
-        this.provincia_id = ''
-        this.distrito_id = ''
+        //this.provincia_id = ''
+        //this.distrito_id = ''
     },
     listarDistrito(){
         let me = this;
@@ -339,8 +354,11 @@ export default {
                 me.aviso = respuesta.aviso
                 me.categoria_id = respuesta.aviso.categoria_id
                 me.region_id = respuesta.aviso.region_id
+                me.region_prev = respuesta.aviso.region_id
                 me.provincia_id = respuesta.aviso.provincia_id
+                me.provincia_prev = respuesta.aviso.provincia_id
                 me.distrito_id  = respuesta.aviso.distrito_id
+                me.distrito_prev = respuesta.aviso.distrito_id
                 me.imagen = respuesta.aviso.imagen
                 console.log(me.imagen)
             })
@@ -349,14 +367,27 @@ export default {
             })
     },
     obtenerImagen(e){
-        let file = e.target.files[0]
-        let fileReader = new FileReader()
-        fileReader.readAsDataURL(file)
+        this.imagen_error = false
+        let extencion = e.target.files[0].name.split('.') 
+        let ext = extencion[extencion.length-1]
+        let extensiones_permitidas = ["png","jpg", "jpeg"];
+        
+        if(extensiones_permitidas.includes(ext)){
+            let file = e.target.files[0]
+            let fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
 
-        fileReader.onload = (e)=>{
+            fileReader.onload = (e)=>{
             this.imagen = e.target.result;
+            console.log('permitido')
+            }
+            this.modificador = true;
+
+        }else{
+            console.log('No permitido')
+            this.imagen_error = true
+            this.imagen = ''
         }
-        this.modificador = true;
     },
     listarRegiones() {
         let me = this;
@@ -378,13 +409,16 @@ export default {
         this.estado_errores = 0;
         this.errores = {};
         if( this.categoria_id == '' ) this.errores.categoria = "Seleccione una categoria";
-        if( this.region_id == '' ) this.errores.region = "Seleccione una region";
+        if( this.region_id == '') this.errores.region = "Seleccione una region";
+        if( this.region_id != this.region_prev && ( this.provincia_id == this.provincia_prev)) this.errores.provincia = "Seleccione una provincia";
+        if( this.region_id != this.region_prev && ( this.provincia_id != this.provincia_prev) && (this.distrito_id == this.distrito_prev)) this.errores.distrito = "Seleccione una distrito";
         if( this.provincia_id == '' ) this.errores.provincia = "Seleccione una provincia";
         if( this.distrito_id == '' ) this.errores.distrito = "Seleccione una distrito";
         if( this.aviso.direccion == '' ) this.errores.direccion = "Ingrese su direccion";
         if( this.aviso.titulo == '' ) this.errores.titulo = "Ingrese el titulo";
         if( this.aviso.contenido == '' ) this.errores.contenido = "Ingrese la descripcion del aviso";
         if( this.usuario.telefono == '' || this.usuario.telefono == null ) this.errores.telefono = "Ingrese su telefono";
+        if( this.imagen_error) this.errores.imagen = "Formato de imagen invalido (ingrese .jpg, .jpeg, .png)"
         if(Object.entries(this.errores) != 0){
             this.estado_errores = 1;
         }
@@ -401,6 +435,7 @@ export default {
         }
         //console.log(`${this.region_id} ${this.provincia_id} ${this.distrito_id}`)
         let me = this;
+        this.loading = true
         let variable = (this.modificador) ? this.imagen : ''  
         axios.put('/editarAviso',{
             'id' : this.ads,
@@ -414,6 +449,7 @@ export default {
             'imagen' : variable,
             'contenido' : this.aviso.contenido,
         }).then( (res) => {
+            this.loading = false
             console.log('aviso modificado')
             //window.location.href = 'some url';
             //alert('Se modifico el aviso Correctamente');
@@ -435,3 +471,10 @@ export default {
  }
 }
 </script>
+<style>
+.error{
+    color: red;
+    font-size: 12;
+    margin-left: 5px;
+}
+</style>

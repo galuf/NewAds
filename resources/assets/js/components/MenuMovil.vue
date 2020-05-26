@@ -31,12 +31,12 @@
                 <router-link to="/ponerAviso"><button type="button" class="btn btn-success boton_movil">Poner aviso</button></router-link>
             </li>
             <li class="mobile__item  my-3 " v-if="$store.state.sesion">
-                <button @click="logOut" type="button" class="btn btn-danger boton_movil">Cerrar Sesion</button>
+                <button @click="logOut" type="button" class="btn btn-danger boton_movil">Cerrar Sesión</button>
             </li>
             <li><hr class="l1"></li>
             <li class="mobile__item my-3" @click="cambia(0)" ><i class="fa fa-fw fa-home"></i> Mi perfil</li>
             <li class="mobile__item my-3" @click="cambia(1)" ><i class="fa fa-fw fa-search"></i> Mis Avisos</li>
-            <li class="mobile__item my-3" @click="cambia(2)" ><i class="fa fa-fw fa-envelope"></i> Ver más tarde</li>
+            <li class="mobile__item my-3" @click="cambia(2)" ><i class="fa fa-fw fa-clock"></i> Ver más tarde</li>
             <!-- <li class="mobile__item my-3" @click="cambia(3)" ><i class="fa fa-fw fa-user"></i> Cambiar contraseña</li> -->
         </ul>
     </nav>

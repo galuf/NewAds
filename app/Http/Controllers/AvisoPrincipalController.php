@@ -49,10 +49,43 @@ class AvisoPrincipalController extends Controller
             $src='/img/avisos/'.$filename;
             $path = public_path().$src;
             file_put_contents($path,$decoded);
+            
+            if($extension == 'jpg'){
+                $img_origen = imagecreatefromjpeg($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 720;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagejpeg($img_destino,$path);
+            }else{
+                $img_origen = imagecreatefrompng($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 520;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagepng($img_destino,$path);
+            }
+
         }else{
             $src='/img/categoria/'.$request->categoria_id.'.jpg';
         }
-
+        //$src='/img/categoria/'.$request->categoria_id.'.jpg';
         $aviso = new Aviso();
 
         $aviso->usuario_id =$request->usuario_id;
@@ -71,37 +104,22 @@ class AvisoPrincipalController extends Controller
         $aviso->save();
     }
     public function ver($id=0){
-        // $aviso = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
-        //         ->join('provincias','distritos.provincia_id','=','provincias.id')
-        //         ->join('regions','provincias.region_id','=','regions.id')
-        //         ->join('users','avisos.usuario_id','=','users.id')
-        //         ->join('categorias','avisos.categoria_id','=','categorias.id')
-        //         ->select('avisos.*',
-        //                 'distritos.nombre as nombre_distrito',
-        //                 'provincias.nombre as nombre_provincia',
-        //                 'regions.nombre as nombre_region',
-        //                 'users.nombre as nombre_usuario',
-        //                 'users.apellido as apellido_usuario',
-        //                 'categorias.nombre as nombre_categoria')
-        //         ->get()
-        //         ->where('id','=',$id)->first();
-        $aviso = Aviso::find($id);
-        //return view('paginas.veraviso',['aviso' => $aviso]);
-        $usuario = [];
-        foreach($aviso->comentarios as $comentario){
-            array_push($usuario,$comentario->user);
-        }
+        $aviso = Aviso::join('distritos','avisos.distrito_id','=','distritos.id')
+                ->join('provincias','distritos.provincia_id','=','provincias.id')
+                ->join('regions','provincias.region_id','=','regions.id')
+                ->join('users','avisos.usuario_id','=','users.id')
+                ->join('categorias','avisos.categoria_id','=','categorias.id')
+                ->select('avisos.*',
+                        'distritos.nombre as nombre_distrito',
+                        'provincias.nombre as nombre_provincia',
+                        'regions.nombre as nombre_region',
+                        'users.nombre as nombre_usuario',
+                        'users.apellido as apellido_usuario',
+                        'categorias.nombre as nombre_categoria')
+                ->get()
+                ->where('id','=',$id)->first();
+        return ['aviso' => $aviso];
 
-        return [
-            'aviso' => $aviso,
-            'region' =>$aviso->distrito->provincia->region,
-            'provincia' => $aviso->distrito->provincia,
-            'distrito' => $aviso->distrito,
-            'usuario' => $aviso->usuario,
-            'comentarios' => $aviso->comentarios,
-            'categoria' =>$aviso->categoria,
-            'coment_user' => $usuario,
-        ];
     }
     public function misAvisos(Request $request){
         $user_id = $request->id;
@@ -140,6 +158,39 @@ class AvisoPrincipalController extends Controller
             $src='/img/avisos/'.$filename;
             $path = public_path().$src;
             file_put_contents($path,$decoded);
+
+            if($extension == 'jpg'){
+                $img_origen = imagecreatefromjpeg($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 720;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagejpeg($img_destino,$path);
+            }else{
+                $img_origen = imagecreatefrompng($path);
+                $ancho_origen = imagesx($img_origen);
+                $alto_origen = imagesy($img_origen);
+                $ancho_limite = 520;
+                if($ancho_origen > $alto_origen){
+                    $ancho_origen = $ancho_limite;
+                    $alto_origen = $ancho_limite*imagesy($img_origen)/imagesx($img_origen);    
+                }else{
+                    $alto_origen = $ancho_limite;
+                    $ancho_origen = $ancho_limite*imagesx($img_origen)/imagesy($img_origen);
+                }
+                $img_destino = imagecreatetruecolor($ancho_origen,$alto_origen);
+                imagecopyresized($img_destino,$img_origen, 0,0,0,0,$ancho_origen,$alto_origen, imagesx($img_origen),imagesy($img_origen));
+                imagepng($img_destino,$path);
+            }
+
         }else{
             $src='';
         }
